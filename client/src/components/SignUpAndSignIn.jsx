@@ -1,6 +1,6 @@
 import styled, { keyframes } from "styled-components";
 import { Scales } from "@styled-icons/remix-fill/Scales";
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 const SignUpAndSignIn = () => {
   const slideUp = keyframes`
@@ -173,6 +173,38 @@ const SignUpAndSignIn = () => {
           animation-fill-mode: forwards;
         }
       }
+      .initialSI {
+        .LogoImg {
+          top: 0%;
+        }
+        .formBx {
+          top: 0%;
+        }
+      }
+      .initialSU {
+        .LogoImg {
+          top: 100%;
+        }
+        .formBx {
+          top: -100%;
+        }
+      }
+      .stopAniSI {
+        .LogoImg {
+          top: 100%;
+        }
+        .formBx {
+          top: -100%;
+        }
+      }
+      .stopAniSU {
+        .LogoImg {
+          top: 0%;
+        }
+        .formBx {
+          top: 0%;
+        }
+      }
     }
     `;
   
@@ -181,9 +213,13 @@ const SignUpAndSignIn = () => {
     width: 9em;
     object-fit: cover;
   `;
-
-  const [active, setActive] = useState(false);
-  const [userId, setUserId] = useState("");
+  const idRef = useRef();
+  const passwordRef = useRef();
+  const [signInState, setSignInState] = useState('initialSI');
+  const [signUpState, setSignUpState] = useState('initialSU');
+  const [id, setId] = useState("");
+  const [password, setPassword] = useState("");
+  
   const checkExistData = (value, dataName) => {
     if (value == "") {
         alert(dataName + " 입력해주세요!");
@@ -191,26 +227,44 @@ const SignUpAndSignIn = () => {
     }
     return true;
   }
-  const inputHandler = (e) => {
-    setUserId(e.target.value);
+  const LoginSubmit = (e) => {
+    setId(idRef.current.value);
+    setPassword(passwordRef.current.value);
   }
   const checkUserId = (id) => {
-    //Id가 입력되었는지 확인하기
     if (!checkExistData(id, "아이디를"))
-        return false;
-
-    var idRegExp = /^[a-zA-z0-9]{4,12}$/; //아이디 유효성 검사
+      return false;
+    var idRegExp = /^[a-zA-z0-9]{4,12}$/; 
     if (!idRegExp.test(id)) {
-        alert("아이디는 영문 대소문자와 숫자 4~12자리로 입력해야합니다!");
-        return false;
+      alert("아이디는 영문 대소문자와 숫자 4~12자리로 입력해야합니다!");
+      return false;
     }
-    return true; //확인이 완료되었을 때
+    return true; 
+  }
+
+  const setActiveFT = (value) => {
+    if (value === 'activeSignUpAni') {
+      setSignInState('notActiveSignIn');
+      setSignUpState('activeSignUp');
+      setTimeout(() => {
+        setSignInState('stopAniSI');
+        setSignUpState('stopAniSU');
+      },50)
+    }
+    if (value === 'activeSignIn') {
+      setSignInState('activeSignIn');
+      setSignUpState('notActiveSignUp');
+      setTimeout(() => {
+        setSignInState('initialSI');
+        setSignUpState('initialSU');
+      },50)
+    }
   }
 
   return (
     <Container>
       <section>
-        <div className={`user signInBx${active ? ' notActiveSignIn':' activeSignIn'}`}>
+        <div className={`user signInBx ${signInState}`}>
           <div className="LogoImg">
             <Scale />
             <span className="LogoText">WADIF</span>
@@ -221,16 +275,19 @@ const SignUpAndSignIn = () => {
               <input
                 type="text"
                 placeholder="Id"
-                onChange={(e) => inputHandler(e)}
-                value={userId}>
-            </input>
-            <input type="password" placeholder="Password" />
-            <input type="submit" value="Login" />
-              <p className="signIn">Don't have an account? <a href="#" onClick={() => setActive(true)}>Sign up</a></p>
+                ref={idRef}
+              />
+              <input
+                type="password"
+                placeholder="Password"
+                ref={passwordRef}
+              />
+            <input type="submit" value="Login" onClick={LoginSubmit} />
+              <p className="signIn">Don't have an account? <a href="#" onClick={() => setActiveFT('activeSignUpAni')}>Sign up</a></p>
           </form>
         </div>
       </div>
-      <div className={`user signUpBx${active ? ' activeSignUp':' notActiveSignUp'}`}>
+      <div className={`user signUpBx ${signUpState}`}>
         <div className="formBx">
           <form>
             <h2>Create an account</h2>  
@@ -239,7 +296,7 @@ const SignUpAndSignIn = () => {
             <input type="password" placeholder="Create Password" />
             <input type="password" placeholder="Confirm Password" />
             <input type="submit" value="Login" />
-            <p className="signUp">Already have an account? <a href="#" onClick={() => setActive(false)}>Sign In</a></p>
+            <p className="signUp">Already have an account? <a href="#" onClick={() => setActiveFT('activeSignIn')}>Sign In</a></p>
           </form>
         </div>
         <div className="LogoImg">
