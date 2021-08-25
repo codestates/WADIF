@@ -2,10 +2,10 @@ const { generateAccessToken, sendAccessToken, isAuthorized } = require('../token
 
 module.exports = {
   signin: (res, req) => {
-
+    res.send('hello')
   },
 
   signout: (res, req) => {
-    
+    res.send('hello')    
   }
 }
