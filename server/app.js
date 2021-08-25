@@ -28,13 +28,3 @@ app.use("/users", userRouter);
 app.use("/posts", postRouter);
 
 module.exports = app;
-
-// - 클라 서버 배포
-// - 환경 셋팅
-//     - eslint 성정
-//     - 환경변수 (.env)
-//     - app.js 작성
-//     - mysql DB 생성 및 연결
-//     - express sequelize 설치
-// - 인증 구현 (jwt 토큰 기반)
-// - dummyData 생성
