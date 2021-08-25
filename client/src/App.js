@@ -1,12 +1,11 @@
 import "./App.css";
 import styled from "styled-components";
 import { Scales } from "@styled-icons/remix-fill/Scales";
+import SignUpAndSignIn from "./components/SignUpAndSignIn";
+
 function App() {
-  const Scale = styled(Scales)`
-    color: red;
-    width: 5em;
-  `;
-  return <Scale></Scale>;
+  
+  return <SignUpAndSignIn />;
 }
 
 export default App;
