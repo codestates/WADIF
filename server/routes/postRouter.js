@@ -15,5 +15,4 @@ router.post("/comments", commentControllers.writeComment);
 router.get("/:postId/:opinion/comments", commentControllers.seeComment);
 router.post("/comments/reaction", commentControllers.addReaction)
 
-
 module.exports = router;
