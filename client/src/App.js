@@ -1,12 +1,21 @@
 import "./App.css";
-import styled from "styled-components";
-import { Scales } from "@styled-icons/remix-fill/Scales";
+import Nav from "./components/Nav/Nav";
+import { BrowserRouter, Route } from "react-router-dom";
+import Mainpage from "./pages/Mainpage";
+import Mypage from "./pages/Mypage";
+import SecurityPage from "./pages/SecurityPage";
+
 function App() {
-  const Scale = styled(Scales)`
-    color: red;
-    width: 5em;
-  `;
-  return <Scale></Scale>;
+  return (
+    <>
+      <Nav />
+      <BrowserRouter>
+        <Route exact path="/" component={Mainpage} />
+        <Route path="/mypage" component={Mypage} />
+        <Route path="/securitypage" component={SecurityPage} />
+      </BrowserRouter>
+    </>
+  );
 }
 
 export default App;
