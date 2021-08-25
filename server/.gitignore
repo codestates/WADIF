@@ -7,4 +7,4 @@
 .env.production.local
 
 package-lock.json
-.pem
+*.pem
