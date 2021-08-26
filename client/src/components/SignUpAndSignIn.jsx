@@ -129,7 +129,12 @@ const SignUpAndSignIn = () => {
             text-transform: uppercase;
             font-weight: 0.5;
             z-index: 1;
-
+            float: right;
+            background-color: powderblue;
+            border-radius: 10%;
+            &:hover {
+              background-color: #a68dc2a9;
+            }
             > a {
               font-weight: 600;
               text-decoration: none;  
@@ -360,8 +365,8 @@ const SignUpAndSignIn = () => {
                 </div>
             </div>
               <p className="signIn">
-                Don't have an account?
-                <a href="#" onClick={() => setActiveFT('activeSignUpAni')}>Sign up</a>
+                {/* Don't have an account?  */}
+                <a href="#" onClick={() => setActiveFT('activeSignUpAni')}> 회원가입</a>
               </p>
           </form>
         </div>
@@ -390,7 +395,7 @@ const SignUpAndSignIn = () => {
                 placeholder="Confirm Password"
                 ref={password2SURef}
               />
-              <button type="submit" onClick={SignUpSubmit}>Login</button>
+              <button type="submit" onClick={SignUpSubmit}>Signup</button>
               <div className="errMessage">
                 <div>
                   <span className={`${errStateOfId}`}>아이디는 영문 대소문자와 숫자 4~12자리로 입력해야합니다.</span>
@@ -400,8 +405,8 @@ const SignUpAndSignIn = () => {
                 </div>
               </div>
               <p className="signUp">
-                Already have an account?
-                <a href="#" onClick={() => setActiveFT('activeSignIn')}>Sign In</a>
+                {/* Already have an account?  */}
+                <a href="#" onClick={() => setActiveFT('activeSignIn')}> 로그인</a>
               </p>
           </form>
         </div>
