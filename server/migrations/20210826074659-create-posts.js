@@ -26,6 +26,9 @@ module.exports = {
         type: Sequelize.DATE
       }
     });
+    await queryInterface.addConstraint("posts", {
+
+    })
   },
   down: async (queryInterface, Sequelize) => {
     await queryInterface.dropTable('posts');

@@ -11,6 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      models.bookmarks.belongsTo(models.users, {foreignKey:'user_id'})
+      models.bookmarks.belongsTo(models.posts, {foreignKey:'post_id'})
     }
   };
   bookmarks.init({

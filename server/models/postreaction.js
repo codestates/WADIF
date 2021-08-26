@@ -10,7 +10,8 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      models.postReactions.belongsTo(models.users, {foreignKey:'user_id'})
+      models.postReactions.hasOne(models.posts, {foreignKey:'post_id'})
     }
   };
   postReaction.init({
