@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
   };
   bookmarks.init({
     user_id: DataTypes.INTEGER,
-    post_id: DataTypes.INTEGER
+    post_id: DataTypes.INTEGER,
   }, {
     sequelize,
     modelName: 'bookmarks',
