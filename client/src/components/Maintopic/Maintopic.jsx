@@ -19,6 +19,7 @@ const BodyContainer = styled.div`
   height: 80%;
   display: flex;
   position: relative;
+  cursor: pointer;
 `;
 
 const LeftContainer = styled.div`

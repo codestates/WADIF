@@ -6,6 +6,7 @@ import Mypage from "./pages/Mypage";
 import SecurityPage from "./pages/SecurityPage";
 import Positivepage from "./pages/Positivepage";
 import Negativepage from "./pages/Negativepage";
+import Allboardpage from "./pages/Allboardpage";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/securitypage" component={SecurityPage} />
         <Route path="/positive" component={Positivepage} />
         <Route path="/negative" component={Negativepage} />
+        <Route path="/Allboard" component={Allboardpage} />
       </BrowserRouter>
     </>
   );

@@ -180,7 +180,8 @@ const MyTextContent = styled.div`
   flex: 7;
   display: flex;
   position: absolute;
-  /* transform: translateX(-90em); */
+  /* transform: translateX(-60em); */
+  transition: 2s;
 `;
 
 const MoveContainer = styled.div`
