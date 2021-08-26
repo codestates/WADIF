@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
     content: DataTypes.STRING,
     views: {
       type: DataTypes.INTEGER,
-      defaultValue : 0
+      defaultValue: 0
     }
   }, {
     sequelize,
