@@ -4,6 +4,8 @@ import { BrowserRouter, Route } from "react-router-dom";
 import Mainpage from "./pages/Mainpage";
 import Mypage from "./pages/Mypage";
 import SecurityPage from "./pages/SecurityPage";
+import Positivepage from "./pages/Positivepage";
+import Negativepage from "./pages/Negativepage";
 
 function App() {
   return (
@@ -13,6 +15,8 @@ function App() {
         <Route exact path="/" component={Mainpage} />
         <Route path="/mypage" component={Mypage} />
         <Route path="/securitypage" component={SecurityPage} />
+        <Route path="/positive" component={Positivepage} />
+        <Route path="/negative" component={Negativepage} />
       </BrowserRouter>
     </>
   );
