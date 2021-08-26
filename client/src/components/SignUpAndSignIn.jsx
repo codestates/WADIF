@@ -285,7 +285,7 @@ const SignUpAndSignIn = () => {
   }
   //입력되지 않은 데이터에 대해서 alert 
   const checkExistData = (value, dataName) => {
-    if (value == "") {
+    if (value === "") {
         alert(dataName + " 입력해주세요!");
         return false;
     }
