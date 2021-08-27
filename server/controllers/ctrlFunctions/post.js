@@ -1,23 +1,23 @@
 const { generateAccessToken, sendAccessToken, isAuthorized } = require('../tokenFunctions');
 
 module.exports = {
-  writePost: (res, req) => {
+  writePost: (req, res) => {
     res.send('hello')
   },
 
-  seePost: (res, req) => {
+  seePost: (req, res) => {
     res.send('hello')    
   },
 
-  deletePost: (res, req) => {
+  deletePost: (req, res) => {
     res.send('hello')    
   },
 
-  updatePost: (res, req) => {
+  updatePost: (req, res) => {
     res.send('hello')    
   },
 
-  updateReaction: (res, req) => {
+  updateReaction: (req, res) => {
     res.send('hello')    
   },
 }

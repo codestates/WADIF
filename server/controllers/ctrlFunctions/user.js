@@ -1,27 +1,27 @@
-const { generateAccessToken, sendAccessToken, isAuthorized } = require('../tokenFunctions');
+const {generateAccessToken, sendAccessToken, isAuthorized} = require('../tokenFunctions');
+const {users} = require('../../models');
 
 module.exports = {
-  myPosts: (res, req) => {
+  myPosts: (req, res) => {
     res.send('hello')
   },
 
-  myBookmarks: (res, req) => {
-    res.send('hello')    
+  myBookmarks: (req, res) => {
+    res.send('hello')
   },
 
-  addBookmarks: (res, req) => {
-    res.send('hello')    
+  addBookmarks: (req, res) => {
+    res.send('hello')
   },
 
-  deleteBookmarks: (res, req) => {
-    res.send('hello')    
+  deleteBookmarks: (req, res) => {
+    res.send('hello')
   },
 
-  updateMyInfo: (res, req) => {
-    res.send('hello')    
+  updateMyInfo: (req, res) => {
+    res.send('hello')
   },
 
-  signup: (res, req) => {
-    res.send('hello')    
+  signup: async (req, res) => {
   }
 }

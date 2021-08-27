@@ -1,15 +1,15 @@
 const { generateAccessToken, sendAccessToken, isAuthorized } = require('../tokenFunctions');
 
 module.exports = {
-  writeComment: (res, req) => {
+  writeComment: (req, res) => {
     res.send('hello')
   },
 
-  seeComment: (res, req) => {
+  seeComment: (req, res) => {
     res.send('hello')    
   },
 
-  addReaction: (res, req) => {
+  addReaction: (req, res) => {
     res.send('hello')    
   }
 }
