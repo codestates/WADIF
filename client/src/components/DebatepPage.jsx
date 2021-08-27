@@ -118,7 +118,6 @@ const CommentContainer = styled.div`
   display: flex;
   flex-direction: column;
 `;
-
 const CommentUserInfo = styled(UserInfo)`
   position: relative;
   left: -2.2em;
@@ -214,8 +213,6 @@ const InputContainer = styled(PostContainer)`
 `;
 
 const SelfUserInfo = styled(UserInfo)`
-  /* display: flex; */
-  /* flex-direction: row; */
   .selectContainer {
     position: relative;
     top: -2.5em;
