@@ -9,6 +9,7 @@ import Allboardpage from "./pages/Allboardpage";
 import SignUpAndSignIn from "./components/SignUpAndSignIn";
 import CreatePost from "./components/CreatePost";
 
+
 function App() {
   return (
     <>
