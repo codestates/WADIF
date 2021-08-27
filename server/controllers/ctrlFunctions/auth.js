@@ -6,6 +6,8 @@ const {
   generateRefreshToken 
 } = require('../tokenFunctions');
 
+const { users } = require('../../models');
+
 module.exports = {
   signin: (req, res) => {
     const { userId, password } = req.body;
@@ -14,12 +16,16 @@ module.exports = {
       if (!data) {
         res.status(401).send('아이디 혹은 비밀번호가 일치하지 않습니다.');
       }
-      const payload = data.dataValues;
-      const accessToken = generateAccessToken(payload);
-      const refreshToken = generateRefreshToken(payload);
 
-      sendAccessToken(res, accessToken);
-      sendRefreshToken(res, refreshToken);
+      else {
+        console.log(data)
+        const payload = data.dataValues;
+        const accessToken = generateAccessToken(payload);
+        const refreshToken = generateRefreshToken(payload);
+
+        sendRefreshToken(res, refreshToken);
+        sendAccessToken(res, accessToken);
+      }
     })
   },
 
