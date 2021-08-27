@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import { LeftArrow, RightArrow } from "styled-icons/boxicons-regular";
 import { Man } from "styled-icons/icomoon";
 import MypageText from "../components/MypageText/MypageText";
+import Nav from "../components/Nav/Nav";
+import dummydata from "../dummydata/dummydata";
+import likepostdata from "../dummydata/likepostdata";
 
 const TotalContainer = styled.div`
   display: flex;
@@ -171,8 +174,12 @@ const MyTextHeader = styled.div`
   top: 1px;
   z-index: 50;
   .fix {
+    cursor: pointer;
     color: #4b4bdf;
     font-weight: 600;
+    &:hover {
+      color: red;
+    }
   }
 `;
 
@@ -180,7 +187,7 @@ const MyTextContent = styled.div`
   flex: 7;
   display: flex;
   position: absolute;
-  /* transform: translateX(-90em); */
+  transition: 2s;
 `;
 
 const MoveContainer = styled.div`
@@ -189,7 +196,7 @@ const MoveContainer = styled.div`
   display: flex;
   justify-content: space-between;
   position: absolute;
-  z-index: 40;
+  z-index: 20;
   padding: 10px;
   cursor: pointer;
 `;
@@ -241,8 +248,12 @@ const LikeHeader = styled.div`
   top: 1px;
   z-index: 50;
   .fix {
+    cursor: pointer;
     color: #4b4bdf;
     font-weight: 600;
+    &:hover {
+      color: red;
+    }
   }
 `;
 
@@ -250,91 +261,174 @@ const LikeContent = styled.div`
   flex: 7;
   display: flex;
   position: absolute;
-  /* transform: translateX(-90em); */
+  transition: 2s;
 `;
 
 const Mypage = () => {
+  const textRef = useRef();
+  const likeRef = useRef();
+  const [fix, setFix] = useState(false);
+  const [likeFix, setLikeFix] = useState(false);
+  const [dummy, setDummy] = useState(dummydata.data);
+  const [likeDummy, setLikeDummy] = useState(likepostdata.data);
+
+  let move = 0;
+  let likemove = 0;
+
+  function MoveRight() {
+    move = move + 30;
+    textRef.current.style.transform = `translateX(-${move}em)`;
+    console.log(move);
+  }
+
+  function MoveLeft() {
+    move = move - 30;
+    textRef.current.style.transform = `translateX(-${move}em)`;
+    console.log(move);
+  }
+
+  function MoveLikeRight() {
+    likemove = likemove + 30;
+    likeRef.current.style.transform = `translateX(${likemove}em)`;
+  }
+
+  function MoveLikeLeft() {
+    likemove = likemove - 30;
+    likeRef.current.style.transform = `translateX(${likemove}em)`;
+  }
+
+  function FixHandler() {
+    if (fix) {
+      setFix(false);
+    } else {
+      setFix(true);
+    }
+  }
+
+  function DeleteHandler(id) {
+    let arr = dummy.slice();
+    arr = arr.filter((item) => item.id !== id);
+    setDummy(arr);
+  }
+
+  function LikeFixHandler() {
+    if (likeFix) {
+      setLikeFix(false);
+    } else {
+      setLikeFix(true);
+    }
+  }
+
+  function likeDeleteHandler(id) {
+    let arr = likeDummy.slice();
+    arr = arr.filter((item) => item.id !== id);
+    setLikeDummy(arr);
+  }
+
+  function movePageHandler() {}
+
   return (
-    <TotalContainer>
-      <TopContainer>
-        <TopFollowButton>Follow</TopFollowButton>
-      </TopContainer>
-      <BodyContainer>
-        <LeftContainer>
-          <LeftCircle>
-            <LeftProfile />
-          </LeftCircle>
-          <LeftTextBox>
-            <LeftMyname>김우석</LeftMyname>
-            <LeftMyEmail>vvsogi@gmail.com</LeftMyEmail>
-            <LeftMyJob>Frontend Developer</LeftMyJob>
-          </LeftTextBox>
-          <LeftEtcBox>
-            <EtcFollowSession>
-              <EtcLeft>
-                <span>Follow</span>
-                <span>1234</span>
-              </EtcLeft>
-              <EtcRight>
-                <span>Follower</span>
-                <span>1234</span>
-              </EtcRight>
-            </EtcFollowSession>
-            <EtcIntroduceSession>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus
-              animi sint corporis temporibus obcaecati! Voluptas, voluptates
-              maxime! Minima, quibusdam. Deserunt suscipit aspernatur dicta eius
-              accusantium. Doloremque adipisci nisi animi ad. Lorem ipsum dolor
-              sit amet consectetur adipisicing elit. Delectus animi sint
-              corporis temporibus obcaecati! Voluptas, voluptates maxime!
-              Minima, quibusdam. Deserunt suscipit aspernatur dicta eius
-              accusantium. Doloremque adipisci nisi animi ad.
-            </EtcIntroduceSession>
-          </LeftEtcBox>
-        </LeftContainer>
-        <RightContainer>
-          <MoveContainer>
-            <LeftMove />
-            <RightMove />
-          </MoveContainer>
-          <RightMyTextContainer>
-            <MyTextHeader>
-              <h1>내 글 목록</h1>
-              <span className="fix">수정</span>
-            </MyTextHeader>
-            <MyTextContent>
-              <MypageText />
-              <MypageText />
-              <MypageText />
-              <MypageText />
-              <MypageText />
-              <MypageText />
-              <MypageText />
-              <MypageText />
-            </MyTextContent>
-          </RightMyTextContainer>
-          <LikeMoveContainer>
-            <LeftMove />
-            <RightMove />
-          </LikeMoveContainer>
-          <RightLikeContianer>
-            <LikeHeader>
-              <h1>관심 글 목록</h1>
-              <span className="fix">수정</span>
-            </LikeHeader>
-            <LikeContent>
-              <MypageText />
-              <MypageText />
-              <MypageText />
-              <MypageText />
-              <MypageText />
-              <MypageText />
-              <MypageText />
-            </LikeContent>
-          </RightLikeContianer>
-        </RightContainer>
-      </BodyContainer>
-    </TotalContainer>
+    <>
+      <Nav />
+      <TotalContainer>
+        <TopContainer>
+          <TopFollowButton>Follow</TopFollowButton>
+        </TopContainer>
+        <BodyContainer>
+          <LeftContainer>
+            <LeftCircle>
+              <LeftProfile />
+            </LeftCircle>
+            <LeftTextBox>
+              <LeftMyname>김우석</LeftMyname>
+              <LeftMyEmail>vvsogi@gmail.com</LeftMyEmail>
+              <LeftMyJob>Frontend Developer</LeftMyJob>
+            </LeftTextBox>
+            <LeftEtcBox>
+              <EtcFollowSession>
+                <EtcLeft>
+                  <span>Follow</span>
+                  <span>1234</span>
+                </EtcLeft>
+                <EtcRight>
+                  <span>Follower</span>
+                  <span>1234</span>
+                </EtcRight>
+              </EtcFollowSession>
+              <EtcIntroduceSession>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Delectus animi sint corporis temporibus obcaecati! Voluptas,
+                voluptates maxime! Minima, quibusdam. Deserunt suscipit
+                aspernatur dicta eius accusantium. Doloremque adipisci nisi
+                animi ad. Lorem ipsum dolor sit amet consectetur adipisicing
+                elit. Delectus animi sint corporis temporibus obcaecati!
+                Voluptas, voluptates maxime! Minima, quibusdam. Deserunt
+                suscipit aspernatur dicta eius accusantium. Doloremque adipisci
+                nisi animi ad.
+              </EtcIntroduceSession>
+            </LeftEtcBox>
+          </LeftContainer>
+          <RightContainer>
+            <MoveContainer>
+              <LeftMove onClick={MoveLeft} />
+              <RightMove onClick={MoveRight} />
+            </MoveContainer>
+            <RightMyTextContainer>
+              <MyTextHeader>
+                <h1>내 글 목록</h1>
+                <span className="fix" onClick={FixHandler}>
+                  수정
+                </span>
+              </MyTextHeader>
+              <MyTextContent ref={textRef}>
+                {dummy.map((item) => {
+                  return (
+                    <MypageText
+                      fix={fix}
+                      key={item.id}
+                      id={item.id}
+                      title={item.title}
+                      text={item.text}
+                      date={item.date}
+                      like={item.like}
+                      deleteHandler={DeleteHandler}
+                    />
+                  );
+                })}
+              </MyTextContent>
+            </RightMyTextContainer>
+            <LikeMoveContainer>
+              <LeftMove onClick={MoveLikeRight} />
+              <RightMove onClick={MoveLikeLeft} />
+            </LikeMoveContainer>
+            <RightLikeContianer>
+              <LikeHeader>
+                <h1>관심 글 목록</h1>
+                <span className="fix" onClick={LikeFixHandler}>
+                  수정
+                </span>
+              </LikeHeader>
+              <LikeContent ref={likeRef}>
+                {likeDummy.map((item) => {
+                  return (
+                    <MypageText
+                      likefix={likeFix}
+                      key={item.id}
+                      id={item.id}
+                      title={item.title}
+                      text={item.text}
+                      date={item.date}
+                      like={item.like}
+                      deleteHandler={likeDeleteHandler}
+                    />
+                  );
+                })}
+              </LikeContent>
+            </RightLikeContianer>
+          </RightContainer>
+        </BodyContainer>
+      </TotalContainer>
+    </>
   );
 };
 
