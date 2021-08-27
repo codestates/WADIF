@@ -31,12 +31,12 @@ module.exports = {
     return sign(data, process.env.REFRESH_SECRET, { expiresIn: "30d" });
   },
 
-  sendRefreshToken: (res,refreshToken) => { 
+  sendRefreshToken: (res, refreshToken) => { 
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
     });
   },
-
+  
   checkRefreshToken: (refreshToken) => {
     try {
       return verify(refreshToken, process.env.REFRESH_SCRET)
