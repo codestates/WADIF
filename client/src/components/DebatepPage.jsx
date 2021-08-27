@@ -4,8 +4,7 @@ import { Man } from "styled-icons/icomoon";
 import { Messages } from "@styled-icons/typicons";
 import Comment from "./Comment"
 
-const DebatePage = () => {
-  const DebateContainer = styled.div`
+const DebateContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
@@ -17,8 +16,8 @@ const DebatePage = () => {
   `;
 
   const ProfileIcon = styled(Man)`
-    width: 4em;
-    transform: translate(-0.9em, 0.5em);
+    width: 4.5em;
+    transform: translate(-0.8em, 0.7em);
   `;
 
   const MessageIcon = styled(Messages)`
@@ -64,8 +63,6 @@ const DebatePage = () => {
     position: relative;
   `;
 
-  
-
   const DebateSubject = styled(basicDiv)`
     padding-top: 0;
     padding-bottom: 1em;
@@ -91,11 +88,12 @@ const DebatePage = () => {
   `;
 
   const UserInfo = styled(basicDiv)`
+    padding-top: 0.3em;
     margin-bottom: 0;
     padding-bottom: 0;
     .profileIcon {
-      width: 2em;
-      height: 2em;
+      width: 2.7em;
+      height: 2.7em;
       background-color: #c7c7c7;
       border-radius: 50%;
       position: absolute;
@@ -106,15 +104,16 @@ const DebatePage = () => {
     }
     .profile {
       position: relative;
-      top: -6em;
-      left: 9em;
-      font-size: 5px;
+      top: -0.5em;
+      left: 4.3em;
       .name {
         color: #0a0d97;
         font-weight: 700;
+        font-size: 18px;
       }
     }
   `;
+
   const CommentContainer = styled.div`
     display: flex;
     flex-direction: column;
@@ -176,13 +175,67 @@ const DebatePage = () => {
   `;
 
   const InputReaction = styled(basicDiv)`
-
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: 0;
+    position: relative;
+    top: -1.5em;
+    textarea {
+      padding: 1em;
+      width: 100%;
+      height: 5em;
+      outline: none;
+      overflow: auto;
+    }
+    input {
+      float: right;
+      background: #5b78b4;
+      color: #fff;
+      border-radius: 10%;
+      width: 5em;
+      height: 2em;
+      box-shadow: rgba(255, 255, 255, .4) 0 1px 0 0 inset;
+      &:hover{
+        background-color: #07c;
+      }
+      &:active {
+        background-color: #0064bd;
+        box-shadow: none;
+      }
+    }
   `;
 
-  const InputContiner = styled(PostContainer)`
-
+  const InputContainer = styled(PostContainer)`
+    margin: 0;
+    padding: 0;
+    position: relative;
+  
   `;
 
+  const SelfUserInfo = styled(UserInfo)`
+    .selectContainer {
+      position: relative;
+      top: -2.5em;
+    }
+    .profile {
+      .name {
+        color: #000000;
+        font-weight: 600;
+        font-size: 18px;
+      }
+    }
+    select {
+      position: relative;
+      float: right;
+      width: 5em;
+      height: 2em;
+      font-size: 14px;
+    }
+  `;
+
+const DebatePage = () => {
+  
+  
   return (
     <>
       <DebateContainer>
@@ -220,30 +273,41 @@ const DebatePage = () => {
             <CommentContainer>
               <Comment /><Comment /><Comment /><Comment /><Comment />
             </CommentContainer>
-            
           </div>
           <div className="reaction negative">
             <div className="representative">
               부정적 의견
               <MessageIcon />
             </div>
+            <CommentContainer>
+              <Comment /><Comment /><Comment /><Comment /><Comment />
+            </CommentContainer>
           </div>
         </ReactionContainer>
-        <InputContiner>
-          <CommentUserInfo>
-            <div className="profileIcon">
-              <ProfileIcon />
+        <InputContainer>
+          <div className="row"></div>
+          <SelfUserInfo>
+            <div className="profileContainer">
+              <div className="profileIcon">
+                <ProfileIcon />
+              </div>
+              <div className="profile">
+                <span className="name">안치원</span><br />
+                <span>2020년 1월 1일</span>
+              </div>
             </div>
-            <div className="profile">
-              <span className="name">안치원</span><br />
-              <span>2020년 1월 1일</span>
+            <div className="selectContainer">
+              <select>
+                <option>긍정</option>
+                <option>부정</option>
+              </select>
             </div>
-          </CommentUserInfo>
+          </SelfUserInfo>
           <InputReaction>
-            <textarea name="" id="" cols="30" rows="10"></textarea>
-            <input type="submit"></input>
+            <textarea></textarea>
+            <input type="submit" value="Submit"></input>
           </InputReaction>
-        </InputContiner>
+        </InputContainer>
       </DebateContainer>
     </>
   )
