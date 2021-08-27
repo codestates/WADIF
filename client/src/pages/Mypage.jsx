@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useRef } from "react";
 import styled from "styled-components";
 import { LeftArrow, RightArrow } from "styled-icons/boxicons-regular";
 import { Man } from "styled-icons/icomoon";
 import MypageText from "../components/MypageText/MypageText";
+import Nav from "../components/Nav/Nav";
 
 const TotalContainer = styled.div`
   display: flex;
@@ -180,7 +181,8 @@ const MyTextContent = styled.div`
   flex: 7;
   display: flex;
   position: absolute;
-  /* transform: translateX(-90em); */
+  /* transform: translateX(-60em); */
+  transition: 2s;
 `;
 
 const MoveContainer = styled.div`
@@ -250,91 +252,126 @@ const LikeContent = styled.div`
   flex: 7;
   display: flex;
   position: absolute;
+  transition: 2s;
   /* transform: translateX(-90em); */
 `;
 
 const Mypage = () => {
+  const textRef = useRef();
+  const likeRef = useRef();
+
+  let move = 0;
+  let likemove = 0;
+
+  function MoveRight() {
+    move = move + 30;
+    textRef.current.style.transform = `translateX(-${move}em)`;
+    console.log(move);
+  }
+
+  function MoveLeft() {
+    move = move - 30;
+    textRef.current.style.transform = `translateX(-${move}em)`;
+    console.log(move);
+  }
+
+  function MoveLikeRight() {
+    likemove = likemove + 30;
+    likeRef.current.style.transform = `translateX(${likemove}em)`;
+    console.log(likemove);
+  }
+
+  function MoveLikeLeft() {
+    likemove = likemove - 30;
+    likeRef.current.style.transform = `translateX(${likemove}em)`;
+    console.log(likemove);
+  }
+
   return (
-    <TotalContainer>
-      <TopContainer>
-        <TopFollowButton>Follow</TopFollowButton>
-      </TopContainer>
-      <BodyContainer>
-        <LeftContainer>
-          <LeftCircle>
-            <LeftProfile />
-          </LeftCircle>
-          <LeftTextBox>
-            <LeftMyname>김우석</LeftMyname>
-            <LeftMyEmail>vvsogi@gmail.com</LeftMyEmail>
-            <LeftMyJob>Frontend Developer</LeftMyJob>
-          </LeftTextBox>
-          <LeftEtcBox>
-            <EtcFollowSession>
-              <EtcLeft>
-                <span>Follow</span>
-                <span>1234</span>
-              </EtcLeft>
-              <EtcRight>
-                <span>Follower</span>
-                <span>1234</span>
-              </EtcRight>
-            </EtcFollowSession>
-            <EtcIntroduceSession>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus
-              animi sint corporis temporibus obcaecati! Voluptas, voluptates
-              maxime! Minima, quibusdam. Deserunt suscipit aspernatur dicta eius
-              accusantium. Doloremque adipisci nisi animi ad. Lorem ipsum dolor
-              sit amet consectetur adipisicing elit. Delectus animi sint
-              corporis temporibus obcaecati! Voluptas, voluptates maxime!
-              Minima, quibusdam. Deserunt suscipit aspernatur dicta eius
-              accusantium. Doloremque adipisci nisi animi ad.
-            </EtcIntroduceSession>
-          </LeftEtcBox>
-        </LeftContainer>
-        <RightContainer>
-          <MoveContainer>
-            <LeftMove />
-            <RightMove />
-          </MoveContainer>
-          <RightMyTextContainer>
-            <MyTextHeader>
-              <h1>내 글 목록</h1>
-              <span className="fix">수정</span>
-            </MyTextHeader>
-            <MyTextContent>
-              <MypageText />
-              <MypageText />
-              <MypageText />
-              <MypageText />
-              <MypageText />
-              <MypageText />
-              <MypageText />
-              <MypageText />
-            </MyTextContent>
-          </RightMyTextContainer>
-          <LikeMoveContainer>
-            <LeftMove />
-            <RightMove />
-          </LikeMoveContainer>
-          <RightLikeContianer>
-            <LikeHeader>
-              <h1>관심 글 목록</h1>
-              <span className="fix">수정</span>
-            </LikeHeader>
-            <LikeContent>
-              <MypageText />
-              <MypageText />
-              <MypageText />
-              <MypageText />
-              <MypageText />
-              <MypageText />
-              <MypageText />
-            </LikeContent>
-          </RightLikeContianer>
-        </RightContainer>
-      </BodyContainer>
-    </TotalContainer>
+    <>
+      <Nav />
+      <TotalContainer>
+        <TopContainer>
+          <TopFollowButton>Follow</TopFollowButton>
+        </TopContainer>
+        <BodyContainer>
+          <LeftContainer>
+            <LeftCircle>
+              <LeftProfile />
+            </LeftCircle>
+            <LeftTextBox>
+              <LeftMyname>김우석</LeftMyname>
+              <LeftMyEmail>vvsogi@gmail.com</LeftMyEmail>
+              <LeftMyJob>Frontend Developer</LeftMyJob>
+            </LeftTextBox>
+            <LeftEtcBox>
+              <EtcFollowSession>
+                <EtcLeft>
+                  <span>Follow</span>
+                  <span>1234</span>
+                </EtcLeft>
+                <EtcRight>
+                  <span>Follower</span>
+                  <span>1234</span>
+                </EtcRight>
+              </EtcFollowSession>
+              <EtcIntroduceSession>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Delectus animi sint corporis temporibus obcaecati! Voluptas,
+                voluptates maxime! Minima, quibusdam. Deserunt suscipit
+                aspernatur dicta eius accusantium. Doloremque adipisci nisi
+                animi ad. Lorem ipsum dolor sit amet consectetur adipisicing
+                elit. Delectus animi sint corporis temporibus obcaecati!
+                Voluptas, voluptates maxime! Minima, quibusdam. Deserunt
+                suscipit aspernatur dicta eius accusantium. Doloremque adipisci
+                nisi animi ad.
+              </EtcIntroduceSession>
+            </LeftEtcBox>
+          </LeftContainer>
+          <RightContainer>
+            <MoveContainer>
+              <LeftMove onClick={MoveLeft} />
+              <RightMove onClick={MoveRight} />
+            </MoveContainer>
+            <RightMyTextContainer>
+              <MyTextHeader>
+                <h1>내 글 목록</h1>
+                <span className="fix">수정</span>
+              </MyTextHeader>
+              <MyTextContent ref={textRef}>
+                <MypageText />
+                <MypageText />
+                <MypageText />
+                <MypageText />
+                <MypageText />
+                <MypageText />
+                <MypageText />
+                <MypageText />
+              </MyTextContent>
+            </RightMyTextContainer>
+            <LikeMoveContainer>
+              <LeftMove onClick={MoveLikeRight} />
+              <RightMove onClick={MoveLikeLeft} />
+            </LikeMoveContainer>
+            <RightLikeContianer>
+              <LikeHeader>
+                <h1>관심 글 목록</h1>
+                <span className="fix">수정</span>
+              </LikeHeader>
+              <LikeContent ref={likeRef}>
+                <MypageText />
+                <MypageText />
+                <MypageText />
+                <MypageText />
+                <MypageText />
+                <MypageText />
+                <MypageText />
+              </LikeContent>
+            </RightLikeContianer>
+          </RightContainer>
+        </BodyContainer>
+      </TotalContainer>
+    </>
   );
 };
 
