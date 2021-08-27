@@ -12,8 +12,7 @@ const DebateContainer = styled.div`
     position: relative;
     background: #dbdbdb;
     flex-direction: column;
-    
-  `;
+`;
 
 const ProfileIcon = styled(Man)`
   width: 4.5em;
@@ -84,7 +83,6 @@ const DebateSubject = styled(basicDiv)`
     font-weight: 800;
     font-size: 30px;
   }
-  
 `;
 
 const UserInfo = styled(basicDiv)`
@@ -168,7 +166,6 @@ const ReactionContainer = styled(PostContainer)`
       color: #810f0f;
     }
   }
-
   .representative {
     font-size: 30px;
   }

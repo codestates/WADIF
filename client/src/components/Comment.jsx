@@ -1,55 +1,55 @@
 import styled from "styled-components";
 import { Man } from "styled-icons/icomoon";
 
-const Comment = () => {
-
-  const CommentContainer = styled.div`
+const CommentContainer = styled.div`
     width: 100%;
     display: flex;
     flex-direction: column;
   `;
 
-  const ProfileIcon = styled(Man)`
-    width: 4em;
-    transform: translate(-0.9em, 0.5em);
-  `;
+const ProfileIcon = styled(Man)`
+  width: 4em;
+  transform: translate(-0.9em, 0.5em);
+`;
 
-  const basicDiv = styled.div`
-    width: 100%;
-    justify-content: center;
-    align-items: center;
-    margin: 0.5em auto;
-    padding: 2em;
+const basicDiv = styled.div`
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  margin: 0.5em auto;
+  padding: 2em;
+  position: relative;
+`;
+
+const UserInfo = styled(basicDiv)`
+  padding-top: 0.2em;
+  margin-bottom: 0;
+  padding-bottom: 0;
+  .profileIcon {
+    width: 2em;
+    height: 2em;
+    background-color: #c7c7c7;
+    border-radius: 50%;
+    position: absolute;
+    top: -0.2em;
+    left: 0em;
+    overflow: hidden;
+    margin: auto;
+  }
+  .profilText {
     position: relative;
-  `;
+    top: -1em;
+    left: 2.5em;
+    font-size: 5px;
+  }
+`;
+const CommentText = styled.div`
+  width: 100%;
+  font-size: 12px;
+`;
 
-  const UserInfo = styled(basicDiv)`
-    padding-top: 0.2em;
-    margin-bottom: 0;
-    padding-bottom: 0;
-    .profileIcon {
-      width: 2em;
-      height: 2em;
-      background-color: #c7c7c7;
-      border-radius: 50%;
-      position: absolute;
-      top: -0.2em;
-      left: 0em;
-      overflow: hidden;
-      margin: auto;
-    }
-    .profilText {
-      position: relative;
-      top: -1em;
-      left: 2.5em;
-      font-size: 5px;
-    }
-  `;
-  const CommentText = styled.div`
-    width: 100%;
-    font-size: 12px;
-  `;
-
+const Comment = () => {
+  
   return (
     <CommentContainer>
       <UserInfo>

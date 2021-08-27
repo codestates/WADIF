@@ -2,7 +2,6 @@ import styled, { keyframes } from "styled-components";
 import { Scales } from "@styled-icons/remix-fill/Scales";
 import { useState } from 'react';
 
-
 const slideUp = keyframes`
   from {
     transform: translateY(100%);
@@ -287,7 +286,8 @@ const Container = styled.div`
       padding: 30em;
     }
   }
-`; 
+`;
+
 const SignUpAndSignIn = () => {
 //slideup animation keyframes
 

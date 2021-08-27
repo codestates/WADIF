@@ -99,7 +99,6 @@ const CreatePost = () => {
       [name]: value
     }
     setInputs(nextInputs)
-    console.log(inputs)
   }
   
   const { title, contents } = inputs;
