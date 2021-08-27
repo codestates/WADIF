@@ -2,6 +2,7 @@ import styled, { css } from "styled-components";
 import { Like } from "styled-icons/boxicons-regular";
 import { Man } from "styled-icons/icomoon";
 import { Messages } from "@styled-icons/typicons";
+import Comment from "./Comment"
 
 const DebatePage = () => {
   const DebateContainer = styled.div`
@@ -114,7 +115,10 @@ const DebatePage = () => {
       }
     }
   `;
-
+  const CommentContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+  `;
   const CommentUserInfo = styled(UserInfo)`
     position: relative;
     left: -2.2em;
@@ -213,15 +217,10 @@ const DebatePage = () => {
               긍정적 의견
               <MessageIcon />
             </div>
-            <CommentUserInfo>
-            <div className="profileIcon">
-              <ProfileIcon />
-            </div>
-            <div className="profile">
-              <span className="name">안치원</span><br />
-              <span>2020년 1월 1일</span>
-            </div>
-          </CommentUserInfo>
+            <CommentContainer>
+              <Comment /><Comment /><Comment /><Comment /><Comment />
+            </CommentContainer>
+            
           </div>
           <div className="reaction negative">
             <div className="representative">
