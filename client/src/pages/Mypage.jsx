@@ -1,9 +1,11 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import { LeftArrow, RightArrow } from "styled-icons/boxicons-regular";
 import { Man } from "styled-icons/icomoon";
 import MypageText from "../components/MypageText/MypageText";
 import Nav from "../components/Nav/Nav";
+import dummydata from "../dummydata/dummydata";
+import likepostdata from "../dummydata/likepostdata";
 
 const TotalContainer = styled.div`
   display: flex;
@@ -172,8 +174,12 @@ const MyTextHeader = styled.div`
   top: 1px;
   z-index: 50;
   .fix {
+    cursor: pointer;
     color: #4b4bdf;
     font-weight: 600;
+    &:hover {
+      color: red;
+    }
   }
 `;
 
@@ -181,7 +187,6 @@ const MyTextContent = styled.div`
   flex: 7;
   display: flex;
   position: absolute;
-  /* transform: translateX(-60em); */
   transition: 2s;
 `;
 
@@ -191,7 +196,7 @@ const MoveContainer = styled.div`
   display: flex;
   justify-content: space-between;
   position: absolute;
-  z-index: 40;
+  z-index: 20;
   padding: 10px;
   cursor: pointer;
 `;
@@ -243,8 +248,12 @@ const LikeHeader = styled.div`
   top: 1px;
   z-index: 50;
   .fix {
+    cursor: pointer;
     color: #4b4bdf;
     font-weight: 600;
+    &:hover {
+      color: red;
+    }
   }
 `;
 
@@ -253,12 +262,15 @@ const LikeContent = styled.div`
   display: flex;
   position: absolute;
   transition: 2s;
-  /* transform: translateX(-90em); */
 `;
 
 const Mypage = () => {
   const textRef = useRef();
   const likeRef = useRef();
+  const [fix, setFix] = useState(false);
+  const [likeFix, setLikeFix] = useState(false);
+  const [dummy, setDummy] = useState(dummydata.data);
+  const [likeDummy, setLikeDummy] = useState(likepostdata.data);
 
   let move = 0;
   let likemove = 0;
@@ -278,14 +290,42 @@ const Mypage = () => {
   function MoveLikeRight() {
     likemove = likemove + 30;
     likeRef.current.style.transform = `translateX(${likemove}em)`;
-    console.log(likemove);
   }
 
   function MoveLikeLeft() {
     likemove = likemove - 30;
     likeRef.current.style.transform = `translateX(${likemove}em)`;
-    console.log(likemove);
   }
+
+  function FixHandler() {
+    if (fix) {
+      setFix(false);
+    } else {
+      setFix(true);
+    }
+  }
+
+  function DeleteHandler(id) {
+    let arr = dummy.slice();
+    arr = arr.filter((item) => item.id !== id);
+    setDummy(arr);
+  }
+
+  function LikeFixHandler() {
+    if (likeFix) {
+      setLikeFix(false);
+    } else {
+      setLikeFix(true);
+    }
+  }
+
+  function likeDeleteHandler(id) {
+    let arr = likeDummy.slice();
+    arr = arr.filter((item) => item.id !== id);
+    setLikeDummy(arr);
+  }
+
+  function movePageHandler() {}
 
   return (
     <>
@@ -336,17 +376,25 @@ const Mypage = () => {
             <RightMyTextContainer>
               <MyTextHeader>
                 <h1>내 글 목록</h1>
-                <span className="fix">수정</span>
+                <span className="fix" onClick={FixHandler}>
+                  수정
+                </span>
               </MyTextHeader>
               <MyTextContent ref={textRef}>
-                <MypageText />
-                <MypageText />
-                <MypageText />
-                <MypageText />
-                <MypageText />
-                <MypageText />
-                <MypageText />
-                <MypageText />
+                {dummy.map((item) => {
+                  return (
+                    <MypageText
+                      fix={fix}
+                      key={item.id}
+                      id={item.id}
+                      title={item.title}
+                      text={item.text}
+                      date={item.date}
+                      like={item.like}
+                      deleteHandler={DeleteHandler}
+                    />
+                  );
+                })}
               </MyTextContent>
             </RightMyTextContainer>
             <LikeMoveContainer>
@@ -356,16 +404,25 @@ const Mypage = () => {
             <RightLikeContianer>
               <LikeHeader>
                 <h1>관심 글 목록</h1>
-                <span className="fix">수정</span>
+                <span className="fix" onClick={LikeFixHandler}>
+                  수정
+                </span>
               </LikeHeader>
               <LikeContent ref={likeRef}>
-                <MypageText />
-                <MypageText />
-                <MypageText />
-                <MypageText />
-                <MypageText />
-                <MypageText />
-                <MypageText />
+                {likeDummy.map((item) => {
+                  return (
+                    <MypageText
+                      likefix={likeFix}
+                      key={item.id}
+                      id={item.id}
+                      title={item.title}
+                      text={item.text}
+                      date={item.date}
+                      like={item.like}
+                      deleteHandler={likeDeleteHandler}
+                    />
+                  );
+                })}
               </LikeContent>
             </RightLikeContianer>
           </RightContainer>
