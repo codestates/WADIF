@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       models.posts.belongsTo(models.users, {foreignKey:'user_id'})
       models.posts.hasMany(models.comments, {foreignKey:'post_id'})
       models.posts.hasMany(models.bookmarks, {foreignKey:'post_id'})
-      models.posts.hasOne(models.postReactions, {foreignKey:'post_id'})
+      models.posts.hasOne(models.postReaction, {foreignKey:'post_id'})
     }
   };
   posts.init({
