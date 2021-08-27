@@ -30,6 +30,7 @@ const LogoContainer = styled.div`
 const LogoIcon = styled(Scales)`
   /* background-color: blue; */
   width: 100%;
+  color: black;
 `;
 
 const SearchContainer = styled.div`
@@ -72,6 +73,7 @@ const IconList = styled.li`
 
 const PlusIcon = styled(PlusCircle)`
   width: 1em;
+  color: black;
   cursor: pointer;
   &:hover {
     color: royalblue;
@@ -80,6 +82,7 @@ const PlusIcon = styled(PlusCircle)`
 const ClipboardIcon = styled(Clipboard)`
   width: 1em;
   cursor: pointer;
+  color: black;
   &:hover {
     color: royalblue;
   }
@@ -87,6 +90,7 @@ const ClipboardIcon = styled(Clipboard)`
 const GearFillIcon = styled(GearFill)`
   width: 1em;
   cursor: pointer;
+  color: black;
   &:hover {
     color: royalblue;
   }
@@ -94,6 +98,7 @@ const GearFillIcon = styled(GearFill)`
 const ManageAccountsIcon = styled(ManageAccounts)`
   width: 1em;
   cursor: pointer;
+  color: black;
   &:hover {
     color: royalblue;
   }
@@ -101,6 +106,7 @@ const ManageAccountsIcon = styled(ManageAccounts)`
 const ExitToAppIcon = styled(ExitToApp)`
   width: 1em;
   cursor: pointer;
+  color: black;
   &:hover {
     color: royalblue;
   }
@@ -109,7 +115,9 @@ const Nav = () => {
   return (
     <NavContainer>
       <LogoContainer>
-        <LogoIcon />
+        <Link to={{ pathname: "/" }}>
+          <LogoIcon />
+        </Link>
       </LogoContainer>
       <SearchContainer>
         <SearchIcon />
@@ -117,19 +125,29 @@ const Nav = () => {
       </SearchContainer>
       <IconContainer>
         <IconList>
-          <PlusIcon />
+          <Link to="/createPost">
+            <PlusIcon />
+          </Link>
         </IconList>
         <IconList>
-          <ClipboardIcon />
+          <Link to="/Allboard">
+            <ClipboardIcon />
+          </Link>
         </IconList>
         <IconList>
-          <GearFillIcon />
+          <Link to="/securitypage">
+            <GearFillIcon />
+          </Link>
         </IconList>
         <IconList>
-          <ManageAccountsIcon />
+          <Link to="/mypage">
+            <ManageAccountsIcon />
+          </Link>
         </IconList>
         <IconList>
-          <ExitToAppIcon />
+          <Link to="/login">
+            <ExitToAppIcon />
+          </Link>
         </IconList>
       </IconContainer>
     </NavContainer>

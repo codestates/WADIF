@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import BoardComponent from "../components/BoardComponent/BoardComponent";
+import Nav from "../components/Nav/Nav";
 
 const TotalContainer = styled.div`
   display: flex;
@@ -28,26 +29,29 @@ const BoardSession = styled.div`
 
 const Allboardpage = () => {
   return (
-    <TotalContainer>
-      <HeaderSession>
-        <span>제목</span>
-        <span>작성자</span>
-        <span>날짜</span>
-        <span>추천</span>
-        <span>조회수</span>
-      </HeaderSession>
-      <BoardSession>
-        <BoardComponent />
-        <BoardComponent />
-        <BoardComponent />
-        <BoardComponent />
-        <BoardComponent />
-        <BoardComponent />
-        <BoardComponent />
-        <BoardComponent />
-        <BoardComponent />
-      </BoardSession>
-    </TotalContainer>
+    <>
+      <Nav />
+      <TotalContainer>
+        <HeaderSession>
+          <span>제목</span>
+          <span>작성자</span>
+          <span>날짜</span>
+          <span>추천</span>
+          <span>조회수</span>
+        </HeaderSession>
+        <BoardSession>
+          <BoardComponent />
+          <BoardComponent />
+          <BoardComponent />
+          <BoardComponent />
+          <BoardComponent />
+          <BoardComponent />
+          <BoardComponent />
+          <BoardComponent />
+          <BoardComponent />
+        </BoardSession>
+      </TotalContainer>
+    </>
   );
 };
 

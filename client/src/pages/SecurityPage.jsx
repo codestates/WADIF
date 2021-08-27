@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import Nav from "../components/Nav/Nav";
 
 const TotalContainer = styled.div`
   width: 100%;
@@ -63,21 +64,24 @@ const RightSession = styled.div`
 
 const SecurityPage = () => {
   return (
-    <TotalContainer>
-      <LeftSession>
-        <LeftEtc>
-          <div className="circle"></div>
-          <span className="imageUpload">이미지 업로드</span>
-          <span className="imageDelete">이미지 제거</span>
-        </LeftEtc>
-      </LeftSession>
-      <RightSession>
-        <div className="reviseContainer">
-          <h1>개인정보 수정</h1>
-          <span>수정</span>
-        </div>
-      </RightSession>
-    </TotalContainer>
+    <>
+      <Nav />
+      <TotalContainer>
+        <LeftSession>
+          <LeftEtc>
+            <div className="circle"></div>
+            <span className="imageUpload">이미지 업로드</span>
+            <span className="imageDelete">이미지 제거</span>
+          </LeftEtc>
+        </LeftSession>
+        <RightSession>
+          <div className="reviseContainer">
+            <h1>개인정보 수정</h1>
+            <span>수정</span>
+          </div>
+        </RightSession>
+      </TotalContainer>
+    </>
   );
 };
 

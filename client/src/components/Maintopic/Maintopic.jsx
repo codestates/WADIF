@@ -4,6 +4,7 @@ import { Man } from "styled-icons/icomoon";
 import { Like } from "@styled-icons/boxicons-regular";
 import { Bookmark2 } from "styled-icons/remix-fill";
 import { Sun } from "styled-icons/bootstrap";
+import { Link } from "react-router-dom";
 
 const TopicContainer = styled.div`
   width: 100%;
@@ -19,7 +20,6 @@ const BodyContainer = styled.div`
   height: 80%;
   display: flex;
   position: relative;
-  cursor: pointer;
 `;
 
 const LeftContainer = styled.div`
@@ -73,6 +73,11 @@ const RightBottomContainer = styled.div`
   padding: 1.5em;
   padding-top: 0;
   line-height: 1.5em;
+  cursor: pointer;
+  a {
+    color: black;
+    text-decoration: none;
+  }
 `;
 
 const BottomContainer = styled.div`
@@ -145,13 +150,15 @@ const Maintopic = ({ bgColor }) => {
             <BookMark />
           </RightTopContainer>
           <RightBottomContainer>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus vero
-            sint labore a, alias tempora quas quisquam, inventore dolores quod
-            eius facere, voluptatibus dolorum ratione distinctio! Earum
-            inventore nemo alias.Lorem ipsum dolor sit amet, consectetur
-            adipisicing elit. Minus vero sint labore a, alias tempora quas
-            quisquam, inventore dolores quod eius facere, voluptatibus dolorum
-            ratione distinctio! Earum inventore nemo alias.
+            <Link to="/mypage">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus
+              vero sint labore a, alias tempora quas quisquam, inventore dolores
+              quod eius facere, voluptatibus dolorum ratione distinctio! Earum
+              inventore nemo alias.Lorem ipsum dolor sit amet, consectetur
+              adipisicing elit. Minus vero sint labore a, alias tempora quas
+              quisquam, inventore dolores quod eius facere, voluptatibus dolorum
+              ratione distinctio! Earum inventore nemo alias.
+            </Link>
           </RightBottomContainer>
         </RightContainer>
       </BodyContainer>

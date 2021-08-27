@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import Maintopic from "../components/Maintopic/Maintopic";
+import Nav from "../components/Nav/Nav";
 
 const MypageContainer = styled.div`
   display: flex;
@@ -110,6 +111,49 @@ const RightBottomButton = styled.button`
 `;
 
 const Mainpage = () => {
+  const titleRef = useRef();
+  const textRef = useRef();
+
+  const [title, setTitle] = useState("");
+  const [text, setText] = useState("");
+  const [condition, setCondition] = useState(false);
+
+  function TitleEdit() {
+    if (condition) {
+      setTitle(titleRef.current.value);
+    } else {
+      let userTitle = titleRef.current.value;
+    }
+  }
+
+  function TextEdit() {
+    if (condition) {
+      setText(textRef.current.value);
+    } else {
+      let userText = textRef.current.value;
+    }
+  }
+
+  function PostHandler() {
+    setCondition(true);
+  }
+
+  function EditHandler() {
+    TitleEdit();
+    TextEdit();
+    setCondition(false);
+  }
+
+  useEffect(() => {
+    EditHandler();
+  }, [condition]);
+
+  useEffect(() => {
+    const postInfo = { title: title, text: text };
+    titleRef.current.value = "";
+    textRef.current.value = "";
+  }, [text]);
+
   const ColorMaker = () => {
     const arr = [
       "a",
@@ -136,26 +180,35 @@ const Mainpage = () => {
     return result.join("");
   };
   return (
-    <MypageContainer>
-      <LeftContainer>
-        <HotTopic>Hot Topic</HotTopic>
-        <Maintopic bgColor={ColorMaker()} />
-        <Maintopic bgColor={ColorMaker()} />
-        <Maintopic bgColor={ColorMaker()} />
-        <Maintopic bgColor={ColorMaker()} />
-      </LeftContainer>
-      <RightContainer>
-        <RightTopBox>
-          <RightBoxLeft>아이디어가 떠오를 때!</RightBoxLeft>
-          <RightBoxRight>WADIF</RightBoxRight>
-        </RightTopBox>
-        <RightTextContainer>
-          <RightHeadTextBox></RightHeadTextBox>
-          <RightMainTextBox></RightMainTextBox>
-        </RightTextContainer>
-        <RightBottomButton>POST</RightBottomButton>
-      </RightContainer>
-    </MypageContainer>
+    <>
+      <Nav />
+      <MypageContainer>
+        <LeftContainer>
+          <HotTopic>Hot Topic</HotTopic>
+          <Maintopic bgColor={ColorMaker()} />
+          <Maintopic bgColor={ColorMaker()} />
+          <Maintopic bgColor={ColorMaker()} />
+          <Maintopic bgColor={ColorMaker()} />
+        </LeftContainer>
+        <RightContainer>
+          <RightTopBox>
+            <RightBoxLeft>아이디어가 떠오를 때!</RightBoxLeft>
+            <RightBoxRight>WADIF</RightBoxRight>
+          </RightTopBox>
+          <RightTextContainer>
+            <RightHeadTextBox
+              ref={titleRef}
+              onChange={TitleEdit}
+            ></RightHeadTextBox>
+            <RightMainTextBox
+              ref={textRef}
+              onChange={TextEdit}
+            ></RightMainTextBox>
+          </RightTextContainer>
+          <RightBottomButton onClick={PostHandler}>POST</RightBottomButton>
+        </RightContainer>
+      </MypageContainer>
+    </>
   );
 };
 
