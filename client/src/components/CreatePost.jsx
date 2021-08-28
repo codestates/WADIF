@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import '../App.css'
+import '../App.css';
 
 const Container = styled.div`
   font-family: 'IBM Plex Sans KR', sans-serif;
   position: relative;
   min-height: 65em;
-  background: #557085;
+  background: #dbdbdb;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -14,7 +14,7 @@ const Container = styled.div`
   margin: 0;
   padding: 0;
 
-  > div  {
+  > div {
     position: relative;
     top: -10em;
     width: 50em;
@@ -23,6 +23,7 @@ const Container = styled.div`
     display: flex;
     box-sizing: border-box;
     flex-direction: column;
+    box-shadow: 2em 2em 5em rgba(0, 0, 0, 0.1);
   }
 
   input {
@@ -56,14 +57,20 @@ const Container = styled.div`
     float: right;
     right: 1.5em;
     bottom: 4em;
-    border: 1px solid #6590a1;
     background-color: #fff;
     color: #6590a1;
     padding: 5px;
-    border-radius: 0.7em;
+    border-radius: 0.5em;
+    border: none;
+    outline: none;
+    background: #4f75e4;
+    color: white;
     &:hover {
-      box-shadow: 2px 2px #99bdff;
-      transition: .3s;
+      background: #5f7edb;
+    }
+
+    &:active {
+      box-shadow: 1px 1px 0 rgb(0, 0, 0, 0.5);
     }
   }
   hr {
@@ -78,29 +85,27 @@ const Container = styled.div`
 `;
 
 const CreatePost = () => {
-  
   const Submit = () => {
     setInputs({
-      title: "",
-      contents: ""
+      title: '',
+      contents: '',
     });
   };
 
   const [inputs, setInputs] = useState({
-    title: "",
-    contents: ""
+    title: '',
+    contents: '',
   });
-  
 
   const onChange = (e) => {
     const { value, name } = e.target;
     const nextInputs = {
       ...inputs,
-      [name]: value
-    }
-    setInputs(nextInputs)
-  }
-  
+      [name]: value,
+    };
+    setInputs(nextInputs);
+  };
+
   const { title, contents } = inputs;
   return (
     <Container>
@@ -114,17 +119,19 @@ const CreatePost = () => {
         />
         <hr />
         <div className="textAndButton">
-        <textarea
-          placeholder="내용을 입력하세요"
-          value={contents}
-          onChange={onChange}
-          name="contents"
-        />
-          <button type="button" onClick={Submit}>Post</button>
+          <textarea
+            placeholder="내용을 입력하세요"
+            value={contents}
+            onChange={onChange}
+            name="contents"
+          />
+          <button type="button" onClick={Submit}>
+            Post
+          </button>
         </div>
       </div>
     </Container>
-  )
-}
+  );
+};
 
 export default CreatePost;

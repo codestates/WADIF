@@ -1,13 +1,13 @@
-import React from "react";
-import styled from "styled-components";
-import { Link } from "react-router-dom";
-import { Scales } from "@styled-icons/remix-fill/Scales";
-import { Search } from "@styled-icons/boxicons-regular/Search";
-import { Clipboard, GearFill, PlusCircle } from "styled-icons/bootstrap";
-import { ExitToApp, ManageAccounts } from "styled-icons/material-outlined";
+import React from 'react';
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import { Scales } from '@styled-icons/remix-fill/Scales';
+import { Search } from '@styled-icons/boxicons-regular/Search';
+import { Clipboard, GearFill, PlusCircle } from 'styled-icons/bootstrap';
+import { ExitToApp, ManageAccounts } from 'styled-icons/material-outlined';
 const NavContainer = styled.div`
   width: 100%;
-  height: ${(props) => props.height || "6em"};
+  height: ${(props) => props.height || '6em'};
   background-color: #ffffff;
   display: flex;
   justify-content: space-between;
@@ -18,7 +18,7 @@ const LogoContainer = styled.div`
   width: 3em;
   margin-left: 2em;
   &:before {
-    content: "";
+    content: '';
     width: 0.1em;
     height: 3em;
     background-color: black;
@@ -49,7 +49,7 @@ const SearchIcon = styled(Search)`
 `;
 
 const SearchInput = styled.input.attrs({
-  type: "text",
+  type: 'text',
 })`
   border-radius: 0.2em;
   border: none;
@@ -115,7 +115,7 @@ const Nav = () => {
   return (
     <NavContainer>
       <LogoContainer>
-        <Link to={{ pathname: "/" }}>
+        <Link to={{ pathname: '/' }}>
           <LogoIcon />
         </Link>
       </LogoContainer>

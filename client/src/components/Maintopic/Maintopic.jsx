@@ -1,10 +1,10 @@
-import React from "react";
-import styled from "styled-components";
-import { Man } from "styled-icons/icomoon";
-import { Like } from "@styled-icons/boxicons-regular";
-import { Bookmark2 } from "styled-icons/remix-fill";
-import { Sun } from "styled-icons/bootstrap";
-import { Link } from "react-router-dom";
+import React from 'react';
+import styled from 'styled-components';
+import { Man } from 'styled-icons/icomoon';
+import { Like } from '@styled-icons/boxicons-regular';
+import { Bookmark2 } from 'styled-icons/remix-fill';
+import { Sun } from 'styled-icons/bootstrap';
+import { Link } from 'react-router-dom';
 
 const TopicContainer = styled.div`
   width: 100%;
@@ -24,7 +24,7 @@ const BodyContainer = styled.div`
 
 const LeftContainer = styled.div`
   flex: 2;
-  background-color: ${(props) => props.bgColor || "royalblue"};
+  background-color: ${(props) => props.bgColor || 'royalblue'};
   border-radius: 10px;
   margin: 0 0em 1em 0;
   position: relative;

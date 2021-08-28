@@ -1,7 +1,7 @@
-import React from "react";
-import styled from "styled-components";
-import BoardComponent from "../components/BoardComponent/BoardComponent";
-import Nav from "../components/Nav/Nav";
+import React from 'react';
+import styled from 'styled-components';
+import BoardComponent from '../components/BoardComponent/BoardComponent';
+import Nav from '../components/Nav/Nav';
 
 const TotalContainer = styled.div`
   display: flex;

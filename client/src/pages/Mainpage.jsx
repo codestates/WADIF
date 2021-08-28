@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
-import styled from "styled-components";
-import Maintopic from "../components/Maintopic/Maintopic";
-import Nav from "../components/Nav/Nav";
+import React, { useEffect, useRef, useState } from 'react';
+import styled from 'styled-components';
+import Maintopic from '../components/Maintopic/Maintopic';
+import Nav from '../components/Nav/Nav';
 
 const MypageContainer = styled.div`
   display: flex;
@@ -43,7 +43,7 @@ const RightTopBox = styled.div`
   padding-top: 1.5em;
   position: relative;
   ::before {
-    content: "";
+    content: '';
     width: 92%;
     height: 1px;
     top: 3.5em;
@@ -68,8 +68,8 @@ const RightTextContainer = styled.div`
 `;
 
 const RightHeadTextBox = styled.input.attrs({
-  type: "text",
-  placeholder: "제목을 입력하세요",
+  type: 'text',
+  placeholder: '제목을 입력하세요',
 })`
   width: 100%;
   padding-left: 0.2em;
@@ -79,8 +79,8 @@ const RightHeadTextBox = styled.input.attrs({
 `;
 
 const RightMainTextBox = styled.textarea.attrs({
-  type: "text",
-  placeholder: "본문 내용을 입력하세요",
+  type: 'text',
+  placeholder: '본문 내용을 입력하세요',
 })`
   margin-top: 2em;
   outline: none;
@@ -114,8 +114,8 @@ const Mainpage = () => {
   const titleRef = useRef();
   const textRef = useRef();
 
-  const [title, setTitle] = useState("");
-  const [text, setText] = useState("");
+  const [title, setTitle] = useState('');
+  const [text, setText] = useState('');
   const [condition, setCondition] = useState(false);
 
   function TitleEdit() {
@@ -150,34 +150,34 @@ const Mainpage = () => {
 
   useEffect(() => {
     const postInfo = { title: title, text: text };
-    titleRef.current.value = "";
-    textRef.current.value = "";
+    titleRef.current.value = '';
+    textRef.current.value = '';
   }, [text]);
 
   const ColorMaker = () => {
     const arr = [
-      "a",
-      "b",
-      "c",
-      "d",
-      "e",
-      "f",
-      "1",
-      "2",
-      "3",
-      "4",
-      "5",
-      "6",
-      "7",
-      "8",
-      "9",
+      'a',
+      'b',
+      'c',
+      'd',
+      'e',
+      'f',
+      '1',
+      '2',
+      '3',
+      '4',
+      '5',
+      '6',
+      '7',
+      '8',
+      '9',
     ];
-    const result = ["#"];
+    const result = ['#'];
     for (let i = 0; i < 6; i++) {
       let ranNum = parseInt(Math.random() * 15);
       result.push(arr[ranNum]);
     }
-    return result.join("");
+    return result.join('');
   };
   return (
     <>

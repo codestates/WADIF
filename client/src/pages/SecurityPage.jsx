@@ -1,6 +1,6 @@
-import React from "react";
-import styled from "styled-components";
-import Nav from "../components/Nav/Nav";
+import React from 'react';
+import styled from 'styled-components';
+import Nav from '../components/Nav/Nav';
 
 const TotalContainer = styled.div`
   width: 100%;
@@ -47,7 +47,7 @@ const RightSession = styled.div`
     align-items: center;
     position: relative;
     ::before {
-      content: "";
+      content: '';
       width: 101%;
       height: 2px;
       bottom: -1em;

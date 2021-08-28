@@ -1,7 +1,7 @@
-import React from "react";
-import styled from "styled-components";
-import { Like } from "@styled-icons/boxicons-regular";
-import { Close } from "styled-icons/remix-fill";
+import React from 'react';
+import styled from 'styled-components';
+import { Like } from '@styled-icons/boxicons-regular';
+import { Close } from 'styled-icons/remix-fill';
 
 const TextContainer = styled.div`
   width: 12em;
@@ -60,7 +60,7 @@ const TextEtc = styled.div`
   ::before {
     width: 100%;
     height: 2px;
-    content: "";
+    content: '';
     position: absolute;
     background-color: grey;
     bottom: -1em;

@@ -1,5 +1,5 @@
-import styled, { keyframes } from "styled-components";
-import { Scales } from "@styled-icons/remix-fill/Scales";
+import styled, { keyframes } from 'styled-components';
+import { Scales } from '@styled-icons/remix-fill/Scales';
 import { useState } from 'react';
 
 const slideUp = keyframes`
@@ -289,7 +289,7 @@ const Container = styled.div`
 `;
 
 const SignUpAndSignIn = () => {
-//slideup animation keyframes
+  //slideup animation keyframes
 
   //애니메이션 구현을 위한 클래스 상태 변경
   const setActiveFT = (value) => {
@@ -301,149 +301,157 @@ const SignUpAndSignIn = () => {
       setSignInState('activeSignIn');
       setSignUpState('notActiveSignUp');
     }
-  }
+  };
 
   const [inputsSI, setInputsSI] = useState({
-    id: "",
-    password: ""
+    id: '',
+    password: '',
   });
   const [inputsSU, setInputsSU] = useState({
-    idSU: "",
-    emailSU: "",
-    passwordSU: "",
-    password2SU: ""
+    idSU: '',
+    emailSU: '',
+    passwordSU: '',
+    password2SU: '',
   });
-  const [errStateOfSI, setErrStateOfIdSI] = useState("hidden");
-  const [errStateOfId, setErrStateOfId] = useState("hidden");
-  const [errStateOfEmail, setErrStateOfEmail] = useState("hidden");
-  const [errStateOfPassword, setErrStateOfPassword] = useState("hidden");
-  const [errStateOfPassword2, setErrStateOfPassword2] = useState("hidden");
+  const [errStateOfSI, setErrStateOfIdSI] = useState('hidden');
+  const [errStateOfId, setErrStateOfId] = useState('hidden');
+  const [errStateOfEmail, setErrStateOfEmail] = useState('hidden');
+  const [errStateOfPassword, setErrStateOfPassword] = useState('hidden');
+  const [errStateOfPassword2, setErrStateOfPassword2] = useState('hidden');
   const [signInState, setSignInState] = useState('initialSI');
   const [signUpState, setSignUpState] = useState('initialSU');
-  
+
   const SignInSubmit = (e) => {
     //axios.post 로그인 정보 전송
-  }
+  };
 
   const SignUpSubmit = (e) => {
-
     // if (checkUserIdSU(id) && checkEmailSU(email) && checkPasswordSU(password) && checkPassword2SU(password,password2)) {
     //   console.log("success")//axios.post 회원가입 정보 전송
-    // } 
-  }
+    // }
+  };
 
-  const onChangeSI = e => {
+  const onChangeSI = (e) => {
     const { name, value } = e.target;
     const nextInputs = {
       ...inputsSI,
-      [name]:value
-    }
+      [name]: value,
+    };
     setInputsSI(nextInputs);
-  }
+  };
 
-  const onChangeSU = e => {
+  const onChangeSU = (e) => {
     const { name, value } = e.target;
     const nextInputs = {
       ...inputsSU,
-      [name]: value
+      [name]: value,
     };
     const { idSU, emailSU, passwordSU, password2SU } = inputsSU;
-    setInputsSU(nextInputs)
-    if (name === "idSU") checkUserIdSU(idSU);
-    if (name === "emailSU") checkEmailSU(emailSU);
-    if (name === "passwordSU") checkPasswordSU(passwordSU);
-    if (name === "password2SU") checkPassword2SU(password2SU);
-  }
+    setInputsSU(nextInputs);
+    if (name === 'idSU') checkUserIdSU(idSU);
+    if (name === 'emailSU') checkEmailSU(emailSU);
+    if (name === 'passwordSU') checkPasswordSU(passwordSU);
+    if (name === 'password2SU') checkPassword2SU(password2SU);
+  };
 
-  //입력되지 않은 데이터에 대해서 alert 
+  //입력되지 않은 데이터에 대해서 alert
   const checkExistData = (value, dataName) => {
-    if (value === "") {
-        alert(dataName + " 입력해주세요!");
-        return false;
+    if (value === '') {
+      alert(dataName + ' 입력해주세요!');
+      return false;
     }
     return true;
-  }
-  
+  };
+
   const checkUserIdSU = (id) => {
-    var idRegExp = /^[a-zA-z0-9]{4,12}$/; 
+    var idRegExp = /^[a-zA-z0-9]{4,12}$/;
     if (!idRegExp.test(id)) {
-      setErrStateOfId("")
+      setErrStateOfId('');
       return false;
     }
-    setErrStateOfId("hidden")
-    return true; 
-  }
+    setErrStateOfId('hidden');
+    return true;
+  };
 
   const checkEmailSU = (email) => {
-    var emailExp = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
+    var emailExp =
+      /^[0-9a-zA-Z]([-_]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
     if (!emailExp.test(email)) {
-      setErrStateOfEmail("")
+      setErrStateOfEmail('');
       return false;
     }
-    setErrStateOfEmail("hidden")
-    return true; 
-  }
+    setErrStateOfEmail('hidden');
+    return true;
+  };
 
   const checkPasswordSU = (password) => {
     var passwordExp = /^[a-zA-z0-9]{6,12}$/;
     if (!passwordExp.test(password)) {
-      setErrStateOfPassword("")
+      setErrStateOfPassword('');
       return false;
     }
-    setErrStateOfPassword("hidden")
-    return true; 
-  }
+    setErrStateOfPassword('hidden');
+    return true;
+  };
 
   const checkPassword2SU = (password, password2) => {
     if (password !== password2) {
-      setErrStateOfPassword2("")
+      setErrStateOfPassword2('');
       return false;
     }
-    setErrStateOfPassword2("hidden")
-    return true; 
-  }
+    setErrStateOfPassword2('hidden');
+    return true;
+  };
   const { id, password } = inputsSI;
   const { idSU, emailSU, passwordSU, password2SU } = inputsSU;
   return (
     <Container>
       <section>
-      <div className={`user signInBx ${signInState}`}>
+        <div className={`user signInBx ${signInState}`}>
           <div className="LogoImg">
             <Scale />
             <span className="LogoText">WADIF</span>
           </div>
-        <div className="formBx">
-          <form>
-            <h2>LogIn</h2>
-            <input
-              type="text"
-              placeholder="아이디"
-              value={id}
-              onChange={onChangeSI}
-              name="id"
-            />
-            <input
-              type="password"
-              placeholder="비밀번호"
-              value={password}
-              onChange={onChangeSI}
-              name="password"
-            />
-            <button type="submit">로그인</button>
+          <div className="formBx">
+            <form>
+              <h2>LogIn</h2>
+              <input
+                type="text"
+                placeholder="아이디"
+                value={id}
+                onChange={onChangeSI}
+                name="id"
+              />
+              <input
+                type="password"
+                placeholder="비밀번호"
+                value={password}
+                onChange={onChangeSI}
+                name="password"
+              />
+              <button type="submit">로그인</button>
               <div className="errMessage">
-                  <div className={`${errStateOfSI}`}><b>아이디</b> 또는 <b>비밀번호</b>가 잘못 입력 되었습니다.</div>
-                  <div className={`${errStateOfSI}`}>아이디와 비밀번호를 정확히 입력해 주세요.</div>
-            </div>
+                <div className={`${errStateOfSI}`}>
+                  <b>아이디</b> 또는 <b>비밀번호</b>가 잘못 입력 되었습니다.
+                </div>
+                <div className={`${errStateOfSI}`}>
+                  아이디와 비밀번호를 정확히 입력해 주세요.
+                </div>
+              </div>
               <p className="signIn">
-                아직 계정이 없으신가요? 지금 바로<a href="#" onClick={() => setActiveFT('activeSignUpAni')}>&nbsp;회원가입</a>을 해보세요.
+                아직 계정이 없으신가요? 지금 바로
+                <a href="#" onClick={() => setActiveFT('activeSignUpAni')}>
+                  &nbsp;회원가입
+                </a>
+                을 해보세요.
               </p>
-          </form>
+            </form>
+          </div>
         </div>
-      </div>
-      <div className={`user signUpBx ${signUpState}`}>
-        <div className="formBx">
-          <form>
-            <h2>회원가입</h2>  
+        <div className={`user signUpBx ${signUpState}`}>
+          <div className="formBx">
+            <form>
+              <h2>회원가입</h2>
               <input
                 type="text"
                 placeholder="아이디"
@@ -451,10 +459,7 @@ const SignUpAndSignIn = () => {
                 onChange={onChangeSU}
                 name="idSU"
               />
-              <input
-                type="text"
-                placeholder="이름"
-              />
+              <input type="text" placeholder="이름" />
               <input
                 type="text"
                 placeholder="이메일 주소"
@@ -466,8 +471,8 @@ const SignUpAndSignIn = () => {
                 type="password"
                 placeholder="비밀번호"
                 value={passwordSU}
-              onChange={onChangeSU}
-              name="passwordSU"
+                onChange={onChangeSU}
+                name="passwordSU"
               />
               <input
                 type="password"
@@ -476,31 +481,43 @@ const SignUpAndSignIn = () => {
                 onChange={onChangeSU}
                 name="password2SU"
               />
-              
-              <button type="submit" onClick={SignUpSubmit}>가입하기</button>
+
+              <button type="submit" onClick={SignUpSubmit}>
+                가입하기
+              </button>
               <div className="errMessage">
                 <div className="errMessageSU">
-                  <div className={`${errStateOfId}`}>아이디는 영문 대소문자와 숫자 4~12자리로 입력해야합니다.</div>
-                  <div className={`${errStateOfEmail}`}>잘못된 이메일 형식 입니다.</div>
-                  <div className={`${errStateOfPassword}`}>비밀번호는 영문 대소문자와 숫자 6~12자리로 입력해야합니다.</div>
-                  <div className={`${errStateOfPassword2}`}>두 비밀번호가 맞지 않습니다.</div>
+                  <div className={`${errStateOfId}`}>
+                    아이디는 영문 대소문자와 숫자 4~12자리로 입력해야합니다.
+                  </div>
+                  <div className={`${errStateOfEmail}`}>
+                    잘못된 이메일 형식 입니다.
+                  </div>
+                  <div className={`${errStateOfPassword}`}>
+                    비밀번호는 영문 대소문자와 숫자 6~12자리로 입력해야합니다.
+                  </div>
+                  <div className={`${errStateOfPassword2}`}>
+                    두 비밀번호가 맞지 않습니다.
+                  </div>
                 </div>
               </div>
               <p className="signUp">
                 {/* Already have an account?  */}
-                이미 계정이 있으신가요?<a href="#" onClick={() => setActiveFT('activeSignIn')}>&nbsp;로그인</a>
+                이미 계정이 있으신가요?
+                <a href="#" onClick={() => setActiveFT('activeSignIn')}>
+                  &nbsp;로그인
+                </a>
               </p>
-          </form>
+            </form>
+          </div>
+          <div className="LogoImg">
+            <Scale />
+            <span className="LogoText">WADIF</span>
+          </div>
         </div>
-        <div className="LogoImg">
-          <Scale />
-          <span className="LogoText">WADIF</span>
-        </div>
-      </div>  
-    </section>
-      
+      </section>
     </Container>
-  )
+  );
 };
 
 export default SignUpAndSignIn;

@@ -1,11 +1,11 @@
-import React, { useRef, useState } from "react";
-import styled from "styled-components";
-import { LeftArrow, RightArrow } from "styled-icons/boxicons-regular";
-import { Man } from "styled-icons/icomoon";
-import MypageText from "../components/MypageText/MypageText";
-import Nav from "../components/Nav/Nav";
-import dummydata from "../dummydata/dummydata";
-import likepostdata from "../dummydata/likepostdata";
+import React, { useRef, useState } from 'react';
+import styled from 'styled-components';
+import { LeftArrow, RightArrow } from 'styled-icons/boxicons-regular';
+import { Man } from 'styled-icons/icomoon';
+import MypageText from '../components/MypageText/MypageText';
+import Nav from '../components/Nav/Nav';
+import dummydata from '../dummydata/dummydata';
+import likepostdata from '../dummydata/likepostdata';
 
 const TotalContainer = styled.div`
   display: flex;
@@ -91,7 +91,7 @@ const EtcFollowSession = styled.div`
   display: flex;
   position: relative;
   ::before {
-    content: "";
+    content: '';
     width: 90%;
     height: 2px;
     background-color: #757575;
@@ -108,7 +108,7 @@ const EtcLeft = styled.div`
   justify-content: space-between;
   position: relative;
   ::before {
-    content: "";
+    content: '';
     width: 2px;
     height: 2em;
     background-color: #757575;
@@ -144,7 +144,7 @@ const RightContainer = styled.div`
     width: 90%;
     height: 1px;
     position: absolute;
-    content: "";
+    content: '';
     background-color: gray;
     bottom: 50%;
     left: 6%;

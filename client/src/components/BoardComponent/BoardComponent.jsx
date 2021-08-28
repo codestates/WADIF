@@ -1,5 +1,5 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
 const BoardContainer = styled.div`
   cursor: pointer;
@@ -18,7 +18,7 @@ const BoardContainer = styled.div`
     transform: translateX(2em);
   }
   ::before {
-    content: "";
+    content: '';
     width: 95%;
     height: 1px;
     position: absolute;

@@ -1,17 +1,17 @@
-import styled, { css } from "styled-components";
-import { Like } from "styled-icons/boxicons-regular";
-import { Man } from "styled-icons/icomoon";
-import { Messages } from "@styled-icons/typicons";
-import Comment from "./Comment"
+import styled, { css } from 'styled-components';
+import { Like } from 'styled-icons/boxicons-regular';
+import { Man } from 'styled-icons/icomoon';
+import { Messages } from '@styled-icons/typicons';
+import Comment from './Comment';
 
 const DebateContainer = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: 'Poppins', sans-serif;
-    position: relative;
-    background: #dbdbdb;
-    flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Poppins', sans-serif;
+  position: relative;
+  background: #dbdbdb;
+  flex-direction: column;
 `;
 
 const ProfileIcon = styled(Man)`
@@ -151,7 +151,6 @@ const ReactionContainer = styled(PostContainer)`
     padding: 2em;
     position: relative;
     padding-top: 0;
-    
   }
 
   > .positive {
@@ -191,8 +190,8 @@ const InputReaction = styled(basicDiv)`
     border-radius: 10%;
     width: 5em;
     height: 2em;
-    box-shadow: rgba(255, 255, 255, .4) 0 1px 0 0 inset;
-    &:hover{
+    box-shadow: rgba(255, 255, 255, 0.4) 0 1px 0 0 inset;
+    &:hover {
       background-color: #07c;
     }
     &:active {
@@ -206,7 +205,6 @@ const InputContainer = styled(PostContainer)`
   margin: 0;
   padding: 0;
   position: relative;
-
 `;
 
 const SelfUserInfo = styled(UserInfo)`
@@ -231,8 +229,6 @@ const SelfUserInfo = styled(UserInfo)`
 `;
 
 const DebatePage = () => {
-  
-  
   return (
     <>
       <DebateContainer>
@@ -242,15 +238,40 @@ const DebatePage = () => {
               <ProfileIcon />
             </div>
             <div className="profile">
-              <span className="name">안치원</span><br />
+              <span className="name">안치원</span>
+              <br />
               <span>2020년 1월 1일</span>
             </div>
           </UserInfo>
           <DebateSubject>
             <div className="debateImage"></div>
             <div className="debateInfo">
-              <span className="title">제목이 들어갈 자리</span><br />
-              <span className="content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta, hic perferendis! Vero, provident quo quia dignissimos quaerat quidem odio distinctio veritatis saepe, inventore temporibus eaque enim labore magnam, porro voluptate?Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta, hic perferendis! Vero, provident quo quia dignissimos quaerat quidem odio distinctio veritatis saepe, inventore temporibus eaque enim labore magnam, porro voluptate?Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta, hic perferendis! Vero, provident quo quia dignissimos quaerat quidem odio distinctio veritatis saepe, inventore temporibus eaque enim lLorem ipsum dolor sit amet consectetur adipisicing elit. Dicta, hic perferendis! Vero, provident quo quia dignissimos quaerat quidem odio distinctio veritatis saepe, inventore temporibus eaque enim labore magnam, porro voluptate?Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta, hic perferendis! Vero, provident quo quia dignissimos quaerat quidem odio distinctio veritatis saepe, inventore temporibus eaque enim labore magnam, porro voluptate?Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta, hic perferendis! Vero, provident quo quia dignissimos quaerat quidem odio distinctio veritatis saepe, inventore temporibus eaque enim l</span>
+              <span className="title">제목이 들어갈 자리</span>
+              <br />
+              <span className="content">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta,
+                hic perferendis! Vero, provident quo quia dignissimos quaerat
+                quidem odio distinctio veritatis saepe, inventore temporibus
+                eaque enim labore magnam, porro voluptate?Lorem ipsum dolor sit
+                amet consectetur adipisicing elit. Dicta, hic perferendis! Vero,
+                provident quo quia dignissimos quaerat quidem odio distinctio
+                veritatis saepe, inventore temporibus eaque enim labore magnam,
+                porro voluptate?Lorem ipsum dolor sit amet consectetur
+                adipisicing elit. Dicta, hic perferendis! Vero, provident quo
+                quia dignissimos quaerat quidem odio distinctio veritatis saepe,
+                inventore temporibus eaque enim lLorem ipsum dolor sit amet
+                consectetur adipisicing elit. Dicta, hic perferendis! Vero,
+                provident quo quia dignissimos quaerat quidem odio distinctio
+                veritatis saepe, inventore temporibus eaque enim labore magnam,
+                porro voluptate?Lorem ipsum dolor sit amet consectetur
+                adipisicing elit. Dicta, hic perferendis! Vero, provident quo
+                quia dignissimos quaerat quidem odio distinctio veritatis saepe,
+                inventore temporibus eaque enim labore magnam, porro
+                voluptate?Lorem ipsum dolor sit amet consectetur adipisicing
+                elit. Dicta, hic perferendis! Vero, provident quo quia
+                dignissimos quaerat quidem odio distinctio veritatis saepe,
+                inventore temporibus eaque enim l
+              </span>
             </div>
           </DebateSubject>
           <DebateInfo>
@@ -268,7 +289,11 @@ const DebatePage = () => {
               <MessageIcon />
             </div>
             <CommentContainer>
-              <Comment /><Comment /><Comment /><Comment /><Comment />
+              <Comment />
+              <Comment />
+              <Comment />
+              <Comment />
+              <Comment />
             </CommentContainer>
           </div>
           <div className="reaction negative">
@@ -277,7 +302,11 @@ const DebatePage = () => {
               <MessageIcon />
             </div>
             <CommentContainer>
-              <Comment /><Comment /><Comment /><Comment /><Comment />
+              <Comment />
+              <Comment />
+              <Comment />
+              <Comment />
+              <Comment />
             </CommentContainer>
           </div>
         </ReactionContainer>
@@ -289,7 +318,8 @@ const DebatePage = () => {
                 <ProfileIcon />
               </div>
               <div className="profile">
-                <span className="name">안치원</span><br />
+                <span className="name">안치원</span>
+                <br />
                 <span>2020년 1월 1일</span>
               </div>
             </div>
@@ -307,7 +337,7 @@ const DebatePage = () => {
         </InputContainer>
       </DebateContainer>
     </>
-  )
-}
+  );
+};
 
 export default DebatePage;
