@@ -13,7 +13,7 @@ import DebatePage from './components/DebatepPage';
 function App() {
   return (
     <>
-      <CreatePost></CreatePost>
+      <SignUpAndSignIn></SignUpAndSignIn>
     </>
   );
 }

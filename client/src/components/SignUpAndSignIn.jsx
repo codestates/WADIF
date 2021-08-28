@@ -294,10 +294,12 @@ const SignUpAndSignIn = () => {
   //애니메이션 구현을 위한 클래스 상태 변경
   const setActiveFT = (value) => {
     if (value === 'activeSignUpAni') {
+      ResetStateSI();
       setSignInState('notActiveSignIn');
       setSignUpState('activeSignUp');
     }
     if (value === 'activeSignIn') {
+      ResetStateSU();
       setSignInState('activeSignIn');
       setSignUpState('notActiveSignUp');
     }
@@ -309,6 +311,7 @@ const SignUpAndSignIn = () => {
   });
   const [inputsSU, setInputsSU] = useState({
     idSU: '',
+    nameSU: '',
     emailSU: '',
     passwordSU: '',
     password2SU: '',
@@ -320,16 +323,6 @@ const SignUpAndSignIn = () => {
   const [errStateOfPassword2, setErrStateOfPassword2] = useState('hidden');
   const [signInState, setSignInState] = useState('initialSI');
   const [signUpState, setSignUpState] = useState('initialSU');
-
-  const SignInSubmit = (e) => {
-    //axios.post 로그인 정보 전송
-  };
-
-  const SignUpSubmit = (e) => {
-    // if (checkUserIdSU(id) && checkEmailSU(email) && checkPasswordSU(password) && checkPassword2SU(password,password2)) {
-    //   console.log("success")//axios.post 회원가입 정보 전송
-    // }
-  };
 
   const onChangeSI = (e) => {
     const { name, value } = e.target;
@@ -346,12 +339,68 @@ const SignUpAndSignIn = () => {
       ...inputsSU,
       [name]: value,
     };
-    const { idSU, emailSU, passwordSU, password2SU } = inputsSU;
     setInputsSU(nextInputs);
-    if (name === 'idSU') checkUserIdSU(idSU);
-    if (name === 'emailSU') checkEmailSU(emailSU);
-    if (name === 'passwordSU') checkPasswordSU(passwordSU);
-    if (name === 'password2SU') checkPassword2SU(password2SU);
+    console.log(nextInputs);
+    const isAllValid = CheckInputsSU(nextInputs);
+  };
+
+  const ResetStateSI = () => {
+    setInputsSI({
+      id: '',
+      password: '',
+    });
+    setErrStateOfIdSI('hidden');
+  };
+
+  const ResetStateSU = () => {
+    setInputsSU({
+      idSU: '',
+      emailSU: '',
+      passwordSU: '',
+      password2SU: '',
+    });
+    setErrStateOfId('hidden');
+    setErrStateOfEmail('hidden');
+    setErrStateOfPassword('hidden');
+    setErrStateOfPassword2('hidden');
+  };
+
+  const CheckInputsSU = (inputsSU) => {
+    const { idSU, emailSU, passwordSU, password2SU } = inputsSU;
+    const isIdValid = checkUserIdSU(idSU);
+    const isEmailValid = checkEmailSU(emailSU);
+    const isPasswordValid = checkPasswordSU(passwordSU);
+    const isPassword2Valid = checkPassword2SU(passwordSU, password2SU);
+    if (idSU === '') setErrStateOfId('hidden');
+    if (emailSU === '') setErrStateOfEmail('hidden');
+    if (passwordSU === '') setErrStateOfPassword('hidden');
+    if (password2SU === '') setErrStateOfPassword2('hidden');
+    return isIdValid && isEmailValid && isPasswordValid && isPassword2Valid
+      ? true
+      : false;
+  };
+
+  const SignInSubmit = () => {
+    //axios.post 로그인 정보 전송
+    if (alertErr() && CheckInputsSU(inputsSU)) {
+    }
+  };
+
+  const SignUpSubmit = (e) => {
+    // if (checkUserIdSU(id) && checkEmailSU(email) && checkPasswordSU(password) && checkPassword2SU(password,password2)) {
+    //   console.log("success")//axios.post 회원가입 정보 전송
+    // }
+  };
+
+  const alertErr = () => {
+    const { idSU, name, emailSU, passwordSU, password2SU } = inputsSU;
+    return checkExistData(idSU, '아이디를') &&
+      checkExistData(name, '아름을') &&
+      checkExistData(emailSU, '이메일을') &&
+      checkExistData(passwordSU, '비밀번호를') &&
+      checkExistData(password2SU, '비밀번호 확인을')
+      ? true
+      : false;
   };
 
   //입력되지 않은 데이터에 대해서 alert
@@ -403,7 +452,7 @@ const SignUpAndSignIn = () => {
     return true;
   };
   const { id, password } = inputsSI;
-  const { idSU, emailSU, passwordSU, password2SU } = inputsSU;
+  const { idSU, nameSU, emailSU, passwordSU, password2SU } = inputsSU;
   return (
     <Container>
       <section>
@@ -459,7 +508,13 @@ const SignUpAndSignIn = () => {
                 onChange={onChangeSU}
                 name="idSU"
               />
-              <input type="text" placeholder="이름" />
+              <input
+                type="text"
+                placeholder="이름"
+                value={nameSU}
+                onChange={onChangeSU}
+                name="nameSU"
+              />
               <input
                 type="text"
                 placeholder="이메일 주소"
