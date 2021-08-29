@@ -1,7 +1,7 @@
-import React from "react";
-import styled from "styled-components";
-import { Like } from "styled-icons/boxicons-regular";
-import { Man } from "styled-icons/icomoon";
+import React from 'react';
+import styled from 'styled-components';
+import { Like } from 'styled-icons/boxicons-regular';
+import { Man } from 'styled-icons/icomoon';
 
 const Circle = styled.div`
   width: 3em;
@@ -22,7 +22,7 @@ const ProfileContainer = styled.div`
   position: relative;
 
   ::before {
-    content: "";
+    content: '';
     width: 97.5%;
     height: 2px;
     background-color: black;

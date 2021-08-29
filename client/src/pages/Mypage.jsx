@@ -1,22 +1,23 @@
-import React, { useRef, useState } from "react";
-import styled from "styled-components";
-import { LeftArrow, RightArrow } from "styled-icons/boxicons-regular";
-import { Man } from "styled-icons/icomoon";
-import MypageText from "../components/MypageText/MypageText";
-import Nav from "../components/Nav/Nav";
-import dummydata from "../dummydata/dummydata";
-import likepostdata from "../dummydata/likepostdata";
+import React, { useRef, useState } from 'react';
+import styled from 'styled-components';
+import { LeftArrow, RightArrow } from 'styled-icons/boxicons-regular';
+import { Man } from 'styled-icons/icomoon';
+import MypageText from '../components/MypageText/MypageText';
+import Nav from '../components/Nav/Nav';
+import dummydata from '../dummydata/dummydata';
+import likepostdata from '../dummydata/likepostdata';
+import SecurityPage from './SecurityPage';
 
 const TotalContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 120vh;
+  height: 215vh;
 `;
 
 const TopContainer = styled.div`
   flex: 2;
-  background-color: #55ab69;
+  background-color: #20a658;
   position: relative;
 `;
 
@@ -32,7 +33,8 @@ const TopFollowButton = styled.button`
   font-size: 1em;
   font-weight: 700;
   color: white;
-  background-color: #314ab9;
+  background-color: #02a3ee;
+  display: none;
 `;
 
 const BodyContainer = styled.div`
@@ -46,22 +48,25 @@ const LeftContainer = styled.div`
   background-color: #ffffff;
   position: relative;
   border-right: 1px solid black;
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  flex-direction: column;
 `;
 
 const LeftCircle = styled.div`
   width: 12em;
   height: 12em;
-  background-color: #c7c7c7;
+  background-color: #fceeee;
   border-radius: 50%;
-  position: absolute;
-  top: -6em;
-  left: 7.5em;
+  /* position: absolute; */
+  display: flex;
   overflow: hidden;
 `;
 
 const LeftProfile = styled(Man)`
   width: 20em;
-  transform: translate(-3.3em, 2em);
+  transform: translate(0.5em, 5em);
 `;
 
 const LeftTextBox = styled.div`
@@ -91,24 +96,24 @@ const EtcFollowSession = styled.div`
   display: flex;
   position: relative;
   ::before {
-    content: "";
+    content: '';
     width: 90%;
     height: 2px;
     background-color: #757575;
     position: absolute;
     right: 1.4em;
-    bottom: 0;
+    bottom: -2em;
   }
 `;
 
 const EtcLeft = styled.div`
+  display: none;
   flex: 1;
   padding: 2em;
-  display: flex;
   justify-content: space-between;
   position: relative;
   ::before {
-    content: "";
+    content: '';
     width: 2px;
     height: 2em;
     background-color: #757575;
@@ -119,13 +124,14 @@ const EtcLeft = styled.div`
 `;
 
 const EtcRight = styled.div`
+  display: none;
   flex: 1;
   padding: 2em;
-  display: flex;
   justify-content: space-between;
 `;
 
 const EtcIntroduceSession = styled.div`
+  margin-top: 2em;
   padding: 2em;
   padding-top: 1em;
   font-size: 1.1em;
@@ -139,29 +145,28 @@ const RightContainer = styled.div`
   flex-direction: column;
   overflow: hidden;
   position: relative;
-  height: 100vh;
-  ::before {
-    width: 90%;
-    height: 1px;
-    position: absolute;
-    content: "";
-    background-color: gray;
-    bottom: 50%;
-    left: 6%;
-  }
+  height: 190vh;
 `;
 
 const RightMyTextContainer = styled.div`
-  flex: 1;
+  min-height: 25em;
   background-color: #ffffff;
   display: flex;
   flex-direction: column;
   position: relative;
   padding: 1em;
-  margin: 2.5em;
+  margin-top: 4em;
   margin-left: 3em;
   width: 55.5em;
   overflow: hidden;
+  ::before {
+    content: '';
+    width: 100%;
+    height: 2px;
+    background-color: black;
+    position: absolute;
+    bottom: 4em;
+  }
 `;
 
 const MyTextHeader = styled.div`
@@ -192,7 +197,7 @@ const MyTextContent = styled.div`
 
 const MoveContainer = styled.div`
   width: 100%;
-  top: 25%;
+  top: 14%;
   display: flex;
   justify-content: space-between;
   position: absolute;
@@ -216,7 +221,7 @@ const RightMove = styled(RightArrow)`
 
 const LikeMoveContainer = styled.div`
   width: 100%;
-  bottom: 20%;
+  bottom: 54%;
   display: flex;
   justify-content: space-between;
   position: absolute;
@@ -226,16 +231,23 @@ const LikeMoveContainer = styled.div`
 `;
 
 const RightLikeContianer = styled.div`
-  flex: 1;
+  min-height: 25em;
   background-color: #ffffff;
   display: flex;
   flex-direction: column;
   position: relative;
   padding: 1em;
-  margin: 2.5em;
   margin-left: 3em;
   width: 55.5em;
   overflow: hidden;
+  ::before {
+    content: '';
+    width: 100%;
+    height: 2px;
+    background-color: black;
+    position: absolute;
+    bottom: 4em;
+  }
 `;
 
 const LikeHeader = styled.div`
@@ -262,6 +274,10 @@ const LikeContent = styled.div`
   display: flex;
   position: absolute;
   transition: 2s;
+`;
+
+const Security = styled.div`
+  transform: translateY(-2em);
 `;
 
 const Mypage = () => {
@@ -425,6 +441,9 @@ const Mypage = () => {
                 })}
               </LikeContent>
             </RightLikeContianer>
+            <Security>
+              <SecurityPage />
+            </Security>
           </RightContainer>
         </BodyContainer>
       </TotalContainer>

@@ -1,6 +1,6 @@
-import React from "react";
-import styled from "styled-components";
-import Profile from "../components/Profile/Profile";
+import React from 'react';
+import styled from 'styled-components';
+import Profile from '../components/Profile/Profile';
 
 const TotalContainer = styled.div`
   width: 100%;
