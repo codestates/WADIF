@@ -1,7 +1,5 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class posts extends Model {
     /**
@@ -11,22 +9,25 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      models.posts.belongsTo(models.users, {foreignKey:'user_id'})
-      models.posts.hasMany(models.comments, {foreignKey:'post_id'})
-      models.posts.hasMany(models.bookmarks, {foreignKey:'post_id'})
-      models.posts.hasOne(models.postReaction, {foreignKey:'post_id'})
+      models.posts.belongsTo(models.users, { foreignKey: 'user_id' });
+      models.posts.hasMany(models.comments, { foreignKey: 'post_id' });
+      models.posts.hasMany(models.bookmarks, { foreignKey: 'post_id' });
+      models.posts.hasOne(models.postReaction, { foreignKey: 'post_id' });
     }
-  };
-  posts.init({
-    user_id: DataTypes.INTEGER,
-    content: DataTypes.STRING,
-    views: {
-      type: DataTypes.INTEGER,
-      defaultValue: 0
-    }
-  }, {
-    sequelize,
-    modelName: 'posts',
-  });
+  }
+  posts.init(
+    {
+      user_id: DataTypes.INTEGER,
+      content: DataTypes.STRING,
+      views: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+      },
+    },
+    {
+      sequelize,
+      modelName: 'posts',
+    },
+  );
   return posts;
 };

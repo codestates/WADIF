@@ -1,7 +1,5 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class postReaction extends Model {
     /**
@@ -10,17 +8,20 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      models.postReaction.belongsTo(models.users, {foreignKey:'user_id'})
-      models.postReaction.hasOne(models.posts, {foreignKey:'post_id'})
+      models.postReaction.belongsTo(models.users, { foreignKey: 'user_id' });
+      models.postReaction.hasOne(models.posts, { foreignKey: 'post_id' });
     }
-  };
-  postReaction.init({
-    user_id: DataTypes.INTEGER,
-    post_id: DataTypes.INTEGER,
-    reaction: DataTypes.STRING
-  }, {
-    sequelize,
-    modelName: 'postReaction',
-  });
+  }
+  postReaction.init(
+    {
+      user_id: DataTypes.INTEGER,
+      post_id: DataTypes.INTEGER,
+      reaction: DataTypes.STRING,
+    },
+    {
+      sequelize,
+      modelName: 'postReaction',
+    },
+  );
   return postReaction;
 };
