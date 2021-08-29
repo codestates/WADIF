@@ -6,6 +6,9 @@ import MypageText from '../components/MypageText/MypageText';
 import Nav from '../components/Nav/Nav';
 import dummydata from '../dummydata/dummydata';
 import likepostdata from '../dummydata/likepostdata';
+import PlaceHolder from '../LodingPlaceHolder/PlaceHolderForMyPageText';
+import MyPageProfile from '../components/MypageText/LeftContainer';
+import PlaceHolderLeftProfile from '../LodingPlaceHolder/PlaceHolderForMyPageProfile';
 
 const TotalContainer = styled.div`
   display: flex;
@@ -334,39 +337,8 @@ const Mypage = () => {
           <TopFollowButton>Follow</TopFollowButton>
         </TopContainer>
         <BodyContainer>
-          <LeftContainer>
-            <LeftCircle>
-              <LeftProfile />
-            </LeftCircle>
-            <LeftTextBox>
-              <LeftMyname>김우석</LeftMyname>
-              <LeftMyEmail>vvsogi@gmail.com</LeftMyEmail>
-              <LeftMyJob>Frontend Developer</LeftMyJob>
-            </LeftTextBox>
-            <LeftEtcBox>
-              <EtcFollowSession>
-                <EtcLeft>
-                  <span>Follow</span>
-                  <span>1234</span>
-                </EtcLeft>
-                <EtcRight>
-                  <span>Follower</span>
-                  <span>1234</span>
-                </EtcRight>
-              </EtcFollowSession>
-              <EtcIntroduceSession>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Delectus animi sint corporis temporibus obcaecati! Voluptas,
-                voluptates maxime! Minima, quibusdam. Deserunt suscipit
-                aspernatur dicta eius accusantium. Doloremque adipisci nisi
-                animi ad. Lorem ipsum dolor sit amet consectetur adipisicing
-                elit. Delectus animi sint corporis temporibus obcaecati!
-                Voluptas, voluptates maxime! Minima, quibusdam. Deserunt
-                suscipit aspernatur dicta eius accusantium. Doloremque adipisci
-                nisi animi ad.
-              </EtcIntroduceSession>
-            </LeftEtcBox>
-          </LeftContainer>
+          <MyPageProfile />
+          {/* <PlaceHolderLeftProfile /> */}
           <RightContainer>
             <MoveContainer>
               <LeftMove onClick={MoveLeft} />
@@ -394,6 +366,7 @@ const Mypage = () => {
                     />
                   );
                 })}
+                {/* <PlaceHolder /> */}
               </MyTextContent>
             </RightMyTextContainer>
             <LikeMoveContainer>
@@ -422,6 +395,7 @@ const Mypage = () => {
                     />
                   );
                 })}
+                {/* <PlaceHolder /> */}
               </LikeContent>
             </RightLikeContianer>
           </RightContainer>

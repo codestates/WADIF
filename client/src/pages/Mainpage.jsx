@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import Maintopic from '../components/Maintopic/Maintopic';
 import Nav from '../components/Nav/Nav';
+import PlaceHolder from '../LodingPlaceHolder/PlaceHolderForMainPage';
 
 const MypageContainer = styled.div`
   display: flex;
@@ -184,10 +185,10 @@ const Mainpage = () => {
       <MypageContainer>
         <LeftContainer>
           <HotTopic>Hot Topic</HotTopic>
-          <Maintopic bgColor={ColorMaker()} />
-          <Maintopic bgColor={ColorMaker()} />
-          <Maintopic bgColor={ColorMaker()} />
-          <Maintopic bgColor={ColorMaker()} />
+          <PlaceHolder />
+          <PlaceHolder />
+          <PlaceHolder />
+          {/* <Maintopic bgColor={ColorMaker()} /> */}
         </LeftContainer>
         <RightContainer>
           <RightTopBox>

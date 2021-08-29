@@ -6,10 +6,11 @@ import Mypage from './pages/Mypage';
 import SecurityPage from './pages/SecurityPage';
 import Positivepage from './pages/Positivepage';
 import Negativepage from './pages/Negativepage';
-import SignUpAndSignIn from './components/SignUpAndSignIn';
-import CreatePost from './components/CreatePost';
+import SignUpAndSignIn from './pages/SignUpAndSignIn';
+import CreatePost from './pages/CreatePost';
 import Allboardpage from './pages/Allboardpage';
-import DebatepPage from './components/DebatepPage';
+import DebatepPage from './pages/DebatepPage';
+import NotFound from './LodingPlaceHolder/404NotFound';
 
 function App() {
   return (
