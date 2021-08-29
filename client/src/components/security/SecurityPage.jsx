@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import EmailTooltip from '../components/EmailTooltip/EmailTooltip';
+import EmailTooltip from '../EmailTooltip/EmailTooltip';
 
 const TotalContainer = styled.div`
   display: flex;

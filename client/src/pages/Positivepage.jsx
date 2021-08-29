@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import Nav from '../components/Nav/Nav';
 import Profile from '../components/Profile/Profile';
 
 const TotalContainer = styled.div`
@@ -35,20 +36,23 @@ const BodySession = styled.div`
 
 const Positivepage = () => {
   return (
-    <TotalContainer>
-      <HeadSession>
-        <h1>
-          이 글에 대한 <span>긍정</span>적인 의견
-        </h1>
-      </HeadSession>
-      <BodySession>
-        <Profile />
-        <Profile />
-        <Profile />
-        <Profile />
-        <Profile />
-      </BodySession>
-    </TotalContainer>
+    <>
+      <Nav />
+      <TotalContainer>
+        <HeadSession>
+          <h1>
+            이 글에 대한 <span>긍정</span>적인 의견
+          </h1>
+        </HeadSession>
+        <BodySession>
+          <Profile />
+          <Profile />
+          <Profile />
+          <Profile />
+          <Profile />
+        </BodySession>
+      </TotalContainer>
+    </>
   );
 };
 

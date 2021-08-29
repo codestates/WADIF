@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import BoardComponent from '../components/BoardComponent/BoardComponent';
 import Nav from '../components/Nav/Nav';
+import NoDataBoard from '../LodingPlaceHolder/NoDataBoard';
 
 const TotalContainer = styled.div`
   display: flex;
@@ -49,6 +50,7 @@ const Allboardpage = () => {
           <BoardComponent />
           <BoardComponent />
           <BoardComponent />
+          <NoDataBoard />
         </BoardSession>
       </TotalContainer>
     </>

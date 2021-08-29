@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const BoardContainer = styled.div`
   cursor: pointer;
@@ -31,7 +32,9 @@ const BoardContainer = styled.div`
 const BoardComponent = () => {
   return (
     <BoardContainer>
-      <span className="title">격해지는 갈등에 대하여</span>
+      <Link to={{ pathname: '/debatepage' }}>
+        <span className="title">격해지는 갈등에 대하여</span>
+      </Link>
       <span className="username">김우석</span>
       <span className="day">2021-06-30 (토) 15:33</span>
       <span className="like">1234</span>
