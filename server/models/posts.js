@@ -18,6 +18,7 @@ module.exports = (sequelize, DataTypes) => {
   posts.init(
     {
       user_id: DataTypes.INTEGER,
+      title: DataTypes.STRING,
       content: DataTypes.STRING,
       views: {
         type: DataTypes.INTEGER,

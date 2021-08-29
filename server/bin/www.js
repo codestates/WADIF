@@ -6,7 +6,7 @@ const app = require('../app.js');
 const PORT = process.env.PORT || 4000;
 
 let server;
-if (fs.existsSync('./key.pem') && fs.existsSync('./cert.pem')) {
+if (fs.existsSync('./bin/key.pem') && fs.existsSync('./bin/cert.pem')) {
   const key = fs.readFileSync(__dirname + '/key.pem', 'utf-8');
   const cert = fs.readFileSync(__dirname + '/cert.pem', 'utf-8');
   const credentials = { key, cert };

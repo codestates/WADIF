@@ -5,7 +5,6 @@ const {
   sendRefreshToken,
   generateRefreshToken,
 } = require('../tokenFunctions');
-
 const { users } = require('../../models');
 
 module.exports = {
