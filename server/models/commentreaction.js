@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       models.commentReaction.belongsTo(models.users, { foreignKey: 'user_id' });
-      models.commentReaction.hasOne(models.comments, {
+      models.commentReaction.belongsTo(models.comments, {
         foreignKey: 'comment_id',
       });
     }
