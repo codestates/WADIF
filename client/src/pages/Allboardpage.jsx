@@ -30,7 +30,6 @@ const BoardSession = styled.div`
 const Allboardpage = () => {
   return (
     <>
-      <Nav />
       <TotalContainer>
         <HeaderSession>
           <span>제목</span>

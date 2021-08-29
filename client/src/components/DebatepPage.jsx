@@ -1,8 +1,11 @@
 import styled, { css } from 'styled-components';
-import { Like } from 'styled-icons/boxicons-regular';
+// import { Like } from 'styled-icons/boxicons-regular';
 import { Man } from 'styled-icons/icomoon';
 import { Messages } from '@styled-icons/typicons';
 import Comment from './Comment';
+import { Link } from 'react-router-dom';
+import { Bookmark2 } from 'styled-icons/remix-fill';
+import { Like, Dislike } from 'styled-icons/boxicons-solid';
 
 const DebateContainer = styled.div`
   display: flex;
@@ -26,7 +29,30 @@ const MessageIcon = styled(Messages)`
   float: right;
 `;
 
+const BookMark = styled(Bookmark2)`
+  width: 2em;
+  font-size: 1.5em;
+  cursor: pointer;
+  float: right;
+  position: relative;
+  top: -15px;
+  left: 10px;
+  &:hover {
+    color: #aa0000;
+    transition: 0.4s;
+  }
+  &:active {
+    color: red;
+  }
+`;
+
 const LikeIcon = styled(Like)`
+  width: 1.5em;
+  transform: translate(-0.2em, -0.2em);
+  fill: #3774e7;
+`;
+
+const DislikeIcon = styled(Dislike)`
   width: 1.5em;
   transform: translate(-0.2em, -0.2em);
   fill: #3774e7;
@@ -40,14 +66,14 @@ const PostContainer = styled.div`
   position: relative;
   margin-bottom: 0;
   padding-bottom: 0;
-  margin-top: 2em;
+  margin-top: 1em;
   .row {
     width: 97%;
     justify-content: center;
     align-items: center;
     margin: 1em auto;
     padding: 1px;
-    margin-right: 1px;
+    margin-right: 1em;
     position: relative;
     background: #dbdbdb;
   }
@@ -104,6 +130,7 @@ const UserInfo = styled(basicDiv)`
     position: relative;
     top: -0.5em;
     left: 4.3em;
+    width: 95%;
     .name {
       color: #0a0d97;
       font-weight: 700;
@@ -115,10 +142,6 @@ const UserInfo = styled(basicDiv)`
 const CommentContainer = styled.div`
   display: flex;
   flex-direction: column;
-`;
-const CommentUserInfo = styled(UserInfo)`
-  position: relative;
-  left: -2.2em;
 `;
 
 const DebateInfo = styled(basicDiv)`
@@ -225,6 +248,7 @@ const SelfUserInfo = styled(UserInfo)`
     width: 5em;
     height: 2em;
     font-size: 14px;
+    z-index: 1;
   }
 `;
 
@@ -241,6 +265,7 @@ const DebatePage = () => {
               <span className="name">안치원</span>
               <br />
               <span>2020년 1월 1일</span>
+              <BookMark />
             </div>
           </UserInfo>
           <DebateSubject>
@@ -276,7 +301,9 @@ const DebatePage = () => {
           </DebateSubject>
           <DebateInfo>
             <LikeIcon />
-            <span className="likes"> 3.7K</span>
+            <span className="likes"> 3.7K&nbsp;&nbsp;&nbsp;</span>
+            <DislikeIcon />
+            <span className="likes"> 2.1K</span>
             <span className="connectInput"> 댓글달기</span>
             <span className="hits"> 조회수 300000</span>
           </DebateInfo>
@@ -286,7 +313,9 @@ const DebatePage = () => {
           <div className="reaction positive">
             <div className="representative">
               긍정적 의견
-              <MessageIcon />
+              <Link to={{ pathname: '/positive' }}>
+                <MessageIcon />
+              </Link>
             </div>
             <CommentContainer>
               <Comment />
@@ -299,7 +328,9 @@ const DebatePage = () => {
           <div className="reaction negative">
             <div className="representative">
               부정적 의견
-              <MessageIcon />
+              <Link to={{ pathname: '/negative' }}>
+                <MessageIcon />
+              </Link>
             </div>
             <CommentContainer>
               <Comment />

@@ -181,7 +181,6 @@ const Mainpage = () => {
   };
   return (
     <>
-      <Nav />
       <MypageContainer>
         <LeftContainer>
           <HotTopic>Hot Topic</HotTopic>

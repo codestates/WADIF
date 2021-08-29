@@ -16,14 +16,14 @@ const Container = styled.div`
 
   > div {
     position: relative;
-    top: -10em;
-    width: 50em;
-    height: 40em;
+    top: -7.5em;
+    width: 80em;
+    height: 47em;
+    box-shadow: 0 3px 8px 5px rgba(0, 0, 0, 0.2);
     background: #fff;
     display: flex;
     box-sizing: border-box;
     flex-direction: column;
-    box-shadow: 2em 2em 5em rgba(0, 0, 0, 0.1);
   }
 
   input {
@@ -56,21 +56,21 @@ const Container = styled.div`
     position: relative;
     float: right;
     right: 1.5em;
-    bottom: 4em;
+    bottom: 2em;
     background-color: #fff;
     color: #6590a1;
-    padding: 5px;
+    padding: 10px;
     border-radius: 0.5em;
     border: none;
     outline: none;
     background: #4f75e4;
     color: white;
     &:hover {
-      background: #5f7edb;
+      background: #5970b4;
     }
 
     &:active {
-      box-shadow: 1px 1px 0 rgb(0, 0, 0, 0.5);
+      background: #4e5f92;
     }
   }
   hr {

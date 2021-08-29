@@ -53,7 +53,6 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   padding: 0.8em;
-  transition: 0.5s;
   
   section {
     position: relative;
@@ -383,6 +382,7 @@ const SignUpAndSignIn = () => {
   const SignInSubmit = () => {
     //axios.post 로그인 정보 전송
     if (alertErr() && CheckInputsSU(inputsSU)) {
+      return true;
     }
   };
 

@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Man } from 'styled-icons/icomoon';
+import { Like } from 'styled-icons/boxicons-solid';
 
 const CommentContainer = styled.div`
   width: 100%;
@@ -7,9 +8,27 @@ const CommentContainer = styled.div`
   flex-direction: column;
 `;
 
+const LikeContainer = styled.div`
+  margin-left: auto;
+`;
 const ProfileIcon = styled(Man)`
   width: 4em;
   transform: translate(-0.9em, 0.5em);
+`;
+
+const LikeIcon = styled(Like)`
+  width: 1em;
+  transform: translate(-0.2em, -0.1em);
+  fill: #3774e7;
+  cursor: pointer;
+  &:hover {
+    position: relative;
+    bottom: 1px;
+  }
+`;
+
+const LikeCount = styled.span`
+  font-size: 14px;
 `;
 
 const basicDiv = styled.div`
@@ -69,6 +88,10 @@ const Comment = () => {
           없다는 이유에서다.
         </span>
       </CommentText>
+      <LikeContainer>
+        <LikeIcon />
+        <LikeCount>1K</LikeCount>
+      </LikeContainer>
     </CommentContainer>
   );
 };

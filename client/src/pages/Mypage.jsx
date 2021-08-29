@@ -329,7 +329,6 @@ const Mypage = () => {
 
   return (
     <>
-      <Nav />
       <TotalContainer>
         <TopContainer>
           <TopFollowButton>Follow</TopFollowButton>

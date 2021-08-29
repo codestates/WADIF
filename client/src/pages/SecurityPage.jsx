@@ -65,7 +65,6 @@ const RightSession = styled.div`
 const SecurityPage = () => {
   return (
     <>
-      <Nav />
       <TotalContainer>
         <LeftSession>
           <LeftEtc>
