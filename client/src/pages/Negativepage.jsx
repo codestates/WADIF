@@ -1,6 +1,7 @@
-import React from "react";
-import styled from "styled-components";
-import Profile from "../components/Profile/Profile";
+import React from 'react';
+import styled from 'styled-components';
+import Profile from '../components/Profile/Profile';
+import Nav from '../components/Nav/Nav';
 
 const TotalContainer = styled.div`
   width: 100%;
@@ -35,20 +36,23 @@ const BodySession = styled.div`
 
 const Negativepage = () => {
   return (
-    <TotalContainer>
-      <HeadSession>
-        <h1>
-          이 글에 대한 <span>부정</span>적인 의견
-        </h1>
-      </HeadSession>
-      <BodySession>
-        <Profile />
-        <Profile />
-        <Profile />
-        <Profile />
-        <Profile />
-      </BodySession>
-    </TotalContainer>
+    <>
+      <Nav />
+      <TotalContainer>
+        <HeadSession>
+          <h1>
+            이 글에 대한 <span>부정</span>적인 의견
+          </h1>
+        </HeadSession>
+        <BodySession>
+          <Profile />
+          <Profile />
+          <Profile />
+          <Profile />
+          <Profile />
+        </BodySession>
+      </TotalContainer>
+    </>
   );
 };
 

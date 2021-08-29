@@ -1,14 +1,23 @@
-import React, { useEffect, useRef, useState } from "react";
-import styled from "styled-components";
-import Maintopic from "../components/Maintopic/Maintopic";
-import Nav from "../components/Nav/Nav";
+import React, { useEffect, useRef, useState } from 'react';
+import styled from 'styled-components';
+import Maintopic from '../components/Maintopic/Maintopic';
+import Nav from '../components/Nav/Nav';
+import PlaceHolder from '../LodingPlaceHolder/PlaceHolderForMainPage';
 
 const MypageContainer = styled.div`
   display: flex;
+  position: relative;
   width: 100%;
   height: 100vh;
   overflow: hidden;
   background-color: #dbdbdb;
+
+  .tooltip-right {
+    right: -15em;
+  }
+  .tooltip-left {
+    right: 1.5em;
+  }
 `;
 
 const LeftContainer = styled.div`
@@ -29,7 +38,7 @@ const HotTopic = styled.h1`
 `;
 
 const RightContainer = styled.div`
-  flex: 2;
+  flex: 1.5;
   background-color: #ffffff;
   margin: 1.5em;
   box-shadow: 0 0px 3px 5px rgba(0, 0, 0, 0.2);
@@ -43,7 +52,7 @@ const RightTopBox = styled.div`
   padding-top: 1.5em;
   position: relative;
   ::before {
-    content: "";
+    content: '';
     width: 92%;
     height: 1px;
     top: 3.5em;
@@ -68,8 +77,8 @@ const RightTextContainer = styled.div`
 `;
 
 const RightHeadTextBox = styled.input.attrs({
-  type: "text",
-  placeholder: "제목을 입력하세요",
+  type: 'text',
+  placeholder: '제목을 입력하세요',
 })`
   width: 100%;
   padding-left: 0.2em;
@@ -79,8 +88,8 @@ const RightHeadTextBox = styled.input.attrs({
 `;
 
 const RightMainTextBox = styled.textarea.attrs({
-  type: "text",
-  placeholder: "본문 내용을 입력하세요",
+  type: 'text',
+  placeholder: '본문 내용을 입력하세요',
 })`
   margin-top: 2em;
   outline: none;
@@ -110,13 +119,30 @@ const RightBottomButton = styled.button`
   }
 `;
 
+const ToopTip = styled.div`
+  position: absolute;
+  width: 15em;
+  height: 3em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #0e77d3;
+  color: #ffffff;
+  border-radius: 2px;
+  right: 0;
+  top: 1.8em;
+  z-index: 10;
+  transition: 1s;
+`;
+
 const Mainpage = () => {
   const titleRef = useRef();
   const textRef = useRef();
 
-  const [title, setTitle] = useState("");
-  const [text, setText] = useState("");
+  const [title, setTitle] = useState('');
+  const [text, setText] = useState('');
   const [condition, setCondition] = useState(false);
+  const [tooltip, setTooltip] = useState(false);
 
   function TitleEdit() {
     if (condition) {
@@ -139,9 +165,21 @@ const Mainpage = () => {
   }
 
   function EditHandler() {
-    TitleEdit();
-    TextEdit();
-    setCondition(false);
+    if (textRef.current.value === '' || titleRef.current.value === '') {
+      if (condition) {
+        setTooltip(true);
+        setTimeout(() => {
+          setTooltip(false);
+        }, 3000);
+        setCondition(false);
+        titleRef.current.value = '';
+        textRef.current.value = '';
+      }
+    } else {
+      TitleEdit();
+      TextEdit();
+      setCondition(false);
+    }
   }
 
   useEffect(() => {
@@ -150,45 +188,48 @@ const Mainpage = () => {
 
   useEffect(() => {
     const postInfo = { title: title, text: text };
-    titleRef.current.value = "";
-    textRef.current.value = "";
+    titleRef.current.value = '';
+    textRef.current.value = '';
   }, [text]);
 
   const ColorMaker = () => {
     const arr = [
-      "a",
-      "b",
-      "c",
-      "d",
-      "e",
-      "f",
-      "1",
-      "2",
-      "3",
-      "4",
-      "5",
-      "6",
-      "7",
-      "8",
-      "9",
+      'a',
+      'b',
+      'c',
+      'd',
+      'e',
+      'f',
+      '1',
+      '2',
+      '3',
+      '4',
+      '5',
+      '6',
+      '7',
+      '8',
+      '9',
     ];
-    const result = ["#"];
+    const result = ['#'];
     for (let i = 0; i < 6; i++) {
       let ranNum = parseInt(Math.random() * 15);
       result.push(arr[ranNum]);
     }
-    return result.join("");
+    return result.join('');
   };
   return (
     <>
       <Nav />
       <MypageContainer>
+        <ToopTip className={!tooltip ? `tooltip-right` : `tooltip-left`}>
+          글과 제목을 입력해주세요!
+        </ToopTip>
         <LeftContainer>
           <HotTopic>Hot Topic</HotTopic>
-          <Maintopic bgColor={ColorMaker()} />
-          <Maintopic bgColor={ColorMaker()} />
-          <Maintopic bgColor={ColorMaker()} />
-          <Maintopic bgColor={ColorMaker()} />
+          <PlaceHolder />
+          <PlaceHolder />
+          <PlaceHolder />
+          {/* <Maintopic bgColor={ColorMaker()} /> */}
         </LeftContainer>
         <RightContainer>
           <RightTopBox>
