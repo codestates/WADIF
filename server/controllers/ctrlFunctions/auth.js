@@ -16,6 +16,7 @@ module.exports = {
       } else {
         console.log(data);
         const payload = data.dataValues;
+        delete payload.password;
         const accessToken = generateAccessToken(payload);
         const refreshToken = generateRefreshToken(payload);
 
@@ -26,11 +27,8 @@ module.exports = {
   },
 
   signout: (req, res) => {
-    const checkedData = isAuthorized(req);
-    if (!checkedData) {
-      res.status(401).send('유효하지 않은 사용자 입니다.');
-    } else {
-      res.status(200).send('로그아웃에 성공하였습니다.');
-    }
+    res.clearCookie('refreshToken');
+    res.status(200).send('로그아웃에 성공하였습니다.');
+    res.redirect('/');
   },
 };
