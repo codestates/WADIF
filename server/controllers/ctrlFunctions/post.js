@@ -7,19 +7,18 @@ const { posts } = require('../../models');
 const { comments } = require('../../models');
 
 module.exports = {
-  writePost: (req, res) => {
-    const { content } = req.body;
+  writePost: async (req, res) => {
+    const { title, content } = req.body;
     const checkedData = isAuthorized(req);
     if (checkedData) {
       const user_id = checkedData.id;
-      posts.create({ user_id, content }).then((postData) => {
-        res.status(200).json({
-          data: { ...postData.dataValues },
-          message: '게시글 작성이 완료되었습니다.',
-        });
+      const postData = await posts.create({ user_id, title, content });
+      res.status(200).json({
+        data: { ...postData.dataValues },
+        message: '게시글 작성이 완료되었습니다.',
       });
     } else {
-      res.status(404).send('게시글 작성에 실패하였습니다.');
+      res.status(404).json('게시글 작성에 실패하였습니다.');
     }
   },
 
@@ -33,7 +32,6 @@ module.exports = {
       const commentsData = await comments.findAll({
         where: { post_id: req.params.postId },
       });
-
       res.status(200).json({
         data: {
           ...postData.dataValues,
@@ -41,8 +39,10 @@ module.exports = {
             return el.dataValues;
           }),
         },
-        message: '게시글 작성이 완료되었습니다.',
+        message: '게시글 조회에 성공하였습니다.',
       });
+    } else {
+      res.status(404).json('게시글을 찾을 수 없습니다.');
     }
   },
 
