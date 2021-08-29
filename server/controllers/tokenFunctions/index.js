@@ -2,7 +2,10 @@ const { sign, verify } = require('jsonwebtoken');
 
 module.exports = {
   generateAccessToken: (data) => {
-    return sign(data, process.env.ACCESS_SECRET, { expiresIn: '5m' });
+    return sign(data, process.env.ACCESS_SECRET, { expiresIn: '1' });
+  },
+  generateRefreshToken: (data) => {
+    return sign(data, process.env.REFRESH_SECRET, { expiresIn: '30d' });
   },
 
   sendAccessToken: (res, accessToken) => {
@@ -11,6 +14,12 @@ module.exports = {
 
   resendAccessToken: (res, accessToken, data) => {
     res.json({ data: { accessToken, userInfo: data }, message: 'ok' });
+  },
+
+  sendRefreshToken: (res, refreshToken) => {
+    res.cookie('refreshToken', refreshToken, {
+      httpOnly: true,
+    });
   },
 
   isAuthorized: (req) => {
@@ -25,18 +34,7 @@ module.exports = {
       return null;
     }
   },
-
-  generateRefreshToken: (data) => {
-    return sign(data, process.env.REFRESH_SECRET, { expiresIn: '30d' });
-  },
-
-  sendRefreshToken: (res, refreshToken) => {
-    res.cookie('refreshToken', refreshToken, {
-      httpOnly: true,
-    });
-  },
-
-  checkRefreshToken: (refreshToken) => {
+  checkToken: (refreshToken) => {
     try {
       return verify(refreshToken, process.env.REFRESH_SCRET);
     } catch (e) {
