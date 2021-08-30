@@ -27,6 +27,15 @@ const BoardContainer = styled.div`
     bottom: 0em;
     left: 4.5em;
   }
+  @media only screen and (max-width: 768px) {
+    font-size: 12px;
+    .like {
+      transform: translateX(-0.5em);
+    }
+    .views {
+      transform: translateX(3.1em);
+    }
+  }
 `;
 
 const BoardComponent = () => {

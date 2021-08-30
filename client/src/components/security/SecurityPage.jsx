@@ -4,11 +4,14 @@ import EmailTooltip from '../EmailTooltip/EmailTooltip';
 
 const TotalContainer = styled.div`
   display: flex;
-  overflow: hidden;
+  /* overflow: hidden; */
   position: relative;
   padding: 1em;
   width: 100%;
   height: 100%;
+  @media only screen and (max-width: 768px) {
+    width: 108%;
+  }
 `;
 
 const RightSession = styled.div`
@@ -34,6 +37,10 @@ const RightSession = styled.div`
       cursor: pointer;
     }
   }
+  @media only screen and (max-width: 768px) {
+    padding: 3.5em;
+    padding-top: 0;
+  }
 `;
 
 const Security = styled.div`
@@ -42,6 +49,9 @@ const Security = styled.div`
   display: flex;
   flex-direction: column;
   transform: translateY(2em);
+  @media only screen and (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 const TotalForm = styled.form`

@@ -18,22 +18,27 @@ const Container = styled.div`
   > div {
     position: relative;
     top: -7.5em;
-    width: 80em;
+    width: 90%;
     height: 47em;
     box-shadow: 0 3px 8px 5px rgba(0, 0, 0, 0.2);
     background: #fff;
     display: flex;
     box-sizing: border-box;
     flex-direction: column;
+    @media only screen and (max-width: 768px) {
+      width: 90%;
+      height: 60em;
+      top: 0;
+    }
   }
 
   input {
     width: 100%;
-    height: 15%;
+    height: 10%;
     font-size: 2em;
     color: #3b3737;
     padding: 1.5em;
-    padding-bottom: 0;
+    padding-bottom: 0.5em;
     border: 0;
     &:focus {
       outline: none;

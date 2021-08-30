@@ -7,6 +7,15 @@ const LeftContainer = styled.div`
   background-color: #ffffff;
   position: relative;
   border-right: 1px solid black;
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  flex-direction: column;
+  @media only screen and (max-width: 768px) {
+    flex: 1;
+    border: none;
+    /* flex-direction: row; */
+  }
 `;
 
 const LeftCircle = styled.div`
@@ -14,28 +23,59 @@ const LeftCircle = styled.div`
   height: 12em;
   background-color: #c7c7c7;
   border-radius: 50%;
-  position: absolute;
   top: -6em;
-  left: 7.5em;
+  position: absolute;
   overflow: hidden;
+  @media only screen and (max-width: 768px) {
+    left: 3em;
+    width: 11em;
+    height: 11em;
+  }
+  @media only screen and (max-width: 600px) {
+    top: -4.2em;
+    width: 6em;
+    height: 6em;
+  }
 `;
 
 const LeftProfile = styled(Man)`
   width: 20em;
   transform: translate(-3.3em, 2em);
+  @media only screen and (max-width: 768px) {
+    transform: translate(-3.8em, 2em);
+  }
+  @media only screen and (max-width: 600px) {
+    width: 10em;
+    transform: translate(-1.6em, 1.3em);
+  }
 `;
 
 const LeftTextBox = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin-top: 7em;
+  justify-content: center;
   align-items: center;
+  margin-top: 9em;
+
+  @media only screen and (max-width: 768px) {
+    display: flex;
+    align-items: flex-start;
+    position: absolute;
+    top: -50%;
+    left: 37%;
+    margin-top: 0;
+  }
 `;
 
 const LeftMyname = styled.span`
   font-size: 1.5em;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
+  @media only screen and (max-width: 768px) {
+    font-weight: 700;
+    font-size: 2em;
+    margin: 0;
+  }
 `;
 
 const LeftMyEmail = styled.span`
@@ -43,13 +83,14 @@ const LeftMyEmail = styled.span`
 `;
 
 const LeftMyJob = styled.span`
-  color: gray;
+  color: #242424;
+  display: none;
 `;
 
 const LeftEtcBox = styled.div``;
 
 const EtcFollowSession = styled.div`
-  display: flex;
+  display: none;
   position: relative;
   ::before {
     content: '';
@@ -91,6 +132,24 @@ const EtcIntroduceSession = styled.div`
   padding-top: 1em;
   font-size: 1.1em;
   word-break: break-all;
+  @media only screen and (max-width: 768px) {
+    display: -webkit-box;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-size: 14px;
+    width: 28em;
+    margin-left: 10em;
+    margin-bottom: 5em;
+    height: 6em;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    word-wrap: break-word;
+    /* line-height: line; */
+  }
+  @media only screen and (max-width: 600px) {
+    margin-left: 7em;
+    width: 20em;
+  }
 `;
 
 const MyPageProfile = () => {

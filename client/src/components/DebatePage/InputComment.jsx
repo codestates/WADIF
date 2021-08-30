@@ -128,6 +128,7 @@ const InputReaction = styled(BasicDiv)`
     padding: 1em;
     width: 100%;
     height: 5em;
+    resize: none;
     outline: none;
     overflow: auto;
   }

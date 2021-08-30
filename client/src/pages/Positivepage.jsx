@@ -6,10 +6,13 @@ import Profile from '../components/Profile/Profile';
 const TotalContainer = styled.div`
   width: 100%;
   height: 100vh;
-  padding: 1em 6em;
+  padding: 1em 10em;
   display: flex;
   flex-direction: column;
-  background-color: #c4c4c4;
+  background-color: #e4e4e4;
+  @media only screen and (max-width: 768px) {
+    padding: 2em;
+  }
 `;
 
 const HeadSession = styled.div`

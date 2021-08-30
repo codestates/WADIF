@@ -26,6 +26,10 @@ const TextTitle = styled.div`
   margin-bottom: 5px;
   color: #920b0b;
   font-weight: 700;
+  @media only screen and (max-width: 768px) {
+    height: 9%;
+    font-size: 16px;
+  }
 `;
 
 const TextContent = styled.div`
@@ -38,6 +42,10 @@ const TextContent = styled.div`
   background-color: #ffffff;
   -webkit-line-clamp: 9; /* 표시하고자 하는 라인 수 */
   -webkit-box-orient: vertical;
+  @media only screen and (max-width: 768px) {
+    max-height: 15em;
+    font-size: 12px;
+  }
 `;
 
 const TextEtc = styled.div`

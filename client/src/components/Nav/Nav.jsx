@@ -1,13 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { Scales } from '@styled-icons/remix-fill/Scales';
 import { Search } from '@styled-icons/boxicons-regular/Search';
-import { Clipboard, GearFill, PlusCircle } from 'styled-icons/bootstrap';
-import { ExitToApp, ManageAccounts } from 'styled-icons/material-outlined';
+import { Clipboard, PlusCircle } from 'styled-icons/bootstrap';
+import {
+  ExitToApp,
+  ManageAccounts,
+  Menu,
+} from 'styled-icons/material-outlined';
+import { Close } from 'styled-icons/remix-fill';
 const NavContainer = styled.div`
   width: 100%;
-  height: ${(props) => props.height || '6em'};
+  height: ${(props) => props.height || '5em'};
   background-color: #ffffff;
   display: flex;
   justify-content: space-between;
@@ -64,6 +69,14 @@ const SearchInput = styled.input.attrs({
 const IconContainer = styled.ul`
   display: flex;
   list-style: none;
+  align-items: center;
+  transition: 1s;
+  .menu {
+    display: none;
+    @media only screen and (max-width: 768px) {
+      display: block;
+    }
+  }
 `;
 
 const IconList = styled.li`
@@ -79,6 +92,9 @@ const PlusIcon = styled(PlusCircle)`
   &:hover {
     color: royalblue;
   }
+  @media only screen and (max-width: 768px) {
+    display: none;
+  }
 `;
 const ClipboardIcon = styled(Clipboard)`
   width: 1em;
@@ -87,13 +103,8 @@ const ClipboardIcon = styled(Clipboard)`
   &:hover {
     color: royalblue;
   }
-`;
-const GearFillIcon = styled(GearFill)`
-  width: 1em;
-  cursor: pointer;
-  color: black;
-  &:hover {
-    color: royalblue;
+  @media only screen and (max-width: 768px) {
+    display: none;
   }
 `;
 const ManageAccountsIcon = styled(ManageAccounts)`
@@ -103,6 +114,9 @@ const ManageAccountsIcon = styled(ManageAccounts)`
   &:hover {
     color: royalblue;
   }
+  @media only screen and (max-width: 768px) {
+    display: none;
+  }
 `;
 const ExitToAppIcon = styled(ExitToApp)`
   width: 1em;
@@ -111,10 +125,109 @@ const ExitToAppIcon = styled(ExitToApp)`
   &:hover {
     color: royalblue;
   }
+  @media only screen and (max-width: 768px) {
+    display: none;
+  }
 `;
+
+const MenuBar = styled(Menu)`
+  width: 1em;
+  display: none;
+  @media only screen and (max-width: 768px) {
+    display: block;
+    cursor: pointer;
+    &:hover {
+      color: #a51d1d;
+    }
+  }
+`;
+
+const ModalContainer = styled.div`
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 100;
+  .backgroundModal {
+    background-color: #cacaca8b;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+  }
+`;
+
+const Modal = styled.div`
+  position: relative;
+  width: 60%;
+  height: 60%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 0 5px 500px rgba(0, 0, 0, 0.5);
+
+  a {
+    transition: 0.3s;
+    text-decoration: none;
+    color: #000000;
+    font-weight: 800;
+    font-size: 32px;
+    margin: 0.8em;
+    &:hover {
+      color: royalblue;
+    }
+  }
+`;
+
+const CloseButton = styled(Close)`
+  position: absolute;
+  width: 2.5em;
+  top: 5px;
+  right: 5px;
+  color: #c22d2d;
+  cursor: pointer;
+  &:hover {
+    color: #242323;
+  }
+`;
+
 const Nav = () => {
+  const [modal, setModal] = useState(false);
+  const OpenModal = () => {
+    setModal(true);
+  };
+  const CloseModal = () => {
+    setModal(false);
+  };
+
   return (
     <NavContainer>
+      {modal ? (
+        <ModalContainer>
+          <div className="backgroundModal" onClick={CloseModal}></div>
+          <Modal>
+            <Link to="/createPost">
+              <span>게시물 작성</span>
+            </Link>
+            <Link to="/Allboard">
+              <span>모든 게시물 보기</span>
+            </Link>
+            <Link to="/mypage">
+              <span>마이 페이지</span>
+            </Link>
+            <Link to="/login">
+              <span>로그아웃</span>
+            </Link>
+            <CloseButton onClick={CloseModal} />
+          </Modal>
+        </ModalContainer>
+      ) : null}
       <LogoContainer>
         <Link to={{ pathname: '/' }}>
           <LogoIcon />
@@ -144,6 +257,9 @@ const Nav = () => {
           <Link to="/login">
             <ExitToAppIcon />
           </Link>
+        </IconList>
+        <IconList className="menu">
+          <MenuBar onClick={OpenModal} />
         </IconList>
       </IconContainer>
     </NavContainer>
