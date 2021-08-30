@@ -191,8 +191,8 @@ const DebatePage = () => {
       <Nav />
       <DebateContainer>
         <Post />
-        <PlaceHolderForDebatePage />
-        <Spinner />
+        {/* <PlaceHolderForDebatePage /> */}
+        {/* <Spinner /> */}
         <ReactionContainer>
           <div className="reaction positive">
             <div className="representative">
@@ -202,14 +202,15 @@ const DebatePage = () => {
               </Link>
             </div>
             <CommentContainer>
+              {/* <PlaceHolderComment />
               <PlaceHolderComment />
-              <PlaceHolderComment />
-              <PlaceHolderComment />
+              <PlaceHolderComment /> */}
+              {/* <Comment />
               <Comment />
-              <Comment />
-              <Comment />
-              <Comment />
-              <Comment />
+              <Comment /> */}
+              <div className="NoComment">
+                아직 댓글이 없습니다. 첫번째 댓글을 남겨주세요!
+              </div>
             </CommentContainer>
           </div>
           <div className="reaction negative">
@@ -220,15 +221,16 @@ const DebatePage = () => {
               </Link>
             </div>
             <CommentContainer>
+              {/* <Comment />
               <Comment />
-              <Comment />
-              <Comment />
-              <Comment />
-              <Comment />
+              <Comment /> */}
+              <div className="NoComment">
+                아직 댓글이 없습니다. 첫번째 댓글을 남겨주세요!
+              </div>
             </CommentContainer>
           </div>
         </ReactionContainer>
-        <PlaceHolderInput />
+        {/* <PlaceHolderInput /> */}
         <InputComment />
       </DebateContainer>
     </>

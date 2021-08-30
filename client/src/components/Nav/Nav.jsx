@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { Scales } from '@styled-icons/remix-fill/Scales';
 import { Search } from '@styled-icons/boxicons-regular/Search';
 import { Clipboard, GearFill, PlusCircle } from 'styled-icons/bootstrap';
 import { ExitToApp, ManageAccounts } from 'styled-icons/material-outlined';
+
 const NavContainer = styled.div`
   width: 100%;
   height: ${(props) => props.height || '6em'};
@@ -112,7 +113,58 @@ const ExitToAppIcon = styled(ExitToApp)`
     color: royalblue;
   }
 `;
-const Nav = () => {
+
+const ModalContainer = styled.div`
+  .button {
+    display: block;
+    margin: 0 auto;
+    margin-top: 50px;
+    border-radius: 6px;
+    padding: 20px;
+    z-index: 777;
+  }
+
+  .modal-background {
+    position: absolute;
+    right: 0;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.473);
+    opacity: 100%;
+  }
+
+  .modal-card {
+    margin: 0 auto;
+    display: flex;
+    margin-top: 250px;
+    width: 300px;
+    height: 200px;
+    background-color: lightgray;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 1);
+    flex-direction: column;
+    .askLogout {
+      border-bottom: 1px solid #6f91f0;
+      height: 50%;
+    }
+    .choose {
+      display: flex;
+      flex-direction: row;
+      height: 50%;
+    }
+
+    .yes {
+      border-right: 1px solid #6f91f0;
+      width: 50%;
+      height: 100%;
+    }
+    .no {
+      height: 50%;
+    }
+  }
+`;
+const Nav = ({ handleModalOpen }) => {
   return (
     <NavContainer>
       <LogoContainer>
@@ -141,9 +193,9 @@ const Nav = () => {
           </Link>
         </IconList>
         <IconList>
-          <Link to="/login">
-            <ExitToAppIcon />
-          </Link>
+          {/* <Link to="/login"> */}
+          <ExitToAppIcon onClick={handleModalOpen}></ExitToAppIcon>
+          {/* </Link> */}
         </IconList>
       </IconContainer>
     </NavContainer>

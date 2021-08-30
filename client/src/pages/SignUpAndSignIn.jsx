@@ -65,6 +65,7 @@ const Container = styled.div`
     overflow: hidden;
     margin-top: 0;
     padding-top: 0em;
+    
     .signInBx {
       form {
         padding-top: 5em;
@@ -81,7 +82,6 @@ const Container = styled.div`
       width: 100%;
       height: 100%;
       display: flex;
-      
       > .LogoImg {
         position: relative;
         width: 50%;
@@ -194,12 +194,18 @@ const Container = styled.div`
           justify-content: center;
           align-items: center;
           float: right;
-          > a {
+          a {
             font-weight: 600;
             text-decoration: none;
             &:active {
               text-decoration: none;
               color: #551A8B;
+            }
+            @media only screen and (max-width: 768px) {
+              &:before {
+                content:"\A";
+                white-space:pre;
+              }
             }
           }
         }
@@ -488,11 +494,14 @@ const SignUpAndSignIn = () => {
                 </div>
               </div>
               <p className="signIn">
-                아직 계정이 없으신가요? 지금 바로
-                <a href="#" onClick={() => setActiveFT('activeSignUpAni')}>
-                  &nbsp;회원가입
-                </a>
-                을 해보세요.
+                <div>아직 계정이 없으신가요?</div>
+                <div>
+                  지금 바로
+                  <a href="#" onClick={() => setActiveFT('activeSignUpAni')}>
+                    &nbsp;회원가입
+                  </a>
+                  을 해보세요.
+                </div>
               </p>
             </form>
           </div>
