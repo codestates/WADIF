@@ -10,6 +10,7 @@ import {
   Menu,
 } from 'styled-icons/material-outlined';
 import { Close } from 'styled-icons/remix-fill';
+
 const NavContainer = styled.div`
   width: 100%;
   height: ${(props) => props.height || '5em'};
@@ -205,7 +206,6 @@ const Nav = () => {
   const CloseModal = () => {
     setModal(false);
   };
-
   return (
     <NavContainer>
       {modal ? (
@@ -254,9 +254,9 @@ const Nav = () => {
           </Link>
         </IconList>
         <IconList>
-          <Link to="/login">
-            <ExitToAppIcon />
-          </Link>
+          {/* <Link to="/login"> */}
+          <ExitToAppIcon onClick={handleModalOpen}></ExitToAppIcon>
+          {/* </Link> */}
         </IconList>
         <IconList className="menu">
           <MenuBar onClick={OpenModal} />

@@ -27,8 +27,8 @@ module.exports = {
   },
 
   signout: (req, res) => {
+    console.log(req.body);
     res.clearCookie('refreshToken');
     res.status(200).send('로그아웃에 성공하였습니다.');
-    res.redirect('/');
   },
 };

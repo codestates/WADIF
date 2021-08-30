@@ -11,7 +11,7 @@ const rotation = keyframes`
 
 const PostContainer = styled.div`
   width: 97%;
-  height: 30em;
+  height: 40em;
   background-color: #ffffff;
   margin: 1.5em;
   padding: 1em;
@@ -45,7 +45,7 @@ const SpinnerContainer = styled.div`
 const Spinner = () => {
   return (
     <PostContainer>
-      <SpinnerContainer />
+      {/* <SpinnerContainer /> */}
       <Spinner2 />
     </PostContainer>
   );

@@ -12,6 +12,12 @@ const TopicContainer = styled.div`
   background-color: #ffffff;
   border-radius: 10px;
   padding: 1em;
+  display: flex;
+  flex-direction: column;
+  @media only screen and (max-width: 768px) {
+    height: 17em;
+    padding: 0.5em 1em 0em;
+  }
 `;
 
 const BodyContainer = styled.div`
@@ -28,6 +34,10 @@ const LeftContainer = styled.div`
   border-radius: 10px;
   margin: 0 0em 1em 0;
   position: relative;
+  min-width: 10em;
+  @media only screen and (max-width: 768px) {
+    min-width: 8em;
+  }
 `;
 
 const LeftSun = styled(Sun)`
@@ -42,6 +52,11 @@ const RightContainer = styled.div`
   flex: 9;
   margin: 0 0em 1em 0;
   /* padding-right: 2em; */
+  overflow: auto;
+  height: 12em;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const RightTopContainer = styled.div`
@@ -50,10 +65,23 @@ const RightTopContainer = styled.div`
   align-items: center;
   padding: 1.4em;
   padding-bottom: 0.5em;
+  min-width: 5em;
+  height: 3em;
+  @media only screen and (max-width: 768px) {
+    padding: 0.1em 1.4em 0.1em;
+    height: 2.5em;
+  }
 `;
 
 const HeadTitle = styled.h1`
   font-size: 1.7em;
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  @media only screen and (max-width: 768px) {
+    font-size: 1.2em;
+  }
 `;
 
 const BookMark = styled(Bookmark2)`
@@ -74,6 +102,9 @@ const RightBottomContainer = styled.div`
   padding-top: 0;
   line-height: 1.5em;
   cursor: pointer;
+  @media only screen and (max-width: 768px) {
+    font-size: 0.9em;
+  }
   a {
     color: black;
     text-decoration: none;
@@ -88,6 +119,11 @@ const BottomContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  @media only screen and (max-width: 768px) {
+    height: 2em;
+    position: relative;
+    top: 1em;
+  }
 `;
 
 const BottomLeftContainer = styled.div`
@@ -108,6 +144,10 @@ const BottomLeftCircle = styled.div`
   overflow: hidden;
   border: 1px solid black;
   /* border-color: #cf8f18; */
+  @media only screen and (max-width: 768px) {
+    width: 28px;
+    height: 28px;
+  }
 `;
 
 const BottomLeftIcon = styled(Man)`
@@ -116,12 +156,20 @@ const BottomLeftIcon = styled(Man)`
   left: -6px;
   width: 3em;
   color: #7a602f;
+  @media only screen and (max-width: 768px) {
+    top: 0.5em;
+    left: -7px;
+    width: 2.7em;
+  }
 `;
 
 const BottomLeftName = styled.span`
   margin-left: 1em;
   font-size: 1.2em;
   color: #2952ca;
+  @media only screen and (max-width: 768px) {
+    font-size: 1em;
+  }
 `;
 
 const BottomRightContainer = styled.div``;
@@ -129,12 +177,19 @@ const BottomRightContainer = styled.div``;
 const BottomRightLike = styled(Like)`
   width: 1.5em;
   margin-right: 1em;
+  @media only screen and (max-width: 768px) {
+    width: 1.2em;
+  }
 `;
 
 const BottomRightNum = styled.span`
   margin-right: 1em;
   color: red;
   font-weight: 700;
+  @media only screen and (max-width: 768px) {
+    font-weight: 500;
+    font-size: 1em;
+  }
 `;
 
 const Maintopic = ({ bgColor }) => {
@@ -146,7 +201,7 @@ const Maintopic = ({ bgColor }) => {
         </LeftContainer>
         <RightContainer>
           <RightTopContainer>
-            <HeadTitle>모래뿐일 것이다.</HeadTitle>
+            <HeadTitle>모래뿐일 것이다.모래뿐일 것이다.</HeadTitle>
             <BookMark />
           </RightTopContainer>
           <RightBottomContainer>

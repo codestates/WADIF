@@ -3,15 +3,20 @@ import styled from 'styled-components';
 import Maintopic from '../components/Maintopic/Maintopic';
 import Nav from '../components/Nav/Nav';
 import PlaceHolder from '../LodingPlaceHolder/PlaceHolderForMainPage';
+import NoDataHopTopic from '../LodingPlaceHolder/NoDataHotTopic';
 
 const MypageContainer = styled.div`
   display: flex;
   position: relative;
   width: 100%;
   height: 100vh;
-  overflow: hidden;
+  overflow: scroll;
   background-color: #dbdbdb;
-
+  @media only screen and (max-width: 768px) {
+    flex-direction: column;
+    overflow: auto;
+    padding-bottom: 5em;
+  }
   .tooltip-right {
     right: -15em;
   }
@@ -26,23 +31,43 @@ const LeftContainer = styled.div`
   margin: 1.5em;
   margin-right: 0;
   padding: 2em;
+  height: 50em;
   box-shadow: 0 0px 3px 5px rgba(0, 0, 0, 0.2);
   overflow-y: scroll;
   position: relative;
+  @media only screen and (max-width: 768px) {
+    margin: 0.5em;
+    padding: 1em;
+    margin-bottom: 0.2em;
+    box-shadow: 0 0px;
+  }
 `;
 
 const HotTopic = styled.h1`
   transform: translateX(0.5em);
   color: #b10606;
   font-size: 3em;
+  @media only screen and (max-width: 768px) {
+    font-size: 1.8em;
+  }
 `;
 
 const RightContainer = styled.div`
   flex: 1.5;
   background-color: #ffffff;
   margin: 1.5em;
-  box-shadow: 0 0px 3px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0px;
   position: relative;
+  height: 50em;
+  box-shadow: 0 0px 3px 5px rgba(0, 0, 0, 0.2);
+  @media only screen and (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0px;
+    margin: 0.5em;
+    margin-top: 0em;
+    /* overflow: scroll; */
+  }
 `;
 
 const RightTopBox = styled.div`
@@ -59,21 +84,37 @@ const RightTopBox = styled.div`
     background-color: #000000;
     position: absolute;
   }
+  @media only screen and (max-width: 768px) {
+    padding: 0.7em;
+    ::before {
+      display: none;
+    }
+  }
 `;
 
 const RightBoxLeft = styled.span`
   font-size: 0.9em;
   color: #af1f1f;
   font-weight: 700;
+  @media only screen and (max-width: 768px) {
+    display: none;
+  }
 `;
 const RightBoxRight = styled.span`
   font-size: 0.9em;
   color: #af1f1f;
   font-weight: 700;
+  @media only screen and (max-width: 768px) {
+    position: relative;
+    left: 0.5em;
+  }
 `;
 
 const RightTextContainer = styled.div`
   padding: 1em;
+  @media only screen and (max-width: 768px) {
+    height: 13em;
+  }
 `;
 
 const RightHeadTextBox = styled.input.attrs({
@@ -85,6 +126,9 @@ const RightHeadTextBox = styled.input.attrs({
   outline: none;
   border: none;
   font-size: 2em;
+  @media only screen and (max-width: 768px) {
+    font-size: 1em;
+  }
 `;
 
 const RightMainTextBox = styled.textarea.attrs({
@@ -95,9 +139,14 @@ const RightMainTextBox = styled.textarea.attrs({
   outline: none;
   border: none;
   width: 100%;
-  height: 65vh;
+  height: 45em;
   word-break: break-all;
   resize: none;
+  overflow: auto;
+  @media only screen and (max-width: 768px) {
+    margin-left: 0.3em;
+    height: 10em;
+  }
 `;
 
 const RightBottomButton = styled.button`
@@ -109,6 +158,7 @@ const RightBottomButton = styled.button`
   outline: none;
   background: #4f75e4;
   color: white;
+  z-index: 1;
   &:hover {
     background: #6363a7;
     transition: 0.3s;
@@ -116,6 +166,9 @@ const RightBottomButton = styled.button`
 
   &:active {
     background: #4f75e4;
+  }
+  @media only screen and (max-width: 768px) {
+    padding: 0.7em 1.4em;
   }
 `;
 
@@ -133,9 +186,12 @@ const ToopTip = styled.div`
   top: 1.8em;
   z-index: 10;
   transition: 1s;
+  @media only screen and (max-width: 768px) {
+    top: 6em;
+  }
 `;
 
-const Mainpage = () => {
+const Mainpage = ({ handleModalOpen }) => {
   const titleRef = useRef();
   const textRef = useRef();
 
@@ -219,17 +275,21 @@ const Mainpage = () => {
   };
   return (
     <>
-      <Nav />
+      <Nav handleModalOpen={handleModalOpen} />
       <MypageContainer>
         <ToopTip className={!tooltip ? `tooltip-right` : `tooltip-left`}>
           글과 제목을 입력해주세요!
         </ToopTip>
         <LeftContainer>
           <HotTopic>Hot Topic</HotTopic>
+          <Maintopic bgColor={ColorMaker()} />
+          <Maintopic bgColor={ColorMaker()} />
+          <Maintopic bgColor={ColorMaker()} />
+          <Maintopic bgColor={ColorMaker()} />
+          {/* <PlaceHolder />
           <PlaceHolder />
-          <PlaceHolder />
-          <PlaceHolder />
-          {/* <Maintopic bgColor={ColorMaker()} /> */}
+          <PlaceHolder /> */}
+          {/* <NoDataHopTopic /> */}
         </LeftContainer>
         <RightContainer>
           <RightTopBox>
