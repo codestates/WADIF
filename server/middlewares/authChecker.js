@@ -70,6 +70,7 @@ module.exports = {
           // req.body = {
           //   data: { accessToken: newAccessToken, userInfo: payload },
           // };
+
           // res.setHeader({ authorization: `Bearer ${newAccessToken}` });
           // resendAccessToken(res, newAccessToken, payload);
           next();

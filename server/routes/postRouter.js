@@ -12,8 +12,12 @@ router.patch('/', postControllers.updatePost);
 router.post('/reaction', postControllers.updateReaction);
 
 // comment
-router.post('/comments', commentControllers.writeComment);
-router.get('/:postId/:opinion/comments', commentControllers.seeComment);
-router.post('/comments/reaction', commentControllers.addReaction);
+router.post('/comments', authChecker, commentControllers.writeComment);
+router.get(
+  '/:postId/:opinion/comments',
+  authChecker,
+  commentControllers.seeComment,
+);
+router.post('/comments/reaction', authChecker, commentControllers.addReaction);
 
 module.exports = router;
