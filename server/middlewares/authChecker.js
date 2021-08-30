@@ -65,9 +65,12 @@ module.exports = {
           const payload = data.dataValues;
 
           const newAccessToken = generateAccessToken(payload);
-          req.body = {
-            data: { accessToken: newAccessToken, userInfo: payload },
-          };
+          req.body.userInfo = payload;
+          req.body.accessToken = newAccessToken;
+          // req.body = {
+          //   data: { accessToken: newAccessToken, userInfo: payload },
+          // };
+
           // res.setHeader({ authorization: `Bearer ${newAccessToken}` });
           // resendAccessToken(res, newAccessToken, payload);
           next();

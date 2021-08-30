@@ -5,10 +5,10 @@ const authControllers = require('../controllers/ctrlFunctions/auth');
 const { authChecker } = require('../middlewares/authChecker');
 
 // get, post 등 작성
-router.get('/posts', userControllers.myPosts);
-router.get('/bookmarks', userControllers.myBookmarks);
-router.post('/bookmarks', userControllers.addBookmarks);
-router.delete('/bookmarks', userControllers.deleteBookmarks);
+router.get('/posts', authChecker, userControllers.myPosts);
+router.get('/bookmarks', authChecker, userControllers.myBookmarks);
+router.post('/bookmarks', authChecker, userControllers.addBookmarks);
+router.delete('/bookmarks', authChecker, userControllers.deleteBookmarks);
 router.patch('/userInfo', userControllers.updateMyInfo);
 router.post('/', userControllers.signup);
 
