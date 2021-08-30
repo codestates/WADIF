@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import BoardComponent from '../components/BoardComponent/BoardComponent';
 import Nav from '../components/Nav/Nav';
 import NoDataBoard from '../LodingPlaceHolder/NoDataBoard';
+import Spinner from '../LodingPlaceHolder/Spinner';
 
 const TotalContainer = styled.div`
   display: flex;
@@ -50,7 +51,8 @@ const Allboardpage = () => {
           <BoardComponent />
           <BoardComponent />
           <BoardComponent />
-          <NoDataBoard />
+          {/* <NoDataBoard />
+          <Spinner /> */}
         </BoardSession>
       </TotalContainer>
     </>
