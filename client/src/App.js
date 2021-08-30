@@ -34,15 +34,29 @@ function App() {
       <BrowserRouter>
         <Switch>
           <Route exact path="/">
-            <Mainpage handleModalOpen={handleModalOpen} />
+           <Mainpage handleModalOpen={handleModalOpen} />
           </Route>
-          <Route path="/mypage" component={Mypage} />
-          <Route path="/createPost" component={CreatePost} />
-          <Route path="/positive" component={Positivepage} />
-          <Route path="/negative" component={Negativepage} />
-          <Route path="/Allboard" component={Allboardpage} />
-          <Route path="/debate" component={DebatepPage} />
-          <Route path="/login" component={SignUpAndSignIn} />
+          <Route path="/mypage">
+            <Mypage />
+          </Route>
+          <Route path="/createPost">
+            <CreatePost />
+          </Route>
+          <Route path="/positive">
+            <Positivepage />
+          </Route>
+          <Route path="/negative">
+            <Negativepage />
+          </Route>
+          <Route path="/Allboard">
+            <Allboardpage />
+          </Route>
+          <Route path="/debate">
+            <DebatepPage />
+          </Route>
+          <Route path="/login">
+            <SignUpAndSignIn />
+          </Route>
         </Switch>
       </BrowserRouter>
       <LogOutModal

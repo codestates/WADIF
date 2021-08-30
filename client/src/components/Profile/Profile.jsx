@@ -6,15 +6,24 @@ import { Man } from 'styled-icons/icomoon';
 const Circle = styled.div`
   width: 3em;
   height: 3em;
-  background-color: #c7c7c7;
+  background-color: #e2e2e2;
   border-radius: 50%;
   overflow: hidden;
   left: 10px;
+  @media only screen and (max-width: 768px) {
+    width: 2.2em;
+    height: 2.2em;
+  }
 `;
 
 const ProfileIcon = styled(Man)`
   width: 6em;
   transform: translate(-1.3em, 0.6em);
+  color: white;
+  @media only screen and (max-width: 768px) {
+    width: 3em;
+    transform: translate(-0.3em, 0.7em);
+  }
 `;
 
 const ProfileContainer = styled.div`
@@ -41,24 +50,31 @@ const ProfileTop = styled.div`
     .username {
       font-weight: 800;
       margin-left: 1em;
+      @media only screen and (max-width: 768px) {
+        font-size: 15px;
+        margin-left: 0.8em;
+      }
     }
     .time {
       font-size: 14px;
       margin-left: 1em;
       color: gray;
+      @media only screen and (max-width: 768px) {
+        font-size: 12px;
+      }
     }
   }
 `;
 
 const ProfileText = styled.pre`
-  width: 81vw;
+  width: 100%;
   height: 40vh;
   overflow-y: scroll;
   padding: 1em;
   word-break: keep-all;
   white-space: pre-line;
   ::-webkit-scrollbar {
-    background-color: #8b4d4d;
+    /* background-color: #8b4d4d; */
     display: none;
   }
 `;

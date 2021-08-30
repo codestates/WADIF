@@ -16,12 +16,20 @@ const TotalContainer = styled.div`
   flex-direction: column;
   width: 100%;
   height: 215vh;
+  @media only screen and (max-width: 768px) {
+    flex-direction: column;
+    height: 220vh;
+    overflow: hidden;
+  }
 `;
 
 const TopContainer = styled.div`
   flex: 2;
   background-color: #20a658;
   position: relative;
+  @media only screen and (max-width: 768px) {
+    flex: 1;
+  }
 `;
 
 const TopFollowButton = styled.button`
@@ -44,101 +52,9 @@ const BodyContainer = styled.div`
   flex: 9;
   background-color: #ffffff;
   display: flex;
-`;
-
-const LeftContainer = styled.div`
-  flex: 4;
-  background-color: #ffffff;
-  position: relative;
-  border-right: 1px solid black;
-  display: flex;
-  /* justify-content: center; */
-  align-items: center;
-  flex-direction: column;
-`;
-
-const LeftCircle = styled.div`
-  width: 12em;
-  height: 12em;
-  background-color: #fceeee;
-  border-radius: 50%;
-  /* position: absolute; */
-  display: flex;
-  overflow: hidden;
-`;
-
-const LeftProfile = styled(Man)`
-  width: 20em;
-  transform: translate(0.5em, 5em);
-`;
-
-const LeftTextBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  margin-top: 7em;
-  align-items: center;
-`;
-
-const LeftMyname = styled.span`
-  font-size: 1.5em;
-  margin-bottom: 10px;
-`;
-
-const LeftMyEmail = styled.span`
-  margin-bottom: 5px;
-`;
-
-const LeftMyJob = styled.span`
-  color: gray;
-`;
-
-const LeftEtcBox = styled.div``;
-
-const EtcFollowSession = styled.div`
-  display: flex;
-  position: relative;
-  ::before {
-    content: '';
-    width: 90%;
-    height: 2px;
-    background-color: #757575;
-    position: absolute;
-    right: 1.4em;
-    bottom: -2em;
+  @media only screen and (max-width: 768px) {
+    flex-direction: column;
   }
-`;
-
-const EtcLeft = styled.div`
-  display: none;
-  flex: 1;
-  padding: 2em;
-  justify-content: space-between;
-  position: relative;
-  ::before {
-    content: '';
-    width: 2px;
-    height: 2em;
-    background-color: #757575;
-    position: absolute;
-    right: 0;
-    top: 1.5em;
-  }
-`;
-
-const EtcRight = styled.div`
-  display: none;
-  flex: 1;
-  padding: 2em;
-  justify-content: space-between;
-`;
-
-const EtcIntroduceSession = styled.div`
-  margin-top: 2em;
-  padding: 2em;
-  padding-top: 1em;
-  font-size: 1.1em;
-  word-break: break-all;
 `;
 
 const RightContainer = styled.div`
@@ -149,6 +65,9 @@ const RightContainer = styled.div`
   overflow: hidden;
   position: relative;
   height: 190vh;
+  @media only screen and (max-width: 768px) {
+    flex: 16;
+  }
 `;
 
 const RightMyTextContainer = styled.div`
@@ -170,6 +89,12 @@ const RightMyTextContainer = styled.div`
     position: absolute;
     bottom: 4em;
   }
+  @media only screen and (max-width: 768px) {
+    margin: 2em;
+    margin-top: 0;
+    margin-bottom: 1em;
+    width: 90%;
+  }
 `;
 
 const MyTextHeader = styled.div`
@@ -187,6 +112,12 @@ const MyTextHeader = styled.div`
     font-weight: 600;
     &:hover {
       color: red;
+    }
+  }
+  @media only screen and (max-width: 768px) {
+    top: 1em;
+    h1 {
+      font-size: 24px;
     }
   }
 `;
@@ -207,6 +138,9 @@ const MoveContainer = styled.div`
   z-index: 20;
   padding: 10px;
   cursor: pointer;
+  @media only screen and (max-width: 768px) {
+    top: 10em;
+  }
 `;
 
 const LeftMove = styled(LeftArrow)`
@@ -214,23 +148,33 @@ const LeftMove = styled(LeftArrow)`
   &:hover {
     color: blue;
   }
+  @media only screen and (max-width: 768px) {
+    width: 20px;
+  }
 `;
 const RightMove = styled(RightArrow)`
   width: 30px;
   &:hover {
     color: blue;
   }
+  @media only screen and (max-width: 768px) {
+    width: 20px;
+  }
 `;
 
 const LikeMoveContainer = styled.div`
   width: 100%;
-  bottom: 54%;
+  top: 42%;
   display: flex;
   justify-content: space-between;
   position: absolute;
   z-index: 20;
   padding: 10px;
   cursor: pointer;
+  @media only screen and (max-width: 768px) {
+    bottom: none;
+    top: 42%;
+  }
 `;
 
 const RightLikeContianer = styled.div`
@@ -251,6 +195,12 @@ const RightLikeContianer = styled.div`
     position: absolute;
     bottom: 4em;
   }
+  @media only screen and (max-width: 768px) {
+    margin: 2em;
+    margin-top: 0;
+    margin-bottom: 0;
+    width: 90%;
+  }
 `;
 
 const LikeHeader = styled.div`
@@ -270,6 +220,12 @@ const LikeHeader = styled.div`
       color: red;
     }
   }
+  @media only screen and (max-width: 768px) {
+    h1 {
+      top: 1em;
+      font-size: 24px;
+    }
+  }
 `;
 
 const LikeContent = styled.div`
@@ -281,6 +237,11 @@ const LikeContent = styled.div`
 
 const Security = styled.div`
   transform: translateY(-2em);
+  @media only screen and (max-width: 768px) {
+    transform: translate(-2em, 0);
+    overflow: visible;
+    width: 100%;
+  }
 `;
 
 const Mypage = () => {
@@ -351,7 +312,7 @@ const Mypage = () => {
       <Nav />
       <TotalContainer>
         <TopContainer>
-          <TopFollowButton>Follow</TopFollowButton>
+          {/* <TopFollowButton>Follow</TopFollowButton> */}
         </TopContainer>
         <BodyContainer>
           <MyPageProfile />

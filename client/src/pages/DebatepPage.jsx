@@ -21,11 +21,15 @@ const DebateContainer = styled.div`
   position: relative;
   background: #dbdbdb;
   flex-direction: column;
+  @media only screen and (max-width: 768px) {
+  }
 `;
 
 const ProfileIcon = styled(Man)`
   width: 4.5em;
   transform: translate(-0.8em, 0.7em);
+  @media only screen and (max-width: 768px) {
+  }
 `;
 
 const MessageIcon = styled(Messages)`
@@ -33,6 +37,9 @@ const MessageIcon = styled(Messages)`
   width: 1.2em;
   fill: black;
   float: right;
+  @media only screen and (max-width: 768px) {
+    width: 1em;
+  }
 `;
 
 const LikeIcon = styled(Like)`
@@ -113,12 +120,18 @@ const ReactionContainer = styled(PostContainer)`
     border-right: solid #dbdbdb;
     .representative {
       color: #3026b8;
+      @media only screen and (max-width: 768px) {
+        font-size: 18px;
+      }
     }
   }
 
   > .negative {
     .representative {
       color: #810f0f;
+      @media only screen and (max-width: 768px) {
+        font-size: 18px;
+      }
     }
   }
   .representative {

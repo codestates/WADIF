@@ -20,6 +20,9 @@ const HeaderSession = styled.div`
   align-items: center;
   justify-content: space-around;
   font-weight: 700;
+  @media only screen and (max-width: 768px) {
+    font-size: 14px;
+  }
 `;
 
 const BoardSession = styled.div`

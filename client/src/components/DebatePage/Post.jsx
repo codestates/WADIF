@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components';
 import { Man } from 'styled-icons/icomoon';
 import { Bookmark2 } from 'styled-icons/remix-fill';
 import { Like, Dislike } from 'styled-icons/boxicons-solid';
+import { useState } from 'react';
 
 const ProfileIcon = styled(Man)`
   width: 4.5em;
@@ -16,12 +17,17 @@ const BookMark = styled(Bookmark2)`
   position: relative;
   top: -15px;
   left: 10px;
-  &:hover {
-    color: #aa0000;
-    transition: 0.4s;
-  }
-  &:active {
-    color: red;
+  color: ${(props) => {
+    if (props.mark) {
+      return '#eb1414';
+    } else {
+      return '#000000';
+    }
+  }};
+
+  @media only screen and (max-width: 768px) {
+    width: 1em;
+    margin-right: 1em;
   }
 `;
 
@@ -29,12 +35,18 @@ const LikeIcon = styled(Like)`
   width: 1.5em;
   transform: translate(-0.2em, -0.2em);
   fill: #3774e7;
+  @media only screen and (max-width: 768px) {
+    width: 1em;
+  }
 `;
 
 const DislikeIcon = styled(Dislike)`
   width: 1.5em;
   transform: translate(-0.2em, -0.2em);
   fill: #3774e7;
+  @media only screen and (max-width: 768px) {
+    width: 1em;
+  }
 `;
 
 const PostContainer = styled.div`
@@ -88,6 +100,9 @@ const DebateSubject = styled(basicDiv)`
     font-weight: 800;
     font-size: 30px;
   }
+  @media only screen and (max-width: 768px) {
+    font-size: 16px;
+  }
 `;
 
 const UserInfo = styled(basicDiv)`
@@ -136,6 +151,14 @@ const DebateInfo = styled(basicDiv)`
 `;
 
 const DebatePage = () => {
+  const [mark, setMark] = useState(false);
+  const MarkHandler = (e) => {
+    if (!mark) {
+      setMark(true);
+    } else {
+      setMark(false);
+    }
+  };
   return (
     <>
       <PostContainer>
@@ -147,7 +170,7 @@ const DebatePage = () => {
             <span className="name">안치원</span>
             <br />
             <span>2020년 1월 1일</span>
-            <BookMark />
+            <BookMark mark={mark} onClick={MarkHandler} />
           </div>
         </UserInfo>
         <DebateSubject>

@@ -53,14 +53,14 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   padding: 0.8em;
-  
+
   section {
     position: relative;
     top: -5em;
     width: 55em;
     height: 35em;
     background: #fff;
-    box-shadow: 0 1em 3em rgba(0,0,0,0.1);
+    box-shadow: 0 1em 3em rgba(0, 0, 0, 0.1);
     border-radius: 5%;
     overflow: hidden;
     margin-top: 0;
@@ -74,7 +74,7 @@ const Container = styled.div`
         padding-top: 2em;
       }
     }
-    
+
     > .user {
       position: absolute;
       top: 0;
@@ -82,6 +82,7 @@ const Container = styled.div`
       width: 100%;
       height: 100%;
       display: flex;
+
       > .LogoImg {
         position: relative;
         width: 50%;
@@ -125,7 +126,7 @@ const Container = styled.div`
             flex-direction: column;
             width: 40em;
           }
-          .hidden{
+          .hidden {
             display: none;
           }
         }
@@ -139,13 +140,13 @@ const Container = styled.div`
           width: 100%;
           margin-bottom: 0.5em;
         }
-        
+
         input {
           width: 100%;
           height: 100%;
           padding: 0.7em;
           background: #f5f5f5;
-          color: #333;  
+          color: #333;
           border: none;
           outline: none;
           box-shadow: none;
@@ -159,12 +160,12 @@ const Container = styled.div`
           left: -0.5em;
           z-index: 2;
         }
-        
-        button[type="submit"] {
+
+        button[type='submit'] {
           float: right;
           width: 5em;
           height: 2em;
-          background #3b51cca9;
+          background: #3b51cca9;
           color: #fff;
           cursor: pointer;
           font-size: 0.9em;
@@ -175,7 +176,7 @@ const Container = styled.div`
           left: -0.5em;
           top: 0.5em;
           z-index: 1;
-          &:hover{
+          &:hover {
             background-color: #07c;
           }
           &:active {
@@ -184,12 +185,13 @@ const Container = styled.div`
           }
         }
 
-        .signUp, .signIn {
+        .signUp,
+        .signIn {
           position: relative;
           top: -29em;
           height: 1em;
           margin-top: 0em;
-          font-size: 0.90em;
+          font-size: 0.9em;
           display: flex;
           justify-content: center;
           align-items: center;
@@ -199,7 +201,7 @@ const Container = styled.div`
             text-decoration: none;
             &:active {
               text-decoration: none;
-              color: #551A8B;
+              color: #551a8b;
             }
             @media only screen and (max-width: 768px) {
               &:before {
@@ -216,13 +218,12 @@ const Container = styled.div`
     }
     .signUpBx {
       .LogoImg {
-        background: #e26060;   
+        background: #e26060;
       }
     }
-    
-    .signInBx .formBx form{
+
+    .signInBx .formBx form {
       margin-top: 1em;
-      
     }
     .notActiveSignUp {
       .LogoImg {
@@ -260,6 +261,7 @@ const Container = styled.div`
         animation-timing-function: ease-out;
         animation-name: ${slideDown2};
         animation-fill-mode: forwards;
+
         z-index: 1000;
       }
       .formBx {
