@@ -4,17 +4,20 @@ import Maintopic from '../components/Maintopic/Maintopic';
 import Nav from '../components/Nav/Nav';
 import PlaceHolder from '../LodingPlaceHolder/PlaceHolderForMainPage';
 import NoDataHopTopic from '../LodingPlaceHolder/NoDataHotTopic';
+import axios from 'axios';
 
 const MypageContainer = styled.div`
   display: flex;
   position: relative;
   width: 100%;
-  height: 100vh;
-  overflow: scroll;
+  height: 89vh;
+  overflow: auto;
+  overflow-x: hidden;
   background-color: #dbdbdb;
   @media only screen and (max-width: 768px) {
+    height: 100vh;
     flex-direction: column;
-    overflow: auto;
+    overflow-y: auto;
     padding-bottom: 5em;
   }
   .tooltip-right {
@@ -36,6 +39,7 @@ const LeftContainer = styled.div`
   overflow-y: scroll;
   position: relative;
   @media only screen and (max-width: 768px) {
+    height: 100em;
     margin: 0.5em;
     padding: 1em;
     margin-bottom: 0.2em;
@@ -111,6 +115,7 @@ const RightBoxRight = styled.span`
 `;
 
 const RightTextContainer = styled.div`
+  height: 18em;
   padding: 1em;
   @media only screen and (max-width: 768px) {
     height: 13em;
@@ -191,7 +196,7 @@ const ToopTip = styled.div`
   }
 `;
 
-const Mainpage = ({ handleModalOpen }) => {
+const Mainpage = ({ handleModalOpen, accessToken }) => {
   const titleRef = useRef();
   const textRef = useRef();
 
@@ -199,6 +204,25 @@ const Mainpage = ({ handleModalOpen }) => {
   const [text, setText] = useState('');
   const [condition, setCondition] = useState(false);
   const [tooltip, setTooltip] = useState(false);
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    const getPostUrl = 'https://localhost:4000/main';
+    const config = {
+      'Content-Type': 'application/json',
+      withCredentials: true,
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    };
+    axios
+      .get(getPostUrl, config)
+      .then((response) => {
+        setPosts(response.data.data);
+        // console.log(response.data.data);
+      })
+      .catch(console.log);
+  }, []);
 
   function TitleEdit() {
     if (condition) {
@@ -282,10 +306,9 @@ const Mainpage = ({ handleModalOpen }) => {
         </ToopTip>
         <LeftContainer>
           <HotTopic>Hot Topic</HotTopic>
-          <Maintopic bgColor={ColorMaker()} />
-          <Maintopic bgColor={ColorMaker()} />
-          <Maintopic bgColor={ColorMaker()} />
-          <Maintopic bgColor={ColorMaker()} />
+          {posts.map((postInfo) => (
+            <Maintopic postInfo={postInfo} bgColor={ColorMaker()} />
+          ))}
           {/* <PlaceHolder />
           <PlaceHolder />
           <PlaceHolder /> */}
