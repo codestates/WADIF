@@ -192,7 +192,9 @@ const BottomRightNum = styled.span`
   }
 `;
 
-const Maintopic = ({ bgColor }) => {
+const Maintopic = ({ bgColor, postInfo }) => {
+  const { title, content, views, username } = postInfo;
+  // console.log(postInfo);
   return (
     <TopicContainer>
       <BodyContainer>
@@ -201,19 +203,11 @@ const Maintopic = ({ bgColor }) => {
         </LeftContainer>
         <RightContainer>
           <RightTopContainer>
-            <HeadTitle>모래뿐일 것이다.모래뿐일 것이다.</HeadTitle>
+            <HeadTitle>{title}</HeadTitle>
             <BookMark />
           </RightTopContainer>
           <RightBottomContainer>
-            <Link to="/mypage">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus
-              vero sint labore a, alias tempora quas quisquam, inventore dolores
-              quod eius facere, voluptatibus dolorum ratione distinctio! Earum
-              inventore nemo alias.Lorem ipsum dolor sit amet, consectetur
-              adipisicing elit. Minus vero sint labore a, alias tempora quas
-              quisquam, inventore dolores quod eius facere, voluptatibus dolorum
-              ratione distinctio! Earum inventore nemo alias.
-            </Link>
+            <Link to="/mypage">{content}</Link>
           </RightBottomContainer>
         </RightContainer>
       </BodyContainer>
@@ -222,11 +216,11 @@ const Maintopic = ({ bgColor }) => {
           <BottomLeftCircle>
             <BottomLeftIcon />
           </BottomLeftCircle>
-          <BottomLeftName>김우석</BottomLeftName>
+          <BottomLeftName>{username}</BottomLeftName>
         </BottomLeftContainer>
         <BottomRightContainer>
           <BottomRightLike />
-          <BottomRightNum>1234</BottomRightNum>
+          <BottomRightNum>{views}</BottomRightNum>
         </BottomRightContainer>
       </BottomContainer>
     </TopicContainer>
