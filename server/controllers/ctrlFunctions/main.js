@@ -6,7 +6,6 @@ const {
 const { posts, users } = require('../../models');
 module.exports = {
   hotTopic: async (req, res) => {
-    console.log(req.query);
     try {
       const postData = await posts.findAll({
         order: [['views', 'DESC']],
@@ -23,6 +22,7 @@ module.exports = {
           delete el.dataValues.user;
           return el;
         }),
+        token: req.body.accessToken,
         message: '조회수 정렬로 게시글을 조회하였습니다.',
       });
     } catch (e) {

@@ -7,9 +7,8 @@ const { users, comments } = require('../../models');
 
 module.exports = {
   writeComment: async (req, res) => {
-    console.log(req.body);
     const user_id = req.body.userInfo.id;
-    const { post_id, content, opinion } = req.body;
+    const { post_id, content, opinion, accessToken } = req.body;
     try {
       const commentData = await comments.create({
         user_id,
@@ -17,11 +16,12 @@ module.exports = {
         opinion,
         content,
       });
-      console.log(commentData);
       if (commentData) {
-        res
-          .status(201)
-          .json({ data: commentData, message: '의견이 작성되었습니다.' });
+        res.status(201).json({
+          data: commentData,
+          token: accessToken,
+          message: '의견이 작성되었습니다.',
+        });
       } else {
         res.status(404).json({ message: '의견 작성에 실패하였습니다.' });
       }
@@ -31,9 +31,7 @@ module.exports = {
   },
 
   seeComment: async (req, res) => {
-    console.log(req);
-    const { postId, opinion } = req.params;
-
+    const { postId, opinion, accessToken } = req.params;
     try {
       const commentsData = await comments.findAll({
         include: [
@@ -44,13 +42,13 @@ module.exports = {
         ],
         where: { post_id: postId, opinion },
       });
-      console.log(commentsData);
       res.status(200).json({
         data: commentsData.map((el) => {
           el.dataValues.username = el.dataValues.user.username;
           delete el.dataValues.user;
           return el;
         }),
+        token: accessToken,
         message: '의견 조회에 성공하였습니다.',
       });
     } catch (e) {

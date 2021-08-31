@@ -9,7 +9,8 @@ router.get('/posts', authChecker, userControllers.myPosts);
 router.get('/bookmarks', authChecker, userControllers.myBookmarks);
 router.post('/bookmarks', authChecker, userControllers.addBookmarks);
 router.delete('/bookmarks', authChecker, userControllers.deleteBookmarks);
-router.patch('/userInfo', userControllers.updateMyInfo);
+router.patch('/userInfo', authChecker, userControllers.updateMyInfo);
+router.post('/userInfo', authChecker, userControllers.checkUserInfo);
 router.post('/', userControllers.signup);
 
 router.post('/signin', authControllers.signin);

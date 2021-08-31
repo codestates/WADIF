@@ -7,7 +7,7 @@ const { posts, comments, users } = require('../../models');
 
 module.exports = {
   writePost: async (req, res) => {
-    const { title, content, userInfo } = req.body;
+    const { title, content, userInfo, accessToken } = req.body;
     const postData = await posts.create({
       user_id: userInfo.id,
       title,
@@ -17,6 +17,7 @@ module.exports = {
     if (postData) {
       res.status(200).json({
         data: postData,
+        token: accessToken,
         message: '게시글 작성이 완료되었습니다.',
       });
     } else {
@@ -59,6 +60,7 @@ module.exports = {
               return el;
             }),
           },
+          token: req.body.accessToken,
           message: '게시글 조회에 성공하였습니다.',
         });
       } else {
