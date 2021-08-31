@@ -25,8 +25,8 @@ module.exports = {
       } else {
         res.status(404).json({ message: '의견 작성에 실패하였습니다.' });
       }
-    } catch (e) {
-      throw e;
+    } catch (err) {
+      res.status(500).send('서버 에러');
     }
   },
 
