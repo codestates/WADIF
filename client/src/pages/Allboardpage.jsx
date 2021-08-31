@@ -1,5 +1,7 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { ArrowSyncOff } from 'styled-icons/fluentui-system-regular';
 import BoardComponent from '../components/BoardComponent/BoardComponent';
 import Nav from '../components/Nav/Nav';
 import NoDataBoard from '../LodingPlaceHolder/NoDataBoard';
@@ -33,6 +35,22 @@ const BoardSession = styled.div`
 `;
 
 const Allboardpage = () => {
+  const [all, setAll] = useState([]);
+  const [accessToken, setAccessToken] = useState(
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OSwidXNlcklkIjoia3dzIiwidXNlcm5hbWUiOiJ3b29zZW9rIiwiZW1haWwiOiJrd3NAZ21haWwuY29tIiwiY3JlYXRlZEF0IjpudWxsLCJ1cGRhdGVkQXQiOm51bGwsImlhdCI6MTYzMDMyMDQ4MywiZXhwIjoxNjMxNjE2NDgzfQ.mUv4tgwGEYsnb6G65heOOonDrf9Z0wvDyo46zW_Q-QA',
+  );
+
+  useEffect(async () => {
+    const data = await axios.get('https://localhost:4000/main?sort=views', {
+      headers: {
+        authorization: `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+      },
+      withCredentials: true,
+    });
+    setAll(data.data.data);
+  }, []);
+
   return (
     <>
       <Nav />
@@ -45,17 +63,16 @@ const Allboardpage = () => {
           <span>조회수</span>
         </HeaderSession>
         <BoardSession>
-          <BoardComponent />
-          <BoardComponent />
-          <BoardComponent />
-          <BoardComponent />
-          <BoardComponent />
-          <BoardComponent />
-          <BoardComponent />
-          <BoardComponent />
-          <BoardComponent />
-          {/* <NoDataBoard />
-          <Spinner /> */}
+          {all.length > 0 ? (
+            all.map((item) => {
+              return (
+                <BoardComponent key={item.id} data={item} token={accessToken} />
+              );
+            })
+          ) : (
+            <NoDataBoard />
+          )}
+          {/* <Spinner /> */}
         </BoardSession>
       </TotalContainer>
     </>

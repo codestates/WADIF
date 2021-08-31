@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import axios from 'axios';
 
 const BoardContainer = styled.div`
   cursor: pointer;
@@ -38,16 +39,46 @@ const BoardContainer = styled.div`
   }
 `;
 
-const BoardComponent = () => {
+const BoardComponent = (props) => {
+  // console.log(props);
+  const [data, setData] = useState([]);
+  const history = useHistory();
+  const getData = async () => {
+    const wsdata = await axios.get(
+      `https://localhost:4000/posts/${props.data.id}`,
+      {
+        headers: {
+          authorization: `Bearer ${props.token}`,
+          'Content-Type': 'application/json',
+        },
+        withCredentials: true,
+      },
+    );
+    setData([wsdata.data.data]);
+  };
+  useEffect(() => {
+    if (data.length > 0) {
+      history.push({
+        pathname: '/debate',
+        state: data,
+      });
+    }
+  }, [data]);
   return (
     <BoardContainer>
-      <Link to={{ pathname: '/debatepage' }}>
-        <span className="title">격해지는 갈등에 대하여</span>
+      <Link
+        to={{
+          pathname: `/debate/${props.data.id}`,
+        }}
+      >
+        <span className="title">{props.data.title}</span>
       </Link>
-      <span className="username">김우석</span>
-      <span className="day">2021-06-30 (토) 15:33</span>
+      <span className="username" onClick={getData}>
+        {props.data.username}
+      </span>
+      <span className="day">{props.data.createdAt}</span>
       <span className="like">1234</span>
-      <span className="views">66,321</span>
+      <span className="views">{props.data.views}</span>
     </BoardContainer>
   );
 };

@@ -34,7 +34,7 @@ function App() {
       <BrowserRouter>
         <Switch>
           <Route exact path="/">
-           <Mainpage handleModalOpen={handleModalOpen} />
+            <Mainpage handleModalOpen={handleModalOpen} />
           </Route>
           <Route path="/mypage">
             <Mypage />

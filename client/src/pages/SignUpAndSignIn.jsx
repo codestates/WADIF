@@ -65,7 +65,7 @@ const Container = styled.div`
     overflow: hidden;
     margin-top: 0;
     padding-top: 0em;
-    
+
     .signInBx {
       form {
         padding-top: 5em;
@@ -205,8 +205,8 @@ const Container = styled.div`
             }
             @media only screen and (max-width: 768px) {
               &:before {
-                content:"\A";
-                white-space:pre;
+                content: '\A';
+                white-space: pre;
               }
             }
           }

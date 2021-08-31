@@ -12,6 +12,7 @@ import Post from '../components/DebatePage/Post';
 import InputComment from '../components/DebatePage/InputComment';
 import PlaceHolderInput from '../LodingPlaceHolder/PlaceHolderForDebateInput';
 import Nav from '../components/Nav/Nav';
+import { useLocation } from 'react-router-dom';
 
 const DebateContainer = styled.div`
   display: flex;
@@ -198,13 +199,22 @@ const SelfUserInfo = styled(UserInfo)`
   }
 `;
 
-const DebatePage = () => {
+const DebatePage = (props) => {
+  const location = useLocation();
+  const data = location.state;
+
+  const prosOpinion = data[0].comments.filter(
+    (item) => item.opinion === 'pros',
+  );
+  const consOpinion = data[0].comments.filter(
+    (item) => item.opinion === 'cons',
+  );
+
   return (
     <>
       <Nav />
       <DebateContainer>
-        <Post />
-        {/* <PlaceHolderForDebatePage /> */}
+        {!data ? <PlaceHolderForDebatePage /> : <Post data={data[0]} />}
         {/* <Spinner /> */}
         <ReactionContainer>
           <div className="reaction positive">
@@ -218,11 +228,10 @@ const DebatePage = () => {
               {/* <PlaceHolderComment />
               <PlaceHolderComment />
               <PlaceHolderComment /> */}
-              {/* <Comment />
-              <Comment />
-              <Comment /> */}
               <div className="NoComment">
-                아직 댓글이 없습니다. 첫번째 댓글을 남겨주세요!
+                {prosOpinion.map((item) => {
+                  return <Comment key={item.id} data={item} />;
+                })}
               </div>
             </CommentContainer>
           </div>
@@ -234,11 +243,10 @@ const DebatePage = () => {
               </Link>
             </div>
             <CommentContainer>
-              {/* <Comment />
-              <Comment />
-              <Comment /> */}
               <div className="NoComment">
-                아직 댓글이 없습니다. 첫번째 댓글을 남겨주세요!
+                {consOpinion.map((item) => {
+                  return <Comment key={item.id} data={item} />;
+                })}
               </div>
             </CommentContainer>
           </div>

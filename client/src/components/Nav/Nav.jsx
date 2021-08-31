@@ -10,6 +10,7 @@ import {
   Menu,
 } from 'styled-icons/material-outlined';
 import { Close } from 'styled-icons/remix-fill';
+import LogOutModal from './LogOutModal';
 
 const NavContainer = styled.div`
   width: 100%;
@@ -198,7 +199,7 @@ const CloseButton = styled(Close)`
   }
 `;
 
-const Nav = () => {
+const Nav = ({ handleModalOpen }) => {
   const [modal, setModal] = useState(false);
   const OpenModal = () => {
     setModal(true);
@@ -254,9 +255,7 @@ const Nav = () => {
           </Link>
         </IconList>
         <IconList>
-          {/* <Link to="/login"> */}
           <ExitToAppIcon onClick={handleModalOpen}></ExitToAppIcon>
-          {/* </Link> */}
         </IconList>
         <IconList className="menu">
           <MenuBar onClick={OpenModal} />

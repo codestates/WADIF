@@ -150,7 +150,9 @@ const DebateInfo = styled(basicDiv)`
   }
 `;
 
-const DebatePage = () => {
+const DebatePage = (props) => {
+  const data = props.data;
+  console.log(data);
   const [mark, setMark] = useState(false);
   const MarkHandler = (e) => {
     if (!mark) {
@@ -167,40 +169,18 @@ const DebatePage = () => {
             <ProfileIcon />
           </div>
           <div className="profile">
-            <span className="name">안치원</span>
+            <span className="name">{data.username}</span>
             <br />
-            <span>2020년 1월 1일</span>
+            <span>{data.createdAt ? data.createdAt : `2020년 1월 1일`}</span>
             <BookMark mark={mark} onClick={MarkHandler} />
           </div>
         </UserInfo>
         <DebateSubject>
           <div className="debateImage"></div>
           <div className="debateInfo">
-            <span className="title">제목이 들어갈 자리</span>
+            <span className="title">{data.title}</span>
             <br />
-            <span className="content">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta,
-              hic perferendis! Vero, provident quo quia dignissimos quaerat
-              quidem odio distinctio veritatis saepe, inventore temporibus eaque
-              enim labore magnam, porro voluptate?Lorem ipsum dolor sit amet
-              consectetur adipisicing elit. Dicta, hic perferendis! Vero,
-              provident quo quia dignissimos quaerat quidem odio distinctio
-              veritatis saepe, inventore temporibus eaque enim labore magnam,
-              porro voluptate?Lorem ipsum dolor sit amet consectetur adipisicing
-              elit. Dicta, hic perferendis! Vero, provident quo quia dignissimos
-              quaerat quidem odio distinctio veritatis saepe, inventore
-              temporibus eaque enim lLorem ipsum dolor sit amet consectetur
-              adipisicing elit. Dicta, hic perferendis! Vero, provident quo quia
-              dignissimos quaerat quidem odio distinctio veritatis saepe,
-              inventore temporibus eaque enim labore magnam, porro
-              voluptate?Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Dicta, hic perferendis! Vero, provident quo quia dignissimos
-              quaerat quidem odio distinctio veritatis saepe, inventore
-              temporibus eaque enim labore magnam, porro voluptate?Lorem ipsum
-              dolor sit amet consectetur adipisicing elit. Dicta, hic
-              perferendis! Vero, provident quo quia dignissimos quaerat quidem
-              odio distinctio veritatis saepe, inventore temporibus eaque enim l
-            </span>
+            <span className="content">{data.content}</span>
           </div>
         </DebateSubject>
         <DebateInfo>
@@ -209,7 +189,7 @@ const DebatePage = () => {
           <DislikeIcon />
           <span className="likes"> 2.1K</span>
           <span className="connectInput"> 댓글달기</span>
-          <span className="hits"> 조회수 300000</span>
+          <span className="hits"> 조회수 {data.views}</span>
         </DebateInfo>
         <div className="row"></div>
       </PostContainer>

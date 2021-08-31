@@ -15,7 +15,13 @@ const postRouter = require('./routes/postRouter');
 
 // 4. 미들웨어 세팅
 // 4-1. cors는 보안을 잡기 위해 우선 디폴트로 세팅
-app.use(cors());
+app.use(
+  cors({
+    origin: 'http://localhost:3000',
+    credentials: true,
+    methods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS'],
+  }),
+);
 app.use(cookieParser());
 
 // 4-2. bodyParser의 역할
