@@ -1,6 +1,7 @@
 import styled, { keyframes } from 'styled-components';
 import { Scales } from '@styled-icons/remix-fill/Scales';
 import { useState } from 'react';
+import axios from 'axios';
 
 const slideUp = keyframes`
   from {
@@ -8,24 +9,6 @@ const slideUp = keyframes`
   }
   to {
     transform: translateY(0%);
-  }
-`;
-
-const slideUp2 = keyframes`
-  from {
-    transform: translateY(0%);
-  }
-  to {
-    transform: translateY(-100%);
-  }
-`;
-
-const slideDown = keyframes`
-  from {
-    transform: translateY(0%);
-  }
-  to {
-    transform: translateY(100%);
   }
 `;
 
@@ -53,7 +36,9 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   padding: 0.8em;
-
+  @media only screen and (max-width: 768px) {
+    min-width: 30em;
+  }
   section {
     position: relative;
     top: -5em;
@@ -65,7 +50,7 @@ const Container = styled.div`
     overflow: hidden;
     margin-top: 0;
     padding-top: 0em;
-    
+
     .signInBx {
       form {
         padding-top: 5em;
@@ -93,6 +78,9 @@ const Container = styled.div`
         background: #2639a7b2; //4d5899a9
         flex-direction: column;
         display: flex;
+        @media only screen and (max-width: 768px) {
+          display: none;
+        }
 
         > .LogoText {
           font-family: 'Ubuntu', sans-serif;
@@ -111,7 +99,9 @@ const Container = styled.div`
         transition: 0.5s;
         z-index: 1;
         padding: 0 auto;
-
+        @media only screen and (max-width: 768px) {
+          width: 100%;
+        }
         .errMessage {
           position: relative;
           font-size: 12.8px;
@@ -203,12 +193,6 @@ const Container = styled.div`
               text-decoration: none;
               color: #551a8b;
             }
-            @media only screen and (max-width: 768px) {
-              &:before {
-                content:"\A";
-                white-space:pre;
-              }
-            }
           }
         }
         .signUp {
@@ -295,9 +279,7 @@ const Container = styled.div`
   }
 `;
 
-const SignUpAndSignIn = () => {
-  //slideup animation keyframes
-
+const SignUpAndSignIn = ({ history, setAccessToken }) => {
   //애니메이션 구현을 위한 클래스 상태 변경
   const setActiveFT = (value) => {
     if (value === 'activeSignUpAni') {
@@ -331,6 +313,9 @@ const SignUpAndSignIn = () => {
   const [signInState, setSignInState] = useState('initialSI');
   const [signUpState, setSignUpState] = useState('initialSU');
 
+  const { id, password } = inputsSI;
+  const { idSU, nameSU, emailSU, passwordSU, password2SU } = inputsSU;
+
   const onChangeSI = (e) => {
     const { name, value } = e.target;
     const nextInputs = {
@@ -347,7 +332,7 @@ const SignUpAndSignIn = () => {
       [name]: value,
     };
     setInputsSU(nextInputs);
-    console.log(nextInputs);
+    // console.log(nextInputs);
     const isAllValid = CheckInputsSU(nextInputs);
   };
 
@@ -362,6 +347,7 @@ const SignUpAndSignIn = () => {
   const ResetStateSU = () => {
     setInputsSU({
       idSU: '',
+      nameSU: '',
       emailSU: '',
       passwordSU: '',
       password2SU: '',
@@ -378,26 +364,9 @@ const SignUpAndSignIn = () => {
     const isEmailValid = checkEmailSU(emailSU);
     const isPasswordValid = checkPasswordSU(passwordSU);
     const isPassword2Valid = checkPassword2SU(passwordSU, password2SU);
-    if (idSU === '') setErrStateOfId('hidden');
-    if (emailSU === '') setErrStateOfEmail('hidden');
-    if (passwordSU === '') setErrStateOfPassword('hidden');
-    if (password2SU === '') setErrStateOfPassword2('hidden');
     return isIdValid && isEmailValid && isPasswordValid && isPassword2Valid
       ? true
       : false;
-  };
-
-  const SignInSubmit = () => {
-    //axios.post 로그인 정보 전송
-    if (alertErr() && CheckInputsSU(inputsSU)) {
-      return true;
-    }
-  };
-
-  const SignUpSubmit = (e) => {
-    // if (checkUserIdSU(id) && checkEmailSU(email) && checkPasswordSU(password) && checkPassword2SU(password,password2)) {
-    //   console.log("success")//axios.post 회원가입 정보 전송
-    // }
   };
 
   const alertErr = () => {
@@ -410,7 +379,6 @@ const SignUpAndSignIn = () => {
       ? true
       : false;
   };
-
   //입력되지 않은 데이터에 대해서 alert
   const checkExistData = (value, dataName) => {
     if (value === '') {
@@ -422,6 +390,10 @@ const SignUpAndSignIn = () => {
 
   const checkUserIdSU = (id) => {
     var idRegExp = /^[a-zA-z0-9]{4,12}$/;
+    if (id === '') {
+      setErrStateOfId('hidden');
+      return false;
+    }
     if (!idRegExp.test(id)) {
       setErrStateOfId('');
       return false;
@@ -433,6 +405,10 @@ const SignUpAndSignIn = () => {
   const checkEmailSU = (email) => {
     var emailExp =
       /^[0-9a-zA-Z]([-_]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
+    if (email === '') {
+      setErrStateOfEmail('hidden');
+      return false;
+    }
     if (!emailExp.test(email)) {
       setErrStateOfEmail('');
       return false;
@@ -443,6 +419,10 @@ const SignUpAndSignIn = () => {
 
   const checkPasswordSU = (password) => {
     var passwordExp = /^[a-zA-z0-9]{6,12}$/;
+    if (password === '') {
+      setErrStateOfPassword('hidden');
+      return false;
+    }
     if (!passwordExp.test(password)) {
       setErrStateOfPassword('');
       return false;
@@ -452,6 +432,10 @@ const SignUpAndSignIn = () => {
   };
 
   const checkPassword2SU = (password, password2) => {
+    if (password2 === '') {
+      setErrStateOfPassword2('hidden');
+      return false;
+    }
     if (password !== password2) {
       setErrStateOfPassword2('');
       return false;
@@ -459,8 +443,65 @@ const SignUpAndSignIn = () => {
     setErrStateOfPassword2('hidden');
     return true;
   };
-  const { id, password } = inputsSI;
-  const { idSU, nameSU, emailSU, passwordSU, password2SU } = inputsSU;
+
+  const handleSignIn = (e) => {
+    e.preventDefault();
+    const signUpUrl = 'https://localhost:4000/users/signin';
+    const config = {
+      'Content-Type': 'application/json',
+      withCredentials: true,
+    };
+    axios
+      .post(
+        signUpUrl,
+        {
+          userId: id,
+          password,
+        },
+        config,
+      )
+      .then((data) => {
+        setAccessToken(data.data.data.accessToken);
+        history.push('/');
+      })
+      .catch((err) => {
+        console.log(err);
+        setErrStateOfIdSI('');
+      });
+  };
+
+  const handleSignUp = (e) => {
+    e.preventDefault();
+    const signUpUrl = 'https://localhost:4000/users';
+    const config = {
+      'Content-Type': 'application/json',
+      withCredentials: true,
+    };
+    if (alertErr() && CheckInputsSU(inputsSU)) {
+      axios
+        .post(
+          signUpUrl,
+          {
+            userId: idSU,
+            username: nameSU,
+            email: emailSU,
+            password: passwordSU,
+          },
+          config,
+        )
+        .then((response) => {
+          ResetStateSU();
+          setSignInState('activeSignIn');
+          setSignUpState('notActiveSignUp');
+          alert('회원가입에 성공하였습니다!');
+        })
+        .catch((err) => {
+          console.log(err);
+          alert('회원가입에 실패하였습니다. 다시 시도해주세요.');
+        });
+    }
+  };
+
   return (
     <Container>
       <section>
@@ -486,7 +527,9 @@ const SignUpAndSignIn = () => {
                 onChange={onChangeSI}
                 name="password"
               />
-              <button type="submit">로그인</button>
+              <button type="submit" onClick={handleSignIn}>
+                로그인
+              </button>
               <div className="errMessage">
                 <div className={`${errStateOfSI}`}>
                   <b>아이디</b> 또는 <b>비밀번호</b>가 잘못 입력 되었습니다.
@@ -548,7 +591,7 @@ const SignUpAndSignIn = () => {
                 name="password2SU"
               />
 
-              <button type="submit" onClick={SignUpSubmit}>
+              <button type="submit" onClick={handleSignUp}>
                 가입하기
               </button>
               <div className="errMessage">

@@ -14,7 +14,6 @@ module.exports = {
       content,
     });
     postData.dataValues.username = userInfo.username;
-    console.log(postData);
     if (postData) {
       res.status(200).json({
         data: postData,
