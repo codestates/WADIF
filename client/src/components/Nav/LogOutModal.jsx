@@ -20,9 +20,11 @@ const ModalContainer = styled.div`
     background-color: rgba(0, 0, 0, 0.473);
     opacity: 100%;
     height: 60em;
+    z-index: 999;
   }
 
   .modal-card {
+    z-index: 100000;
     margin: 0 auto;
     display: flex;
     margin-top: 250px;

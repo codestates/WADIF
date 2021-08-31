@@ -97,6 +97,12 @@ const PlusIcon = styled(PlusCircle)`
   @media only screen and (max-width: 768px) {
     display: none;
   }
+  &:hover {
+    & + span {
+      visibility: visible;
+      opacity: 0.8;
+    }
+  }
 `;
 const ClipboardIcon = styled(Clipboard)`
   width: 1em;
@@ -107,6 +113,12 @@ const ClipboardIcon = styled(Clipboard)`
   }
   @media only screen and (max-width: 768px) {
     display: none;
+  }
+  &:hover {
+    & + span {
+      visibility: visible;
+      opacity: 0.8;
+    }
   }
 `;
 const ManageAccountsIcon = styled(ManageAccounts)`
@@ -119,6 +131,12 @@ const ManageAccountsIcon = styled(ManageAccounts)`
   @media only screen and (max-width: 768px) {
     display: none;
   }
+  &:hover {
+    & + span {
+      visibility: visible;
+      opacity: 0.8;
+    }
+  }
 `;
 const ExitToAppIcon = styled(ExitToApp)`
   width: 1em;
@@ -129,6 +147,12 @@ const ExitToAppIcon = styled(ExitToApp)`
   }
   @media only screen and (max-width: 768px) {
     display: none;
+  }
+  &:hover {
+    & + span {
+      visibility: visible;
+      opacity: 0.8;
+    }
   }
 `;
 
@@ -198,6 +222,60 @@ const CloseButton = styled(Close)`
     color: #242323;
   }
 `;
+const LogOutToolTip = styled.span`
+  position: absolute;
+  width: 4em;
+  height: 1.5em;
+  top: 5em;
+  right: 1.3em;
+  visibility: hidden;
+  background-color: #474040;
+  padding: 1em 0;
+  margin: 0;
+  opacity: 0;
+  line-height: 0.4em;
+  transition: all 0.3s;
+  z-index: 2;
+  font-size: 15px;
+  color: #fff;
+  justify-content: center;
+  text-align: center;
+  border-radius: 3px;
+  &:after {
+    content: ' ';
+    position: absolute;
+    top: -1.5em;
+    left: 1.4em;
+    border-style: solid;
+    border-width: 10px;
+    height: 2px;
+    border-color: transparent transparent #474040 transparent;
+  }
+`;
+
+const PlusToolTip = styled(LogOutToolTip)`
+  width: 6em;
+  right: 13.1em;
+  &:after {
+    left: 2.4em;
+  }
+`;
+
+const ClipboardToolTip = styled(LogOutToolTip)`
+  width: 7em;
+  right: 8.4em;
+  &:after {
+    left: 3em;
+  }
+`;
+
+const ManageAccountsToolTip = styled(LogOutToolTip)`
+  width: 6em;
+  right: 4.6em;
+  &:after {
+    left: 2.4em;
+  }
+`;
 
 const Nav = ({ handleModalOpen }) => {
   const [modal, setModal] = useState(false);
@@ -242,20 +320,25 @@ const Nav = ({ handleModalOpen }) => {
         <IconList>
           <Link to="/createPost">
             <PlusIcon />
+            <PlusToolTip>게시물 작성</PlusToolTip>
           </Link>
         </IconList>
         <IconList>
           <Link to="/Allboard">
             <ClipboardIcon />
+            <ClipboardToolTip>게시물 목록 조회</ClipboardToolTip>
           </Link>
         </IconList>
         <IconList>
           <Link to="/mypage">
             <ManageAccountsIcon />
+            <ManageAccountsToolTip>개인정보 수정</ManageAccountsToolTip>
           </Link>
         </IconList>
         <IconList>
           <ExitToAppIcon onClick={handleModalOpen}></ExitToAppIcon>
+          <LogOutToolTip>로그아웃</LogOutToolTip>
+          {/* </Link> */}
         </IconList>
         <IconList className="menu">
           <MenuBar onClick={OpenModal} />
