@@ -70,7 +70,7 @@ const CommentText = styled.div`
   }
 `;
 
-const Comment = () => {
+const Comment = (props) => {
   return (
     <CommentContainer>
       <UserInfo>
@@ -78,18 +78,15 @@ const Comment = () => {
           <ProfileIcon />
         </div>
         <div className="profilText">
-          <span className="name">안치원</span>
+          <span className="name">{props.data.username}</span>
           <br />
-          <span>2020년 1월 1일</span>
+          <span>
+            {props.data.createdAt ? props.data.createdAt : `2020년 1월 1일`}
+          </span>
         </div>
       </UserInfo>
       <CommentText>
-        <span>
-          영국 배긴턴에 사는 앨리슨 웹은 최근 한 통의 연락을 받았다. 이름을 밝힐
-          수 없는 VIP(Very Important Person)가 탄 헬기가 그의 정원 뒷마당에
-          착륙해도 괜찮으냐는 요청이었다. 인근의 공항이 폐쇄돼 착륙할 곳이
-          없다는 이유에서다.
-        </span>
+        <span>{props.data.content}</span>
       </CommentText>
       <LikeContainer>
         <LikeIcon />

@@ -74,7 +74,7 @@ const ModalContainer = styled.div`
 const LogOutModal = ({ show, handleModalClose }) => {
   useEffect(() => {
     document.body.style.cssText = `
-      position: fixed;
+      // position: fixed;
       top: -${window.scrollY}px;
       overflow-y: scroll;
       width: 100%;

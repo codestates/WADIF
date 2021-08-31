@@ -2,6 +2,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import Nav from '../components/Nav/Nav';
 import '../App.css';
+import axios from 'axios';
 
 const Container = styled.div`
   font-family: 'IBM Plex Sans KR', sans-serif;
@@ -115,8 +116,31 @@ const CreatePost = () => {
     title: '',
     contents: '',
   });
+  const [accessToken, setAccessToken] = useState(
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OSwidXNlcklkIjoia3dzIiwidXNlcm5hbWUiOiJ3b29zZW9rIiwiZW1haWwiOiJrd3NAZ21haWwuY29tIiwiY3JlYXRlZEF0IjpudWxsLCJ1cGRhdGVkQXQiOm51bGwsImlhdCI6MTYzMDMyMDQ4MywiZXhwIjoxNjMxNjE2NDgzfQ.mUv4tgwGEYsnb6G65heOOonDrf9Z0wvDyo46zW_Q-QA',
+  );
+
+  const Submit = async () => {
+    const data = await axios.post(
+      'https://localhost:4000/posts',
+      {
+        title: inputs.title,
+        content: inputs.contents,
+      },
+      {
+        headers: {
+          authorization: `Bearer ${accessToken}`,
+          'Content-Type': 'application/json',
+        },
+        withCredentials: true,
+      },
+    );
+    console.log(data);
+  };
+
   const [tooltip, setTooltip] = useState(false);
   const { title, contents } = inputs;
+
   const onChange = (e) => {
     const { value, name } = e.target;
     const nextInputs = {
@@ -138,7 +162,6 @@ const CreatePost = () => {
       contents: '',
     });
   };
-
   return (
     <>
       <Nav />
@@ -158,7 +181,7 @@ const CreatePost = () => {
           <div className="textAndButton">
             <textarea
               placeholder="내용을 입력하세요"
-              value={contents}
+              value={content}
               onChange={onChange}
               name="contents"
             />

@@ -10,6 +10,7 @@ import {
   Menu,
 } from 'styled-icons/material-outlined';
 import { Close } from 'styled-icons/remix-fill';
+import LogOutModal from './LogOutModal';
 
 const NavContainer = styled.div`
   width: 100%;
@@ -335,7 +336,6 @@ const Nav = ({ handleModalOpen }) => {
           </Link>
         </IconList>
         <IconList>
-          {/* <Link to="/login"> */}
           <ExitToAppIcon onClick={handleModalOpen}></ExitToAppIcon>
           <LogOutToolTip>로그아웃</LogOutToolTip>
           {/* </Link> */}

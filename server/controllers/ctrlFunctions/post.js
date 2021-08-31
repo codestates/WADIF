@@ -13,7 +13,7 @@ module.exports = {
       title,
       content,
     });
-
+    postData.dataValues.username = userInfo.username;
     if (postData) {
       res.status(200).json({
         data: postData,
