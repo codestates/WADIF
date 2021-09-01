@@ -111,16 +111,13 @@ const ToopTip = styled.div`
     top: 6em;
   }
 `;
-const CreatePost = () => {
+const CreatePost = (props) => {
   const [inputs, setInputs] = useState({
     title: '',
     contents: '',
   });
-  const [accessToken, setAccessToken] = useState(
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OSwidXNlcklkIjoia3dzIiwidXNlcm5hbWUiOiJ3b29zZW9rIiwiZW1haWwiOiJrd3NAZ21haWwuY29tIiwiY3JlYXRlZEF0IjpudWxsLCJ1cGRhdGVkQXQiOm51bGwsImlhdCI6MTYzMDMyMDQ4MywiZXhwIjoxNjMxNjE2NDgzfQ.mUv4tgwGEYsnb6G65heOOonDrf9Z0wvDyo46zW_Q-QA',
-  );
 
-  const Submit = async () => {
+  const SubmitButton = async () => {
     const data = await axios.post(
       'https://localhost:4000/posts',
       {
@@ -129,7 +126,7 @@ const CreatePost = () => {
       },
       {
         headers: {
-          authorization: `Bearer ${accessToken}`,
+          authorization: `Bearer ${props.accessToken}`,
           'Content-Type': 'application/json',
         },
         withCredentials: true,
@@ -150,18 +147,6 @@ const CreatePost = () => {
     setInputs(nextInputs);
   };
 
-  const Submit = () => {
-    console.log('what');
-    console.log(tooltip);
-    if (title === '' || contents === '') {
-      setTooltip(false);
-      console.log(tooltip);
-    }
-    setInputs({
-      title: '',
-      contents: '',
-    });
-  };
   return (
     <>
       <Nav />
@@ -181,11 +166,11 @@ const CreatePost = () => {
           <div className="textAndButton">
             <textarea
               placeholder="내용을 입력하세요"
-              value={content}
+              value={contents}
               onChange={onChange}
               name="contents"
             />
-            <button type="button" onClick={Submit}>
+            <button type="button" onClick={SubmitButton}>
               Post
             </button>
           </div>

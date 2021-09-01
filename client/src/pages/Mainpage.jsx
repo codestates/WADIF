@@ -307,7 +307,11 @@ const Mainpage = ({ handleModalOpen, accessToken }) => {
         <LeftContainer>
           <HotTopic>Hot Topic</HotTopic>
           {posts.map((postInfo) => (
-            <Maintopic postInfo={postInfo} bgColor={ColorMaker()} />
+            <Maintopic
+              key={postInfo.id}
+              postInfo={postInfo}
+              bgColor={ColorMaker()}
+            />
           ))}
           {/* <PlaceHolder />
           <PlaceHolder />

@@ -279,7 +279,7 @@ const Container = styled.div`
   }
 `;
 
-const SignUpAndSignIn = ({ history, setAccessToken }) => {
+const SignUpAndSignIn = ({ history, setAccessToken, setUserInfo }) => {
   //애니메이션 구현을 위한 클래스 상태 변경
   const setActiveFT = (value) => {
     if (value === 'activeSignUpAni') {
@@ -446,14 +446,14 @@ const SignUpAndSignIn = ({ history, setAccessToken }) => {
 
   const handleSignIn = (e) => {
     e.preventDefault();
-    const signUpUrl = 'https://localhost:4000/users/signin';
+    const signInUrl = 'https://localhost:4000/users/signin';
     const config = {
       'Content-Type': 'application/json',
       withCredentials: true,
     };
     axios
       .post(
-        signUpUrl,
+        signInUrl,
         {
           userId: id,
           password,
@@ -461,8 +461,14 @@ const SignUpAndSignIn = ({ history, setAccessToken }) => {
         config,
       )
       .then((data) => {
+        data.data.data.userInfo = {
+          username: 'kws',
+          email: 'kws@gmail.com',
+        };
+
         setAccessToken(data.data.data.accessToken);
-        history.push('/');
+        setUserInfo(data.data.data.userInfo);
+        history.push('/mainpage');
       })
       .catch((err) => {
         console.log(err);

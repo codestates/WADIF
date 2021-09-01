@@ -1,6 +1,5 @@
 import './App.css';
 import { useState, useEffect } from 'react';
-import Nav from './components/Nav/Nav';
 import {
   BrowserRouter,
   Route,
@@ -22,7 +21,7 @@ import axios from 'axios';
 
 function App() {
   const [show, setShow] = useState(false);
-  const [userInfo, setUserInfo] = useState(null);
+  const [userInfo, setUserInfo] = useState({});
   const [accessToken, setAccessToken] = useState(null);
   const history = useHistory();
 
@@ -38,34 +37,48 @@ function App() {
       const config = {
         headers: { authorization: `Bearer ${accessToken}` },
       };
-      console.log(accessToken);
-      console.log('5');
       axios
         .post(signOutUrl, {}, config)
         .then((response) => {
-          console.log('hello');
-          console.log(response);
-          history.push('/login');
+          history.push('/');
         })
         .catch((err) => console.log(err));
     }
     setShow(false);
   };
 
+  const handleUserInfo = (infoData) => {
+    setUserInfo(infoData);
+  };
+  const handleAccessToken = (e) => {
+    return setAccessToken(e);
+  };
+
+  useEffect(async () => {
+    const seeMyPost = await axios.get('https://localhost:4000/users/posts', {
+      headers: {
+        authorization: `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+      },
+      withCredentials: true,
+    });
+  }, []);
+
   return (
     <>
       <Switch>
         <Route exact path="/">
-          <Mainpage
-            handleModalOpen={handleModalOpen}
-            accessToken={accessToken}
+          <SignUpAndSignIn
+            history={history}
+            setAccessToken={handleAccessToken}
+            setUserInfo={handleUserInfo}
           />
         </Route>
         <Route path="/mypage">
           <Mypage />
         </Route>
         <Route path="/createPost">
-          <CreatePost />
+          <CreatePost accessToken={accessToken} />
         </Route>
         <Route path="/positive">
           <Positivepage />
@@ -74,17 +87,21 @@ function App() {
           <Negativepage />
         </Route>
         <Route path="/allboard">
-          <Allboardpage />
+          <Allboardpage accessToken={accessToken} />
         </Route>
         <Route path="/debate">
-          <DebatepPage />
+          <DebatepPage userInfo={userInfo} accessToken={accessToken} />
         </Route>
-        <Route path="/login">
-          <SignUpAndSignIn history={history} setAccessToken={setAccessToken} />
+        <Route path="/mainpage">
+          <Mainpage
+            handleModalOpen={handleModalOpen}
+            accessToken={accessToken}
+          />
         </Route>
       </Switch>
       <LogOutModal
         show={show}
+        accessToken={accessToken}
         handleModalClose={handleModalClose}
       ></LogOutModal>
     </>

@@ -78,7 +78,7 @@ const LogOutModal = ({ show, handleModalClose }) => {
       top: -${window.scrollY}px;
       overflow-y: scroll;
       width: 100%;
-      height: 50em;`;
+      // height: 50em;`;
     return () => {
       const scrollY = document.body.style.top;
       document.body.style.cssText = '';

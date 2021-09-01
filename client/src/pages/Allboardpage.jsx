@@ -30,20 +30,17 @@ const HeaderSession = styled.div`
 const BoardSession = styled.div`
   overflow-y: scroll;
   ::-webkit-scrollbar {
-    display: none;
+    /* display: none; */
   }
 `;
 
-const Allboardpage = () => {
+const Allboardpage = (props) => {
   const [all, setAll] = useState([]);
-  const [accessToken, setAccessToken] = useState(
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OSwidXNlcklkIjoia3dzIiwidXNlcm5hbWUiOiJ3b29zZW9rIiwiZW1haWwiOiJrd3NAZ21haWwuY29tIiwiY3JlYXRlZEF0IjpudWxsLCJ1cGRhdGVkQXQiOm51bGwsImlhdCI6MTYzMDMyMDQ4MywiZXhwIjoxNjMxNjE2NDgzfQ.mUv4tgwGEYsnb6G65heOOonDrf9Z0wvDyo46zW_Q-QA',
-  );
 
   useEffect(async () => {
     const data = await axios.get('https://localhost:4000/main?sort=views', {
       headers: {
-        authorization: `Bearer ${accessToken}`,
+        authorization: `Bearer ${props.accessToken}`,
         'Content-Type': 'application/json',
       },
       withCredentials: true,
@@ -66,7 +63,11 @@ const Allboardpage = () => {
           {all.length > 0 ? (
             all.map((item) => {
               return (
-                <BoardComponent key={item.id} data={item} token={accessToken} />
+                <BoardComponent
+                  key={item.id}
+                  data={item}
+                  token={props.accessToken}
+                />
               );
             })
           ) : (
