@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import EmailTooltip from '../EmailTooltip/EmailTooltip';
+import axios from 'axios';
 
 const TotalContainer = styled.div`
   display: flex;
@@ -92,15 +93,46 @@ const TotalForm = styled.form`
   }
 `;
 
-const SecurityPage = (props) => {
-  const [on, setOn] = useState(false);
-  const [password, setPassword] = useState('');
-  const [email, setEmail] = useState('');
-  const [introduce, setIntroduce] = useState('');
+const SecurityPage = ({ on, setOn, userInfo, ...props }) => {
+  const [password, setPassword] = useState(null);
+  const [email, setEmail] = useState(null);
+  const [introduce, setIntroduce] = useState(null);
   const [toast, setToast] = useState(false);
 
-  const FixHandler = () => {
+  const FixHandler = async (e) => {
+    if (e.target.textContent === '수정 완료') {
+      const patchUserInfoUrl = `https://localhost:4000/users/userInfo`;
+      const config = {
+        'Content-Type': 'application/json',
+        withCredentials: true,
+      };
+      let changedInfo = {};
+      if (password) changedInfo.password = password;
+      if (email) changedInfo.email = email;
+      if (introduce) changedInfo.profile = introduce;
+      if (Object.keys(changedInfo) === 0) {
+        setOn(false);
+        alert('변경된 정보가 없습니다.');
+        return;
+      }
+      try {
+        await axios.patch(patchUserInfoUrl, changedInfo, config);
+        setOn(false);
+        alert('회원정보가 성공적으로 수정되었습니다!');
+      } catch (err) {
+        console.log(err);
+      }
+      return;
+    }
     props.authorHandler(true);
+  };
+
+  const PasswordIsValid = (password) => {
+    var passwordExp = /^[a-zA-z0-9]{6,12}$/;
+    if (!passwordExp.test(password)) {
+      return false;
+    }
+    return true;
   };
 
   const EmailIsVaild = (e) => {
@@ -115,7 +147,9 @@ const SecurityPage = (props) => {
 
   const PasswordHandler = (e) => {
     e.preventDefault();
+    const nowPassword = e.target.previousElementSibling.childNodes[0];
     const inputContainer = e.target.previousElementSibling.childNodes[1];
+    console.log(inputContainer);
     if (
       inputContainer.style.display === 'none' ||
       inputContainer.style.display === ''
@@ -124,9 +158,14 @@ const SecurityPage = (props) => {
       e.target.textContent = '저장';
       inputContainer.value = '';
     } else {
-      setPassword(inputContainer.value);
-      inputContainer.style.display = 'none';
-      e.target.textContent = '수정';
+      if (PasswordIsValid(inputContainer.value)) {
+        setPassword(inputContainer.value);
+        nowPassword.textContent = inputContainer.value;
+        inputContainer.style.display = 'none';
+        e.target.textContent = '수정';
+      } else {
+        alert('비밀번호는 영문 대소문자와 숫자 6~12자리로 입력해야합니다.');
+      }
     }
   };
 
@@ -191,23 +230,33 @@ const SecurityPage = (props) => {
                 <span>비밀번호</span>
                 <div className="container">
                   <span>**********</span>
-                  <input className="input" type="text" />
+                  <input className="input" type="text" defaultValue="" />
                 </div>
                 <button onClick={PasswordHandler}>수정</button>
               </TotalForm>
               <TotalForm>
                 <span>이메일</span>
                 <div className="container">
-                  <span>vvsogi@gmail.com</span>
-                  <input className="input" type="text" />
+                  <span>{userInfo.email}</span>
+                  <input
+                    className="input"
+                    type="text"
+                    placeholder={userInfo.email}
+                    defaultValue=""
+                  />
                 </div>
                 <button onClick={EmailHandler}>수정</button>
               </TotalForm>
               <TotalForm>
                 <span>소개글</span>
                 <div className="container">
-                  <div>{`Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo aliquid explicabo doloribus vel sapiente dolore laborum tempora, suscipit harum provident tempore quos recusandae ut sit architecto quas omnis ipsa! Placeat.`}</div>
-                  <textarea className="input textarea" type="text" />
+                  <div>{userInfo.profile}</div>
+                  <textarea
+                    className="input textarea"
+                    type="text"
+                    placeholder={userInfo.profile}
+                    defaultValue=""
+                  />
                 </div>
                 <button onClick={IntroduceHandler}>수정</button>
               </TotalForm>

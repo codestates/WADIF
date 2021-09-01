@@ -198,7 +198,6 @@ const ToopTip = styled.div`
 
 const Mainpage = ({
   handleLogOut,
-  accessToken,
   handleServerErr,
   history,
   handleModalOpen,
@@ -213,20 +212,14 @@ const Mainpage = ({
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(async () => {
-    if (!accessToken) {
-      handleLogOut();
-    }
-
     const getPostUrl = 'https://localhost:4000/main';
     const config = {
       'Content-Type': 'application/json',
       withCredentials: true,
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
     };
     try {
       const response = await axios.get(getPostUrl, config);
+      console.log(response);
       setIsLoading(false);
       setPosts(response.data.data);
     } catch (err) {

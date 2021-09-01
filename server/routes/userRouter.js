@@ -12,7 +12,7 @@ router.use(authChecker);
 
 // get, post 등 작성
 router.post('/signout', authControllers.signout);
-router.get('/posts', userControllers.myInfos);
+router.get('/userInfo', userControllers.myInfos);
 router.post('/bookmarks', userControllers.addBookmarks);
 router.delete('/bookmarks', userControllers.deleteBookmarks);
 router.patch('/userInfo', userControllers.updateMyInfo);
