@@ -57,7 +57,11 @@ module.exports = {
       } else if (accessTokenData) {
         // case2: access token이 60초 이상 남은 상태이면서 유효한 경우
         // console.log('60초 이상! 널널해유~');
-        req.body.userInfo = accessTokenData;
+        const user_id = accessTokenData.id;
+        const userInfo = await users.findOne({
+          where: { id: user_id },
+        });
+        req.body.userInfo = userInfo;
         next();
       }
     } catch (err) {

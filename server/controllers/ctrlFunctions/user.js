@@ -4,6 +4,9 @@ module.exports = {
   myInfos: async (req, res) => {
     const { userInfo } = req.body;
     try {
+      const userData = await users.findOne({
+        where: { userId: userInfo.userId },
+      });
       const postData = await posts.findAll({ where: { user_id: userInfo.id } });
       const bookmarksData = await bookmarks.findAll({
         include: [
@@ -23,9 +26,9 @@ module.exports = {
       });
       res.status(200).json({
         data: {
-          userInfo,
+          userInfo: userData,
           post: postData,
-          comment: bookmarksData.map((el) => el.post),
+          bookmark: bookmarksData.map((el) => el.post),
         },
         message: '나의 게시글 찾기에 성공하였습니다.',
       });

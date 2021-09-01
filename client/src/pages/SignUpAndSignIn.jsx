@@ -279,7 +279,7 @@ const Container = styled.div`
   }
 `;
 
-const SignUpAndSignIn = ({ history, setAccessToken }) => {
+const SignUpAndSignIn = ({ history }) => {
   //애니메이션 구현을 위한 클래스 상태 변경
   const setActiveFT = (value) => {
     if (value === 'activeSignUpAni') {
@@ -332,7 +332,6 @@ const SignUpAndSignIn = ({ history, setAccessToken }) => {
       [name]: value,
     };
     setInputsSU(nextInputs);
-    // console.log(nextInputs);
     const isAllValid = CheckInputsSU(nextInputs);
   };
 
@@ -460,7 +459,6 @@ const SignUpAndSignIn = ({ history, setAccessToken }) => {
         },
         config,
       );
-      setAccessToken(reponse.data.data.accessToken);
       history.push('/mainpage');
     } catch (err) {
       console.log(err);

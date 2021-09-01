@@ -223,7 +223,6 @@ const DebatePage = ({ handleModalOpen, ...props }) => {
         withCredentials: true,
       },
     );
-
     setPostData(postdata.data);
     setPros(
       postdata.data.data.comments.filter((item) => item.opinion === 'pros'),
@@ -251,7 +250,6 @@ const DebatePage = ({ handleModalOpen, ...props }) => {
       },
       {
         headers: {
-          authorization: `Bearer ${props.accessToken}`,
           'Content-Type': 'application/json',
         },
         withCredentials: true,
@@ -261,7 +259,6 @@ const DebatePage = ({ handleModalOpen, ...props }) => {
       `https://localhost:4000/posts/${data[0].id}`,
       {
         headers: {
-          authorization: `Bearer ${props.accessToken}`,
           'Content-Type': 'application/json',
         },
         withCredentials: true,

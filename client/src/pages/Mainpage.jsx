@@ -198,7 +198,6 @@ const ToopTip = styled.div`
 
 const Mainpage = ({
   handleLogOut,
-  accessToken,
   handleServerErr,
   history,
   handleModalOpen,
@@ -222,6 +221,7 @@ const Mainpage = ({
     };
     try {
       const response = await axios.get(getPostUrl, config);
+      console.log(response);
       setIsLoading(false);
       setPosts(response.data.data.slice(0, 7));
     } catch (err) {

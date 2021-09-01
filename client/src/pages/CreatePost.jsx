@@ -121,7 +121,7 @@ const TooltipContainer = styled.div`
   }
 `;
 
-const CreatePost = ({ handleModalOpen, accessToken }) => {
+const CreatePost = ({ handleModalOpen }) => {
   const location = useLocation();
   const history = useHistory();
   const [inputs, setInputs] = useState({
