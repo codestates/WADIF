@@ -7,6 +7,7 @@ const { users, tokens } = require('../models');
 module.exports = {
   authChecker: async (req, res, next) => {
     try {
+      console.log(req.cookies);
       const accessToken = req.cookies.accessToken;
       const accessTokenData = verify(
         accessToken,

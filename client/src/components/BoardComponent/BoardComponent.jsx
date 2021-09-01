@@ -75,9 +75,10 @@ const BoardComponent = (props) => {
   };
   useEffect(() => {
     if (data.length > 0) {
+      console.log(data);
       history.push({
         pathname: '/debate',
-        state: data,
+        state: [data[0].posts],
       });
     }
   }, [data]);

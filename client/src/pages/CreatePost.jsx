@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import Nav from '../components/Nav/Nav';
 import '../App.css';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 const Container = styled.div`
   font-family: 'IBM Plex Sans KR', sans-serif;
@@ -120,25 +122,62 @@ const TooltipContainer = styled.div`
 `;
 
 const CreatePost = ({ handleModalOpen }) => {
+  const location = useLocation();
+  const history = useHistory();
   const [inputs, setInputs] = useState({
     title: '',
     contents: '',
   });
-
   const [tooltip, setTooltip] = useState(false);
+  const titleRef = useRef();
+  const contentRef = useRef();
+
+  useEffect(() => {
+    if (location.state) {
+      titleRef.current.value = location.state.postInfo.title;
+      contentRef.current.value = location.state.postInfo.content;
+      setInputs({
+        title: titleRef.current.value,
+        contents: contentRef.current.value,
+      });
+    }
+  }, []);
 
   const Submit = async () => {
-    if (title === '' || contents === '') {
-      setTooltip(true);
-      setTimeout(() => {
-        setTooltip(false);
-      }, 2000);
-      return;
-    }
-    try {
-      const data = await axios.post(
+    if (location.state === undefined) {
+      if (title === '' || contents === '') {
+        setTooltip(true);
+        setTimeout(() => {
+          setTooltip(false);
+        }, 2000);
+        return;
+      }
+      try {
+        const data = await axios.post(
+          'https://localhost:4000/posts',
+          {
+            title: inputs.title,
+            content: inputs.contents,
+          },
+          {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            withCredentials: true,
+          },
+        );
+        history.push({
+          pathname: '/debate',
+          state: [data.data.data],
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    } else {
+      const data = await axios.patch(
         'https://localhost:4000/posts',
         {
+          postId: location.state.postInfo.id,
           title: inputs.title,
           content: inputs.contents,
         },
@@ -149,9 +188,10 @@ const CreatePost = ({ handleModalOpen }) => {
           withCredentials: true,
         },
       );
-      console.log(data);
-    } catch (err) {
-      console.log(err);
+      history.push({
+        pathname: '/debate',
+        state: [location.state.postInfo],
+      });
     }
   };
 
@@ -182,6 +222,7 @@ const CreatePost = ({ handleModalOpen }) => {
             value={title}
             onChange={onChange}
             name="title"
+            ref={titleRef}
           />
           <hr />
           <div className="textAndButton">
@@ -190,8 +231,9 @@ const CreatePost = ({ handleModalOpen }) => {
               value={contents}
               onChange={onChange}
               name="contents"
+              ref={contentRef}
             />
-            <button onClick={Submit}>Post</button>
+            <button onClick={Submit}>{location.state ? `수정` : `작성`}</button>
           </div>
         </div>
       </Container>

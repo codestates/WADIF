@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Man } from 'styled-icons/icomoon';
 import { Like } from '@styled-icons/boxicons-regular';
 import { Bookmark2 } from 'styled-icons/remix-fill';
 import { Sun } from 'styled-icons/bootstrap';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { Dislike } from 'styled-icons/boxicons-regular';
 
 const TopicContainer = styled.div`
   width: 100%;
@@ -89,12 +91,16 @@ const BookMark = styled(Bookmark2)`
   width: 1em;
   font-size: 1.5em;
   cursor: pointer;
+  color: ${(props) => {
+    if (props.button) {
+      return 'red';
+    } else {
+      return 'black';
+    }
+  }};
   &:hover {
-    color: #aa0000;
+    color: #ff0000;
     transition: 0.4s;
-  }
-  &:active {
-    color: red;
   }
 `;
 
@@ -193,14 +199,77 @@ const BottomRightNum = styled.span`
   }
 `;
 
+const BottomDislike = styled(Dislike)`
+  width: 1.5em;
+  margin-right: 1em;
+  @media only screen and (max-width: 768px) {
+    width: 1.2em;
+  }
+`;
+
+const BottomDislikeNum = styled.span`
+  margin-right: 1em;
+  color: #1041ca;
+  font-weight: 700;
+  @media only screen and (max-width: 768px) {
+    font-weight: 500;
+    font-size: 1em;
+  }
+`;
+
 const Maintopic = ({ bgColor, postInfo, history }) => {
+  const [on, setOn] = useState(false);
   const { title, content, views, username } = postInfo;
 
   const handleConnect = () => {
     history.push({
-      pathname: `/debate/${postInfo.id}`,
+      pathname: `/debate`,
+      state: [postInfo],
     });
   };
+
+  const handleBookmark = async () => {
+    if (on) {
+      setOn(false);
+      const data = await axios.delete(
+        `https://localhost:4000/users/bookmarks/${postInfo.id}`,
+        {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
+      );
+    } else {
+      setOn(true);
+      const data = await axios.post(
+        'https://localhost:4000/users/bookmarks',
+        {
+          postId: postInfo.id,
+        },
+        {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
+      );
+    }
+  };
+
+  useEffect(async () => {
+    const data = await axios.get('https://localhost:4000/users/userInfo', {
+      withCredentials: true,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    const likePost = data.data.data.comment;
+    const newArr = likePost.filter((item) => item.id === postInfo.id);
+    if (newArr.length > 0) {
+      setOn(true);
+    }
+  }, []);
 
   return (
     <TopicContainer>
@@ -211,7 +280,7 @@ const Maintopic = ({ bgColor, postInfo, history }) => {
         <RightContainer>
           <RightTopContainer>
             <HeadTitle onClick={handleConnect}>{title}</HeadTitle>
-            <BookMark />
+            <BookMark button={on} onClick={handleBookmark} />
           </RightTopContainer>
           <RightBottomContainer onClick={handleConnect}>
             {content}
@@ -227,7 +296,9 @@ const Maintopic = ({ bgColor, postInfo, history }) => {
         </BottomLeftContainer>
         <BottomRightContainer>
           <BottomRightLike />
-          <BottomRightNum>{views}</BottomRightNum>
+          <BottomRightNum>{postInfo.postLikeCount}</BottomRightNum>
+          <BottomDislike />
+          <BottomDislikeNum>{postInfo.postHateCount}</BottomDislikeNum>
         </BottomRightContainer>
       </BottomContainer>
     </TopicContainer>

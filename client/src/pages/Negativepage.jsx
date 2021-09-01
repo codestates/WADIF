@@ -40,10 +40,10 @@ const BodySession = styled.div`
   width: 100%;
 `;
 
-const Negativepage = ({ handleModalOpen, ...props }) => {
-  console.log(props.dummy);
+const Negativepage = ({ handleModalOpen }) => {
   const location = useLocation();
   const data = location.state.cons;
+
   return (
     <>
       <Nav handleModalOpen={handleModalOpen} />
@@ -61,6 +61,7 @@ const Negativepage = ({ handleModalOpen, ...props }) => {
                 username={item.username}
                 date={item.createdAt}
                 content={item.content}
+                likeCount={item.commentLikeCount}
               />
             );
           })}
