@@ -1,8 +1,3 @@
-const {
-  generateAccessToken,
-  sendAccessToken,
-  isAuthorized,
-} = require('../tokenFunctions');
 const { posts, users } = require('../../models');
 module.exports = {
   hotTopic: async (req, res) => {

@@ -1,8 +1,3 @@
-const {
-  generateAccessToken,
-  sendAccessToken,
-  isAuthorized,
-} = require('../tokenFunctions');
 const { users, posts, bookmarks } = require('../../models');
 
 module.exports = {
