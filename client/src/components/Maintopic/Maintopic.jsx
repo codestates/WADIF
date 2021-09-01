@@ -258,7 +258,7 @@ const Maintopic = ({ bgColor, postInfo, history }) => {
   };
 
   useEffect(async () => {
-    const data = await axios.get('https://localhost:4000/users/posts', {
+    const data = await axios.get('https://localhost:4000/users/userInfo', {
       withCredentials: true,
       headers: {
         'Content-Type': 'application/json',
