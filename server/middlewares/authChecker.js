@@ -72,14 +72,14 @@ module.exports = {
           // };
 
           // res.setHeader({ authorization: `Bearer ${newAccessToken}` });
-          // resendAccessToken(res, newAccessToken, payload);
+          //resendAccessToken(res, newAccessToken, payload);
           next();
         });
       }
     } else {
       // case4: accesss token과 refresh token 모두가 유효한 경우
       req.body.userInfo = accessTokenData;
-      req.body.accessToken = accessToken;
+      req.body.accessToken = null;
       next();
     }
   },

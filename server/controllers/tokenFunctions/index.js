@@ -14,7 +14,7 @@ module.exports = {
   },
 
   resendAccessToken: (res, accessToken, data) => {
-    return res.json({ data: { accessToken, userInfo: data }, message: 'ok' });
+    res.json({ data: { accessToken, userInfo: data }, message: 'ok' });
   },
 
   sendRefreshToken: (res, refreshToken) => {
