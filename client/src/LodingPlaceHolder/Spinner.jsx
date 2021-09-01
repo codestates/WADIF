@@ -28,7 +28,7 @@ const Spinner2 = styled.div`
   width: 100px;
   height: 100px;
   border: 7px solid #cbd7f3;
-  border-top-color: #4353dd;
+  border-top-color: #e77de7; //#4353dd
   border-radius: 50%;
   animation: ${rotation} 1s ease-in-out infinite;
 `;
@@ -36,7 +36,7 @@ const Spinner2 = styled.div`
 const SpinnerContainer = styled.div`
   height: 100px;
   width: 100px;
-  border: 3px solid #2857f1;
+  border: 3px solid #f0d1ed; //#2857f1
   border-radius: 50%;
   border-top: none;
   border-right: none;

@@ -92,7 +92,7 @@ const TotalForm = styled.form`
   }
 `;
 
-const SecurityPage = () => {
+const SecurityPage = (props) => {
   const [on, setOn] = useState(false);
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
@@ -100,11 +100,7 @@ const SecurityPage = () => {
   const [toast, setToast] = useState(false);
 
   const FixHandler = () => {
-    if (!on) {
-      setOn(true);
-    } else {
-      setOn(false);
-    }
+    props.authorHandler(true);
   };
 
   const EmailIsVaild = (e) => {

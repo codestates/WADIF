@@ -6,6 +6,7 @@ import BoardComponent from '../components/BoardComponent/BoardComponent';
 import Nav from '../components/Nav/Nav';
 import NoDataBoard from '../LodingPlaceHolder/NoDataBoard';
 import Spinner from '../LodingPlaceHolder/Spinner';
+import NotFound from '../LodingPlaceHolder/404NotFound';
 
 const TotalContainer = styled.div`
   display: flex;
@@ -30,30 +31,35 @@ const HeaderSession = styled.div`
 const BoardSession = styled.div`
   overflow-y: scroll;
   ::-webkit-scrollbar {
-    display: none;
+    /* display: none; */
   }
 `;
 
-const Allboardpage = () => {
+const Allboardpage = ({ history, handleModalOpen, accessToken }) => {
   const [all, setAll] = useState([]);
-  const [accessToken, setAccessToken] = useState(
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OSwidXNlcklkIjoia3dzIiwidXNlcm5hbWUiOiJ3b29zZW9rIiwiZW1haWwiOiJrd3NAZ21haWwuY29tIiwiY3JlYXRlZEF0IjpudWxsLCJ1cGRhdGVkQXQiOm51bGwsImlhdCI6MTYzMDMyMDQ4MywiZXhwIjoxNjMxNjE2NDgzfQ.mUv4tgwGEYsnb6G65heOOonDrf9Z0wvDyo46zW_Q-QA',
-  );
+
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(async () => {
-    const data = await axios.get('https://localhost:4000/main?sort=views', {
-      headers: {
-        authorization: `Bearer ${accessToken}`,
-        'Content-Type': 'application/json',
-      },
-      withCredentials: true,
-    });
-    setAll(data.data.data);
+    try {
+      const data = await axios.get('https://localhost:4000/main?sort=views', {
+        headers: {
+          authorization: `Bearer ${accessToken}`,
+          'Content-Type': 'application/json',
+        },
+        withCredentials: true,
+      });
+      setAll(data.data.data);
+      setIsLoading(false);
+    } catch (err) {
+      console.log(err);
+      history.push('/notfound');
+    }
   }, []);
 
   return (
     <>
-      <Nav />
+      <Nav handleModalOpen={handleModalOpen} />
       <TotalContainer>
         <HeaderSession>
           <span>제목</span>
@@ -63,16 +69,17 @@ const Allboardpage = () => {
           <span>조회수</span>
         </HeaderSession>
         <BoardSession>
-          {all.length > 0 ? (
-            all.map((item) => {
-              return (
-                <BoardComponent key={item.id} data={item} token={accessToken} />
-              );
-            })
-          ) : (
+          {isLoading ? (
+            <>
+              <Spinner />
+            </>
+          ) : all.length === 0 ? (
             <NoDataBoard />
+          ) : (
+            all.map((item) => (
+              <BoardComponent key={item.id} data={item} token={accessToken} />
+            ))
           )}
-          {/* <Spinner /> */}
         </BoardSession>
       </TotalContainer>
     </>

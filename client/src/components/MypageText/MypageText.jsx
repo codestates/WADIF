@@ -95,7 +95,7 @@ const MypageText = (props) => {
   const CheckHandler = (e) => {
     props.deleteHandler(props.id);
   };
-  console.log(props);
+
   return (
     <TextContainer>
       {props.fix || props.likefix ? <CloseIcon onClick={CheckHandler} /> : null}
