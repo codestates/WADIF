@@ -31,15 +31,13 @@ const HeaderSession = styled.div`
 const BoardSession = styled.div`
   overflow-y: scroll;
   ::-webkit-scrollbar {
-    display: none;
+    /* display: none; */
   }
 `;
 
-const Allboardpage = ({ history, handleModalOpen }) => {
+const Allboardpage = ({ history, handleModalOpen, accessToken }) => {
   const [all, setAll] = useState([]);
-  const [accessToken, setAccessToken] = useState(
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OSwidXNlcklkIjoia3dzIiwidXNlcm5hbWUiOiJ3b29zZW9rIiwiZW1haWwiOiJrd3NAZ21haWwuY29tIiwiY3JlYXRlZEF0IjpudWxsLCJ1cGRhdGVkQXQiOm51bGwsImlhdCI6MTYzMDMyMDQ4MywiZXhwIjoxNjMxNjE2NDgzfQ.mUv4tgwGEYsnb6G65heOOonDrf9Z0wvDyo46zW_Q-QA',
-  );
+
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(async () => {

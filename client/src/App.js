@@ -1,6 +1,5 @@
 import './App.css';
 import { useState, useEffect } from 'react';
-import Nav from './components/Nav/Nav';
 import {
   BrowserRouter,
   Route,
@@ -22,9 +21,8 @@ import Introducion from './pages/IntroducePage';
 import axios from 'axios';
 
 function App() {
-  const [isLogin, setIsLogin] = useState(false);
   const [show, setShow] = useState(false);
-  const [userInfo, setUserInfo] = useState(null);
+  const [userInfo, setUserInfo] = useState({});
   const [accessToken, setAccessToken] = useState(null);
   const history = useHistory();
 
@@ -44,7 +42,6 @@ function App() {
       console.log('5');
       try {
         const response = await axios.post(signOutUrl, {}, config);
-        setIsLogin(false);
         history.push('/login'); //나중에 소개페이지 history push
       } catch (err) {
         console.log(err);
@@ -57,13 +54,11 @@ function App() {
   };
 
   const handleServerErr = () => {
-    setIsLogin(false);
     setAccessToken(null);
     history.push('/notfound');
   };
 
   const handleLogOut = () => {
-    setIsLogin(false);
     setAccessToken(null);
     history.push('/');
   };
@@ -74,7 +69,7 @@ function App() {
         <Route exact path="/">
           <Introducion />
         </Route>
-        <Route path="/main">
+        <Route path="/mainpage">
           <Mainpage
             handleLogOut={handleLogOut}
             handleServerErr={handleServerErr}
@@ -87,7 +82,11 @@ function App() {
           <Mypage handleModalOpen={handleModalOpen} />
         </Route>
         <Route path="/createPost">
-          <CreatePost handleModalOpen={handleModalOpen} history={history} />
+          <CreatePost
+            handleModalOpen={handleModalOpen}
+            history={history}
+            accessToken={accessToken}
+          />
         </Route>
         <Route path="/positive">
           <Positivepage handleModalOpen={handleModalOpen} />
@@ -96,17 +95,19 @@ function App() {
           <Negativepage handleModalOpen={handleModalOpen} />
         </Route>
         <Route path="/allboard">
-          <Allboardpage handleModalOpen={handleModalOpen} />
+          <Allboardpage
+            handleModalOpen={handleModalOpen}
+            accessToken={accessToken}
+          />
         </Route>
         <Route path="/debate">
-          <DebatepPage handleModalOpen={handleModalOpen} />
+          <DebatepPage
+            handleModalOpen={handleModalOpen}
+            accessToken={accessToken}
+          />
         </Route>
         <Route path="/login">
-          <SignUpAndSignIn
-            setIsLogin={setIsLogin}
-            history={history}
-            setAccessToken={setAccessToken}
-          />
+          <SignUpAndSignIn history={history} setAccessToken={setAccessToken} />
         </Route>
         <Route path="/notfound">
           <NotFound />
@@ -114,6 +115,7 @@ function App() {
       </Switch>
       <LogOutModal
         show={show}
+        accessToken={accessToken}
         handleModalClose={handleModalClose}
       ></LogOutModal>
     </>

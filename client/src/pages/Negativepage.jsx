@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Profile from '../components/Profile/Profile';
+import { useLocation } from 'react-router-dom';
 import Nav from '../components/Nav/Nav';
 
 const TotalContainer = styled.div`
@@ -41,6 +42,8 @@ const BodySession = styled.div`
 
 const Negativepage = ({ handleModalOpen, ...props }) => {
   console.log(props.dummy);
+  const location = useLocation();
+  const data = location.state.cons;
   return (
     <>
       <Nav handleModalOpen={handleModalOpen} />
@@ -51,11 +54,16 @@ const Negativepage = ({ handleModalOpen, ...props }) => {
           </h1>
         </HeadSession>
         <BodySession>
-          <Profile />
-          <Profile />
-          <Profile />
-          <Profile />
-          <Profile />
+          {data.map((item) => {
+            return (
+              <Profile
+                key={item.id}
+                username={item.username}
+                date={item.createdAt}
+                content={item.content}
+              />
+            );
+          })}
         </BodySession>
       </TotalContainer>
     </>

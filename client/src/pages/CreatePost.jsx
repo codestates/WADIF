@@ -119,14 +119,12 @@ const TooltipContainer = styled.div`
   }
 `;
 
-const CreatePost = ({ handleModalOpen }) => {
+const CreatePost = ({ handleModalOpen, accessToken }) => {
   const [inputs, setInputs] = useState({
     title: '',
     contents: '',
   });
-  const [accessToken, setAccessToken] = useState(
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OSwidXNlcklkIjoia3dzIiwidXNlcm5hbWUiOiJ3b29zZW9rIiwiZW1haWwiOiJrd3NAZ21haWwuY29tIiwiY3JlYXRlZEF0IjpudWxsLCJ1cGRhdGVkQXQiOm51bGwsImlhdCI6MTYzMDMyMDQ4MywiZXhwIjoxNjMxNjE2NDgzfQ.mUv4tgwGEYsnb6G65heOOonDrf9Z0wvDyo46zW_Q-QA',
-  );
+
   const [tooltip, setTooltip] = useState(false);
 
   const Submit = async () => {
@@ -169,15 +167,6 @@ const CreatePost = ({ handleModalOpen }) => {
     setInputs(nextInputs);
   };
 
-  // const Submit = () => {
-  //   console.log('what');
-  //   console.log(tooltip);
-  //
-  //   setInputs({
-  //     title: '',
-  //     contents: '',
-  //   });
-  // };
   return (
     <>
       <Nav handleModalOpen={handleModalOpen} />
