@@ -18,7 +18,7 @@ const MypageContainer = styled.div`
     height: 100vh;
     flex-direction: column;
     overflow-y: auto;
-    padding-bottom: 5em;
+    padding-bottom: 0.1em;
   }
   .tooltip-right {
     right: -15em;
@@ -196,17 +196,27 @@ const ToopTip = styled.div`
   }
 `;
 
-const Mainpage = ({ handleModalOpen, accessToken }) => {
+const Mainpage = ({
+  handleLogOut,
+  accessToken,
+  handleServerErr,
+  history,
+  handleModalOpen,
+}) => {
   const titleRef = useRef();
   const textRef = useRef();
-
   const [title, setTitle] = useState('');
   const [text, setText] = useState('');
   const [condition, setCondition] = useState(false);
   const [tooltip, setTooltip] = useState(false);
   const [posts, setPosts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
+  useEffect(async () => {
+    if (!accessToken) {
+      handleLogOut();
+    }
+
     const getPostUrl = 'https://localhost:4000/main';
     const config = {
       'Content-Type': 'application/json',
@@ -215,13 +225,14 @@ const Mainpage = ({ handleModalOpen, accessToken }) => {
         Authorization: `Bearer ${accessToken}`,
       },
     };
-    axios
-      .get(getPostUrl, config)
-      .then((response) => {
-        setPosts(response.data.data);
-        // console.log(response.data.data);
-      })
-      .catch(console.log);
+    try {
+      const response = await axios.get(getPostUrl, config);
+      setIsLoading(false);
+      setPosts(response.data.data);
+    } catch (err) {
+      console.log(err);
+      handleServerErr();
+    }
   }, []);
 
   function TitleEdit() {
@@ -306,13 +317,24 @@ const Mainpage = ({ handleModalOpen, accessToken }) => {
         </ToopTip>
         <LeftContainer>
           <HotTopic>Hot Topic</HotTopic>
-          {posts.map((postInfo) => (
-            <Maintopic postInfo={postInfo} bgColor={ColorMaker()} />
-          ))}
-          {/* <PlaceHolder />
-          <PlaceHolder />
-          <PlaceHolder /> */}
-          {/* <NoDataHopTopic /> */}
+          {isLoading ? (
+            <>
+              <PlaceHolder />
+              <PlaceHolder />
+              <PlaceHolder />
+            </>
+          ) : posts.length === 0 ? (
+            <NoDataHopTopic />
+          ) : (
+            posts.map((postInfo) => (
+              <Maintopic
+                key={postInfo.id}
+                postInfo={postInfo}
+                bgColor={ColorMaker()}
+                history={history}
+              />
+            ))
+          )}
         </LeftContainer>
         <RightContainer>
           <RightTopBox>
