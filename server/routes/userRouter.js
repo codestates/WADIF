@@ -13,7 +13,6 @@ router.post('/signout', authControllers.signout);
 
 // myPage
 router.get('/posts', authChecker, userControllers.myInfos);
-// router.get('/bookmarks', authChecker, userControllers.myBookmarks);
 router.post('/bookmarks', authChecker, userControllers.addBookmarks);
 router.delete('/bookmarks', authChecker, userControllers.deleteBookmarks);
 router.patch('/userInfo', authChecker, userControllers.updateMyInfo);
