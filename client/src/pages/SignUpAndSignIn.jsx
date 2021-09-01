@@ -462,7 +462,7 @@ const SignUpAndSignIn = ({ history, setAccessToken, setIsLogin }) => {
       );
       setIsLogin(true);
       ResetStateSI();
-      setAccessToken(reponse.data.data.accessToken);
+      // setAccessToken(reponse.data.data.accessToken);
       history.push('/main');
     } catch (err) {
       console.log(err);
