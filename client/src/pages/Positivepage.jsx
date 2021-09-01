@@ -37,10 +37,10 @@ const BodySession = styled.div`
   overflow: scroll;
 `;
 
-const Positivepage = () => {
+const Positivepage = ({ handleModalOpen }) => {
   return (
     <>
-      <Nav />
+      <Nav handleModalOpen={handleModalOpen} />
       <TotalContainer>
         <HeadSession>
           <h1>

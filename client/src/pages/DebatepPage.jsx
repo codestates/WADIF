@@ -199,8 +199,9 @@ const SelfUserInfo = styled(UserInfo)`
   }
 `;
 
-const DebatePage = (props) => {
+const DebatePage = ({ handleModalOpen, ...props }) => {
   const location = useLocation();
+  // const response = location.state.postInfo;
   const data = location.state;
 
   const prosOpinion = data[0].comments.filter(
@@ -212,7 +213,7 @@ const DebatePage = (props) => {
 
   return (
     <>
-      <Nav />
+      <Nav handleModalOpen={handleModalOpen} />
       <DebateContainer>
         {!data ? <PlaceHolderForDebatePage /> : <Post data={data[0]} />}
         {/* <Spinner /> */}

@@ -39,11 +39,11 @@ const BodySession = styled.div`
   width: 100%;
 `;
 
-const Negativepage = (props) => {
+const Negativepage = ({ handleModalOpen, ...props }) => {
   console.log(props.dummy);
   return (
     <>
-      <Nav />
+      <Nav handleModalOpen={handleModalOpen} />
       <TotalContainer>
         <HeadSession>
           <h1>

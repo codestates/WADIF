@@ -244,7 +244,7 @@ const Security = styled.div`
   }
 `;
 
-const Mypage = () => {
+const Mypage = ({ handleModalOpen }) => {
   const textRef = useRef();
   const likeRef = useRef();
   const [fix, setFix] = useState(false);
@@ -309,7 +309,7 @@ const Mypage = () => {
 
   return (
     <>
-      <Nav />
+      <Nav handleModalOpen={handleModalOpen} />
       <TotalContainer>
         <TopContainer>
           {/* <TopFollowButton>Follow</TopFollowButton> */}

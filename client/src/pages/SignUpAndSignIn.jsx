@@ -279,7 +279,7 @@ const Container = styled.div`
   }
 `;
 
-const SignUpAndSignIn = ({ history, setAccessToken }) => {
+const SignUpAndSignIn = ({ history, setAccessToken, setIsLogin }) => {
   //애니메이션 구현을 위한 클래스 상태 변경
   const setActiveFT = (value) => {
     if (value === 'activeSignUpAni') {
@@ -444,33 +444,33 @@ const SignUpAndSignIn = ({ history, setAccessToken }) => {
     return true;
   };
 
-  const handleSignIn = (e) => {
+  const handleSignIn = async (e) => {
     e.preventDefault();
     const signUpUrl = 'https://localhost:4000/users/signin';
     const config = {
       'Content-Type': 'application/json',
       withCredentials: true,
     };
-    axios
-      .post(
+    try {
+      const reponse = await axios.post(
         signUpUrl,
         {
           userId: id,
           password,
         },
         config,
-      )
-      .then((data) => {
-        setAccessToken(data.data.data.accessToken);
-        history.push('/');
-      })
-      .catch((err) => {
-        console.log(err);
-        setErrStateOfIdSI('');
-      });
+      );
+      setIsLogin(true);
+      ResetStateSI();
+      setAccessToken(reponse.data.data.accessToken);
+      history.push('/main');
+    } catch (err) {
+      console.log(err);
+      setErrStateOfIdSI('');
+    }
   };
 
-  const handleSignUp = (e) => {
+  const handleSignUp = async (e) => {
     e.preventDefault();
     const signUpUrl = 'https://localhost:4000/users';
     const config = {
@@ -478,8 +478,8 @@ const SignUpAndSignIn = ({ history, setAccessToken }) => {
       withCredentials: true,
     };
     if (alertErr() && CheckInputsSU(inputsSU)) {
-      axios
-        .post(
+      try {
+        const response = await axios.post(
           signUpUrl,
           {
             userId: idSU,
@@ -488,17 +488,15 @@ const SignUpAndSignIn = ({ history, setAccessToken }) => {
             password: passwordSU,
           },
           config,
-        )
-        .then((response) => {
-          ResetStateSU();
-          setSignInState('activeSignIn');
-          setSignUpState('notActiveSignUp');
-          alert('회원가입에 성공하였습니다!');
-        })
-        .catch((err) => {
-          console.log(err);
-          alert('회원가입에 실패하였습니다. 다시 시도해주세요.');
-        });
+        );
+        ResetStateSU();
+        setSignInState('activeSignIn');
+        setSignUpState('notActiveSignUp');
+        alert('회원가입에 성공하였습니다!');
+      } catch (err) {
+        console.log(err);
+        alert('회원가입에 실패하였습니다. 다시 시도해주세요.');
+      }
     }
   };
 

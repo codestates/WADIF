@@ -18,9 +18,11 @@ import Allboardpage from './pages/Allboardpage';
 import DebatepPage from './pages/DebatepPage';
 import NotFound from './LodingPlaceHolder/404NotFound';
 import LogOutModal from './components/Nav/LogOutModal';
+import Introducion from './pages/IntroducePage';
 import axios from 'axios';
 
 function App() {
+  const [isLogin, setIsLogin] = useState(false);
   const [show, setShow] = useState(false);
   const [userInfo, setUserInfo] = useState(null);
   const [accessToken, setAccessToken] = useState(null);
@@ -30,7 +32,7 @@ function App() {
     setShow(true);
   };
 
-  const handleModalClose = (e) => {
+  const handleModalClose = async (e) => {
     const currentClass = e.target.className;
 
     if (currentClass === 'yesBx' || currentClass === 'yes') {
@@ -40,47 +42,74 @@ function App() {
       };
       console.log(accessToken);
       console.log('5');
-      axios
-        .post(signOutUrl, {}, config)
-        .then((response) => {
-          console.log('hello');
-          console.log(response);
-          history.push('/login');
-        })
-        .catch((err) => console.log(err));
+      try {
+        const response = await axios.post(signOutUrl, {}, config);
+        setIsLogin(false);
+        history.push('/login'); //나중에 소개페이지 history push
+      } catch (err) {
+        console.log(err);
+        handleServerErr();
+      }
+    } else if (currentClass === 'modal-card' || currentClass === 'askLogout') {
+      return;
     }
     setShow(false);
+  };
+
+  const handleServerErr = () => {
+    setIsLogin(false);
+    setAccessToken(null);
+    history.push('/notfound');
+  };
+
+  const handleLogOut = () => {
+    setIsLogin(false);
+    setAccessToken(null);
+    history.push('/');
   };
 
   return (
     <>
       <Switch>
         <Route exact path="/">
+          <Introducion />
+        </Route>
+        <Route path="/main">
           <Mainpage
+            handleLogOut={handleLogOut}
+            handleServerErr={handleServerErr}
             handleModalOpen={handleModalOpen}
             accessToken={accessToken}
+            history={history}
           />
         </Route>
         <Route path="/mypage">
-          <Mypage />
+          <Mypage handleModalOpen={handleModalOpen} />
         </Route>
         <Route path="/createPost">
-          <CreatePost />
+          <CreatePost handleModalOpen={handleModalOpen} history={history} />
         </Route>
         <Route path="/positive">
-          <Positivepage />
+          <Positivepage handleModalOpen={handleModalOpen} />
         </Route>
         <Route path="/negative">
-          <Negativepage />
+          <Negativepage handleModalOpen={handleModalOpen} />
         </Route>
         <Route path="/allboard">
-          <Allboardpage />
+          <Allboardpage handleModalOpen={handleModalOpen} />
         </Route>
         <Route path="/debate">
-          <DebatepPage />
+          <DebatepPage handleModalOpen={handleModalOpen} />
         </Route>
         <Route path="/login">
-          <SignUpAndSignIn history={history} setAccessToken={setAccessToken} />
+          <SignUpAndSignIn
+            setIsLogin={setIsLogin}
+            history={history}
+            setAccessToken={setAccessToken}
+          />
+        </Route>
+        <Route path="/notfound">
+          <NotFound />
         </Route>
       </Switch>
       <LogOutModal

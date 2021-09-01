@@ -308,7 +308,7 @@ const Nav = ({ handleModalOpen }) => {
         </ModalContainer>
       ) : null}
       <LogoContainer>
-        <Link to={{ pathname: '/' }}>
+        <Link to={{ pathname: '/main' }}>
           <LogoIcon />
         </Link>
       </LogoContainer>
