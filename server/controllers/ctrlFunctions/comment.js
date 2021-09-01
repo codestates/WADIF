@@ -7,27 +7,26 @@ const { users, comments, commentReaction } = require('../../models');
 
 module.exports = {
   writeComment: async (req, res) => {
-    console.log(req.body);
     const user_id = req.body.userInfo.id;
-    const { post_id, content, opinion } = req.body;
+    const { postId, content, opinion, accessToken } = req.body;
     try {
       const commentData = await comments.create({
         user_id,
-        post_id,
+        post_id: postId,
         opinion,
         content,
       });
-      console.log(commentData);
       if (commentData) {
         res.status(201).json({
           data: { ...commentData.dataValues, token: req.body.accessToken },
+
           message: '의견이 작성되었습니다.',
         });
       } else {
         res.status(404).json({ message: '의견 작성에 실패하였습니다.' });
       }
-    } catch (e) {
-      throw e;
+    } catch (err) {
+      res.status(500).json({ message: '서버 에러' });
     }
   },
 

@@ -14,7 +14,7 @@ module.exports = {
     const authorization = req.headers['authorization'];
     // 토큰이 아예 발급되지 않아서 headers에 없을때
     if (!authorization) {
-      return null;
+      res.json('good');
     }
 
     const accessToken = authorization.split(' ')[1];
@@ -49,7 +49,7 @@ module.exports = {
           data: null,
           message: '토큰이 모두 만료 되었으니, 다시 로그인해주세요',
         });
-        res.redirect('/');
+        // res.redirect('/');
       } else {
         //case2: aceess는 만료됐지만, refresh는 유효한 경우
         const { userId } = refreshTokenData;

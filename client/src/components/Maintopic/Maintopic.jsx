@@ -79,6 +79,7 @@ const HeadTitle = styled.h1`
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  cursor: pointer;
   @media only screen and (max-width: 768px) {
     font-size: 1.2em;
   }
@@ -192,9 +193,15 @@ const BottomRightNum = styled.span`
   }
 `;
 
-const Maintopic = ({ bgColor, postInfo }) => {
+const Maintopic = ({ bgColor, postInfo, history }) => {
   const { title, content, views, username } = postInfo;
-  // console.log(postInfo);
+
+  const handleConnect = () => {
+    history.push({
+      pathname: `/debate/${postInfo.id}`,
+    });
+  };
+
   return (
     <TopicContainer>
       <BodyContainer>
@@ -203,11 +210,11 @@ const Maintopic = ({ bgColor, postInfo }) => {
         </LeftContainer>
         <RightContainer>
           <RightTopContainer>
-            <HeadTitle>{title}</HeadTitle>
+            <HeadTitle onClick={handleConnect}>{title}</HeadTitle>
             <BookMark />
           </RightTopContainer>
-          <RightBottomContainer>
-            <Link to="/mypage">{content}</Link>
+          <RightBottomContainer onClick={handleConnect}>
+            {content}
           </RightBottomContainer>
         </RightContainer>
       </BodyContainer>
