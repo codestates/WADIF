@@ -6,7 +6,6 @@ const {
 const { posts, users } = require('../../models');
 module.exports = {
   hotTopic: async (req, res) => {
-    console.log(req.query);
     try {
       const postData = await posts.findAll({
         order: [['views', 'DESC']],
@@ -25,9 +24,8 @@ module.exports = {
         }),
         message: '조회수 정렬로 게시글을 조회하였습니다.',
       });
-    } catch (e) {
-      res.send('error');
-      throw e;
+    } catch (err) {
+      res.status(500).json({ message: '서버 에러' });
     }
   },
 };

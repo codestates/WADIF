@@ -1,86 +1,71 @@
 const { verify } = require('jsonwebtoken');
 const {
-  resendAccessToken,
   generateAccessToken,
-  checkToken,
+  sendAccessToken,
 } = require('../controllers/tokenFunctions');
-const { users } = require('../models');
+const { users, tokens } = require('../models');
 module.exports = {
   authChecker: async (req, res, next) => {
-    // case1: access token과 refresh token 모두가 만료된 경우 -> 에러 발생
-    // case2: access token은 만료됐지만, refresh token은 유효한 경우 ->  access token 재발급
-    // case4: accesss token과 refresh token 모두가 유효한 경우 -> 바로 다음 미들웨어로 넘긴다.
-
-    const authorization = req.headers['authorization'];
-    // 토큰이 아예 발급되지 않아서 headers에 없을때
-    if (!authorization) {
-      res.json('good');
-    }
-
-    const accessToken = authorization.split(' ')[1];
-    const refreshToken = req.cookies.refreshToken;
-
-    const accessTokenData = verify(
-      accessToken,
-      process.env.ACCESS_SECRET,
-      (err, data) => {
-        if (err) {
-          return null;
-        } else {
-          return data;
-        }
-      },
-    );
-    const refreshTokenData = verify(
-      refreshToken,
-      process.env.REFRESH_SECRET,
-      (err, data) => {
-        if (err) {
-          return null;
-        } else {
-          return data;
-        }
-      },
-    );
-    if (!accessTokenData) {
-      if (!refreshTokenData) {
-        // case1 : access, refresh 모두 만료됬을 경우
-        res.json({
-          data: null,
-          message: '토큰이 모두 만료 되었으니, 다시 로그인해주세요',
-        });
-        // res.redirect('/');
-      } else {
-        //case2: aceess는 만료됐지만, refresh는 유효한 경우
-        const { userId } = refreshTokenData;
-        console.log('refreshTokenData : ', userId);
-        users.findOne({ where: { userId } }).then((data) => {
-          if (!data) {
-            return res.json({
-              data: null,
-              message: '일치하는 유저 정보가 없습니다.',
-            });
+    try {
+      const accessToken = req.cookies.accessToken;
+      const accessTokenData = verify(
+        accessToken,
+        process.env.ACCESS_SECRET,
+        (err, data) => {
+          if (err) {
+            return null;
+          } else {
+            return data;
           }
+        },
+      );
+
+      // case1: accessToken의 만료시간이 60초도 안남았을 때
+      if (accessTokenData.exp - Math.floor(Date.now() / 1000) < 300) {
+        const user_id = accessTokenData.id;
+        const refreshToken = await tokens.findOne({ where: { user_id } });
+        const refreshTokenData = verify(
+          refreshToken.refreshToken,
+          process.env.REFRESH_SECRET,
+          (err, data) => {
+            if (err) {
+              return null;
+            } else {
+              return data;
+            }
+          },
+        );
+
+        // console.log('60초 미만! 한시가급해유~');
+        const { userId } = refreshTokenData;
+        const data = await users.findOne({ where: { userId } });
+        if (!data) {
+          return res.json({
+            data: null,
+            message: '일치하는 유저 정보가 없습니다.',
+          });
+        } else {
           delete data.dataValues.password;
           const payload = data.dataValues;
 
           const newAccessToken = generateAccessToken(payload);
+          sendAccessToken(res, newAccessToken);
           req.body.userInfo = payload;
-          req.body.accessToken = newAccessToken;
-          // req.body = {
-          //   data: { accessToken: newAccessToken, userInfo: payload },
-          // };
-
-          // res.setHeader({ authorization: `Bearer ${newAccessToken}` });
-          //resendAccessToken(res, newAccessToken, payload);
           next();
-        });
+        }
+      } else if (accessTokenData) {
+        // case2: access token이 60초 이상 남은 상태이면서 유효한 경우
+        // console.log('60초 이상! 널널해유~');
+        req.body.userInfo = accessTokenData;
+        next();
       }
-    } else {
-      // case4: accesss token과 refresh token 모두가 유효한 경우
-      req.body.userInfo = accessTokenData;
-      req.body.accessToken = null;
-      next();
+    } catch (err) {
+      // case3: accesss token이 완전 만료된 경우
+      res.clearCookie('accessToken');
+      res.json({
+        data: null,
+        message: '토큰이 모두 만료 되었으니, 다시 로그인해주세요',
+      });
     }
   },
 };

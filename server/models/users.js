@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       models.users.hasMany(models.bookmarks, { foreignKey: 'user_id' });
       models.users.hasMany(models.postReaction, { foreignKey: 'user_id' });
       models.users.hasMany(models.commentReaction, { foreignKey: 'user_id' });
+      models.users.hasOne(models.tokens, { foreignKey: 'user_id' });
     }
   }
   users.init(
@@ -22,6 +23,7 @@ module.exports = (sequelize, DataTypes) => {
       password: DataTypes.STRING,
       username: DataTypes.STRING,
       email: DataTypes.STRING,
+      profile: DataTypes.STRING,
     },
     {
       sequelize,
