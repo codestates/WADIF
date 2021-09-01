@@ -1,15 +1,9 @@
 const {
-  generateAccessToken,
-  sendAccessToken,
-  isAuthorized,
-} = require('../tokenFunctions');
-const {
   posts,
   comments,
   users,
   postReaction,
   commentReaction,
-  sequelize,
 } = require('../../models');
 
 module.exports = {
