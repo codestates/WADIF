@@ -41,6 +41,7 @@ const BodySession = styled.div`
 const Positivepage = ({ handleModalOpen }) => {
   const location = useLocation();
   const data = location.state.pros;
+  console.log(data);
   return (
     <>
       <Nav handleModalOpen={handleModalOpen} />
@@ -58,6 +59,7 @@ const Positivepage = ({ handleModalOpen }) => {
                 username={item.username}
                 date={item.createdAt}
                 content={item.content}
+                likeCount={item.commentLikeCount}
               />
             );
           })}

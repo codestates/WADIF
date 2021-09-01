@@ -66,7 +66,6 @@ const BoardComponent = (props) => {
       `https://localhost:4000/posts/${props.data.id}`,
       {
         headers: {
-          authorization: `Bearer ${props.token}`,
           'Content-Type': 'application/json',
         },
         withCredentials: true,
@@ -76,9 +75,10 @@ const BoardComponent = (props) => {
   };
   useEffect(() => {
     if (data.length > 0) {
+      console.log(data);
       history.push({
         pathname: '/debate',
-        state: data,
+        state: [data[0].posts],
       });
     }
   }, [data]);

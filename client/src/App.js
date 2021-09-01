@@ -60,7 +60,7 @@ function App() {
 
   const handleLogOut = () => {
     setAccessToken(null);
-    history.push('/');
+    history.push('/login');
   };
 
   return (

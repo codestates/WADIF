@@ -1,4 +1,4 @@
-const { posts, users } = require('../../models');
+const { posts, users, postReaction } = require('../../models');
 module.exports = {
   hotTopic: async (req, res) => {
     try {
@@ -11,12 +11,23 @@ module.exports = {
           },
         ],
       });
+
       res.status(200).json({
-        data: postData.map((el) => {
-          el.dataValues.username = el.dataValues.user.username;
-          delete el.dataValues.user;
-          return el;
-        }),
+        data: await Promise.all(
+          postData.map(async (el) => {
+            el.dataValues.username = el.dataValues.user.username;
+            delete el.dataValues.user;
+            const likeReaction = await postReaction.findAndCountAll({
+              where: { post_id: el.id, reaction: '1' },
+            });
+            const hateReaction = await postReaction.findAndCountAll({
+              where: { post_id: el.id, reaction: '2' },
+            });
+            el.dataValues.postLikeCount = likeReaction.count;
+            el.dataValues.postHateCount = hateReaction.count;
+            return el;
+          }),
+        ),
         message: '조회수 정렬로 게시글을 조회하였습니다.',
       });
     } catch (err) {

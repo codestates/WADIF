@@ -106,10 +106,10 @@ const Profile = (props) => {
           <span className="time">{props.date}</span>
         </div>
       </ProfileTop>
-      <ProfileText>{`${props.content}`}</ProfileText>
+      <ProfileText>{props.content}</ProfileText>
       <LikeBox>
         <Like className="likeIcon" />
-        <span className="num">1234</span>
+        <span className="num">{props.likeCount}</span>
       </LikeBox>
     </ProfileContainer>
   );

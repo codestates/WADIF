@@ -6,16 +6,18 @@ import introduce3 from '../IntroduceIMG/introduce3.png';
 import introduce4 from '../IntroduceIMG/introduce4.png';
 
 const Container = styled.div`
-  height: 500vh;
-  background: #464444;
+  height: 100%;
+  background: #000000;
   display: flex;
   flex-direction: column;
+  position: relative;
 `;
 
 const Nav = styled.div`
   margin: 0;
   height: 10vh;
   background: #000000;
+  top: 0;
   @media only screen and (max-width: 1024px) {
     height: 7vh;
   }
@@ -64,6 +66,7 @@ const Introduce2 = styled(Introduce1)`
   height: 90vh;
 `;
 const Introduce3 = styled(Introduce1)`
+  margin-top: 5em;
   height: 170vh;
   display: flex;
   flex-direction: column;
@@ -72,6 +75,8 @@ const Introduce3 = styled(Introduce1)`
   }
 `;
 const Introduce4 = styled(Introduce1)`
+  height: 100vh;
+  margin-top: 15em;
   display: flex;
   flex-direction: row;
   @media only screen and (max-width: 1024px) {
@@ -241,6 +246,7 @@ const TextForm = styled.div`
   flex-direction: column;
   height: 30em;
   padding-top: 5em;
+  height: 100vh;
 `;
 
 const EndLogo = styled(Text1Title)`
@@ -248,14 +254,14 @@ const EndLogo = styled(Text1Title)`
   margin: 0 auto;
   right: 1em;
   top: 1em;
-  color: #881e1e;
+  color: #a51414;
   font-weight: 700;
   padding-right: 0em;
   right: 0em;
   top: 1em;
   width: 100%;
   text-align: center;
-  color: #b36e6e;
+
   @media only screen and (max-width: 1024px) {
     margin-top: 1.5em;
   }
@@ -264,7 +270,7 @@ const EndLogo = styled(Text1Title)`
 const EndText = styled.div`
   width: 100%;
   text-align: center;
-  color: #7f79cf;
+  color: #386ddf;
   font-size: 34px;
   margin: 0 auto;
   /* padding: 0; */
@@ -277,7 +283,7 @@ const EndText = styled.div`
 `;
 
 const Footer = styled(Nav)`
-  height: 34vh;
+  height: 15%;
 `;
 
 const TeamIntroduce = styled.div`
@@ -310,6 +316,10 @@ const TeamMember = styled(TeamLeader)`
 `;
 
 const Position = styled(TeamMember)``;
+
+const EndLogoContainer = styled.div`
+  height: 100vh;
+`;
 
 const Introducion = () => {
   return (
@@ -393,8 +403,10 @@ const Introducion = () => {
             </TextForm>
           </Introduce4>
         </Body>
-        <EndLogo>WADIF</EndLogo>
-        <EndText>지금 의견을 나누세요</EndText>
+        <EndLogoContainer>
+          <EndLogo>WADIF</EndLogo>
+          <EndText>지금 의견을 나누세요</EndText>
+        </EndLogoContainer>
         <Footer>
           <TeamIntroduce>
             <TeamTitle>TEAM EDGE</TeamTitle>

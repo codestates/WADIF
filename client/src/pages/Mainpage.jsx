@@ -188,7 +188,7 @@ const ToopTip = styled.div`
   color: #ffffff;
   border-radius: 2px;
   right: 0;
-  top: 1.8em;
+  top: 30%;
   z-index: 10;
   transition: 1s;
   @media only screen and (max-width: 768px) {
@@ -213,22 +213,17 @@ const Mainpage = ({
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(async () => {
-    if (!accessToken) {
-      handleLogOut();
-    }
-
     const getPostUrl = 'https://localhost:4000/main';
     const config = {
-      'Content-Type': 'application/json',
       withCredentials: true,
       headers: {
-        Authorization: `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
       },
     };
     try {
       const response = await axios.get(getPostUrl, config);
       setIsLoading(false);
-      setPosts(response.data.data);
+      setPosts(response.data.data.slice(0, 7));
     } catch (err) {
       console.log(err);
       handleServerErr();
@@ -255,7 +250,7 @@ const Mainpage = ({
     setCondition(true);
   }
 
-  function EditHandler() {
+  const EditHandler = async () => {
     if (textRef.current.value === '' || titleRef.current.value === '') {
       if (condition) {
         setTooltip(true);
@@ -269,16 +264,33 @@ const Mainpage = ({
     } else {
       TitleEdit();
       TextEdit();
+
+      const data = await axios.post(
+        'https://localhost:4000/posts',
+        {
+          title: titleRef.current.value,
+          content: textRef.current.value,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          withCredentials: true,
+        },
+      );
+      history.push({
+        pathname: '/debate',
+        state: [data.data.data],
+      });
       setCondition(false);
     }
-  }
+  };
 
   useEffect(() => {
     EditHandler();
   }, [condition]);
 
   useEffect(() => {
-    const postInfo = { title: title, text: text };
     titleRef.current.value = '';
     textRef.current.value = '';
   }, [text]);
