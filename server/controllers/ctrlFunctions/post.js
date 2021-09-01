@@ -1,10 +1,4 @@
 const {
-  generateAccessToken,
-  sendAccessToken,
-  isAuthorized,
-} = require('../tokenFunctions');
-
-const {
   posts,
   comments,
   users,
