@@ -4,7 +4,7 @@ const userControllers = require('../controllers/ctrlFunctions/user');
 const authControllers = require('../controllers/ctrlFunctions/auth');
 const { authChecker } = require('../middlewares/authChecker');
 
-// sign up, sign in 
+// sign up, sign in
 router.post('/', userControllers.signup);
 router.post('/signin', authControllers.signin);
 
@@ -18,6 +18,5 @@ router.delete('/bookmarks', userControllers.deleteBookmarks);
 
 router.patch('/userInfo', userControllers.updateMyInfo);
 router.post('/signout', authControllers.signout);
-
 
 module.exports = router;
