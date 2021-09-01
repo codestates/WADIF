@@ -3,7 +3,7 @@ const {
   sendAccessToken,
   isAuthorized,
 } = require('../tokenFunctions');
-const { users, comments } = require('../../models');
+const { users, comments, commentReaction } = require('../../models');
 
 module.exports = {
   writeComment: async (req, res) => {
@@ -18,8 +18,8 @@ module.exports = {
       });
       if (commentData) {
         res.status(201).json({
-          data: commentData,
-          token: accessToken,
+          data: { ...commentData.dataValues, token: req.body.accessToken },
+
           message: '의견이 작성되었습니다.',
         });
       } else {
@@ -44,13 +44,24 @@ module.exports = {
         ],
         where: { post_id: postId, opinion },
       });
+
       console.log(commentsData);
       res.status(200).json({
-        data: commentsData.map((el) => {
-          el.dataValues.username = el.dataValues.user.username;
-          delete el.dataValues.user;
-          return el;
-        }),
+        data: {
+          comment: await Promise.all(
+            commentsData.map(async (el) => {
+              el.dataValues.username = el.dataValues.user.username;
+              delete el.dataValues.user;
+              console.log(el.dataValues);
+              const countReactions = await commentReaction.findAndCountAll({
+                where: { comment_id: el.dataValues.id, reaction: '1' },
+              });
+              el.dataValues.reactionCount = countReactions.count;
+              return el;
+            }),
+          ),
+          token: req.body.accessToken,
+        },
         message: '의견 조회에 성공하였습니다.',
       });
     } catch (e) {
