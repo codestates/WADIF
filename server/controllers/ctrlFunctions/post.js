@@ -47,18 +47,7 @@ module.exports = {
         await postData.update({ views: postData.views + 1 });
         postData.dataValues.username = postData.dataValues.user.username;
         delete postData.dataValues.user;
-        // 카운트하는 또 다른 방식
-        // const likeReaction = await postReaction.findAll({
-        //   where: {
-        //     post_id: postData.id,
-        //     reaction: '1',
-        //   },
-        //   attributes: [
-        //     [sequelize.fn('COUNT', sequelize.col('reaction')), 'likeCount'],
-        //   ],
-        // });
-        // postData.dataValues.postLikeCount =
-        // likeReaction[0].dataValues.likeCount;
+
         const likeReaction = await postReaction.findAndCountAll({
           where: { post_id: postData.id, reaction: '1' },
         });
@@ -170,3 +159,16 @@ module.exports = {
     }
   },
 };
+
+// 카운트하는 또 다른 방식
+// const likeReaction = await postReaction.findAll({
+//   where: {
+//     post_id: postData.id,
+//     reaction: '1',
+//   },
+//   attributes: [
+//     [sequelize.fn('COUNT', sequelize.col('reaction')), 'likeCount'],
+//   ],
+// });
+// postData.dataValues.postLikeCount =
+// likeReaction[0].dataValues.likeCount;
