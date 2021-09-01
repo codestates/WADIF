@@ -4,7 +4,7 @@ const postControllers = require('../controllers/ctrlFunctions/post');
 const commentControllers = require('../controllers/ctrlFunctions/comment');
 const { authChecker } = require('../middlewares/authChecker');
 
-// router.use(authChecker);
+router.use(authChecker);
 // post
 router.post('/', authChecker, postControllers.writePost);
 router.get('/:postId', authChecker, postControllers.seePost);

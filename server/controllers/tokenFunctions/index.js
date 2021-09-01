@@ -22,7 +22,6 @@ module.exports = {
       defaults: { refreshToken },
     });
     result.update({ refreshToken });
-
     res.status(200).json({ data, message: '성공' });
   },
 };
