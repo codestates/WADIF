@@ -26,7 +26,6 @@ const TotalContainer = styled.div`
 `;
 
 const EmailTooltip = (props) => {
-  console.log(props);
   return (
     <TotalContainer toast={props.toast}>
       이메일 형식을 지켜주세요.

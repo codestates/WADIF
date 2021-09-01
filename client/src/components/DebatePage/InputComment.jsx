@@ -4,6 +4,7 @@ import { Messages } from '@styled-icons/typicons';
 import { Link } from 'react-router-dom';
 import { Bookmark2 } from 'styled-icons/remix-fill';
 import { Like, Dislike } from 'styled-icons/boxicons-solid';
+import axios from 'axios';
 
 const DebateContainer = styled.div`
   display: flex;
@@ -134,12 +135,13 @@ const InputReaction = styled(BasicDiv)`
   }
   input {
     float: right;
-    background: #5b78b4;
-    color: #fff;
+    background: #3da6ff;
+    color: #000000;
     border-radius: 10%;
     width: 5em;
     height: 2em;
-    box-shadow: rgba(255, 255, 255, 0.4) 0 1px 0 0 inset;
+    border: none;
+    /* box-shadow: rgba(255, 255, 255, 0.4) 0 1px 0 0 inset; */
     &:hover {
       background-color: #07c;
     }
@@ -178,7 +180,15 @@ const SelfUserInfo = styled(UserInfo)`
   }
 `;
 
-const InputComment = () => {
+const InputComment = (props) => {
+  const year = new Date().getFullYear();
+  const month =
+    new Date().getMonth() > 10 ? new Date().getMonth() : new Date().getMonth();
+  const date = new Date().getDate();
+  let fullDate = `${year} ${
+    month + 1 < 10 ? '0' + (month + 1) : month + 1
+  } ${date}`;
+
   return (
     <InputContainer>
       <div className="row"></div>
@@ -188,9 +198,9 @@ const InputComment = () => {
             <ProfileIcon />
           </div>
           <div className="profile">
-            <span className="name">안치원</span>
+            <span className="name">'내 의견'</span>
             <br />
-            <span>2020년 1월 1일</span>
+            <span>{fullDate}</span>
           </div>
         </div>
         <div className="selectContainer">
@@ -202,7 +212,11 @@ const InputComment = () => {
       </SelfUserInfo>
       <InputReaction>
         <textarea></textarea>
-        <input type="submit" value="Submit"></input>
+        <input
+          type="submit"
+          value="Submit"
+          onClick={props.handleSubmit}
+        ></input>
       </InputReaction>
     </InputContainer>
   );

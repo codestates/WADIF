@@ -21,7 +21,7 @@ module.exports = {
       );
 
       // case1: accessToken의 만료시간이 60초도 안남았을 때
-      if (accessTokenData.exp - Math.floor(Date.now() / 1000) < 60) {
+      if (accessTokenData.exp - Math.floor(Date.now() / 1000) < 300) {
         const user_id = accessTokenData.id;
         const refreshToken = await tokens.findOne({ where: { user_id } });
         const refreshTokenData = verify(

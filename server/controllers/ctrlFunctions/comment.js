@@ -4,6 +4,7 @@ module.exports = {
   writeComment: async (req, res) => {
     const user_id = req.body.userInfo.id;
     const { postId, content, opinion } = req.body;
+
     try {
       const commentData = await comments.create({
         user_id,
@@ -36,12 +37,23 @@ module.exports = {
         ],
         where: { post_id: postId, opinion },
       });
+
       res.status(200).json({
-        data: commentsData.map((el) => {
-          el.dataValues.username = el.dataValues.user.username;
-          delete el.dataValues.user;
-          return el;
-        }),
+        data: {
+          comment: await Promise.all(
+            commentsData.map(async (el) => {
+              el.dataValues.username = el.dataValues.user.username;
+              delete el.dataValues.user;
+              console.log(el.dataValues);
+              const countReactions = await commentReaction.findAndCountAll({
+                where: { comment_id: el.dataValues.id, reaction: '1' },
+              });
+              el.dataValues.reactionCount = countReactions.count;
+              return el;
+            }),
+          ),
+          token: req.body.accessToken,
+        },
         message: '의견 조회에 성공하였습니다.',
       });
     } catch (err) {

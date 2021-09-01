@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { LeftArrow, RightArrow } from 'styled-icons/boxicons-regular';
 import { Man } from 'styled-icons/icomoon';
@@ -10,16 +10,36 @@ import SecurityPage from '../components/security/SecurityPage';
 import PlaceHolder from '../LodingPlaceHolder/PlaceHolderForMyPageText';
 import MyPageProfile from '../components/MypageText/LeftContainer';
 import PlaceHolderLeftProfile from '../LodingPlaceHolder/PlaceHolderForMyPageProfile';
+import { Close } from 'styled-icons/remix-fill';
 
 const TotalContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
   height: 215vh;
+  position: relative;
+
   @media only screen and (max-width: 768px) {
     flex-direction: column;
     height: 220vh;
     /* overflow: hidden; */
+  }
+
+  .fixModal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    z-index: 100;
+    background-color: #80808071;
+    top: 0;
+    .fixModalContainer {
+      width: 50%;
+      height: 50%;
+      background-color: white;
+    }
   }
 `;
 
@@ -79,7 +99,7 @@ const RightMyTextContainer = styled.div`
   padding: 1em;
   margin-top: 4em;
   margin-left: 3em;
-  width: 55.5em;
+  width: 90%;
   overflow: hidden;
   ::before {
     content: '';
@@ -131,7 +151,7 @@ const MyTextContent = styled.div`
 
 const MoveContainer = styled.div`
   width: 100%;
-  top: 14%;
+  top: 12%;
   display: flex;
   justify-content: space-between;
   position: absolute;
@@ -164,7 +184,7 @@ const RightMove = styled(RightArrow)`
 
 const LikeMoveContainer = styled.div`
   width: 100%;
-  top: 42%;
+  top: 35%;
   display: flex;
   justify-content: space-between;
   position: absolute;
@@ -185,7 +205,7 @@ const RightLikeContianer = styled.div`
   position: relative;
   padding: 1em;
   margin-left: 3em;
-  width: 55.5em;
+  width: 90%;
   overflow: hidden;
   ::before {
     content: '';
@@ -244,27 +264,131 @@ const Security = styled.div`
   }
 `;
 
-const Mypage = () => {
+const FixModal = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  z-index: 70;
+  background-color: #80808071;
+  top: 0;
+`;
+
+const FixBack = styled.div`
+  width: 100%;
+  height: 100%;
+  background-color: #cacaca88;
+  position: absolute;
+`;
+
+const FixModalContainer = styled.div`
+  width: 23em;
+  height: 60%;
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 0 15px 5px rgba(0, 0, 0, 0.5);
+  position: relative;
+  .fail {
+    transition: 0.5s;
+    position: absolute;
+    bottom: 7em;
+    left: 6.5em;
+    color: #d30101;
+    opacity: 0;
+  }
+  .on {
+    opacity: 1;
+  }
+  form {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    .idContainer {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      margin-bottom: 2em;
+      margin-top: 2.5em;
+      span {
+        margin-bottom: 0.5em;
+        font-weight: 700;
+        font-size: 1.2em;
+      }
+    }
+    .passwordContainer {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      margin-bottom: 5em;
+      margin-top: 1em;
+      span {
+        margin-bottom: 0.5em;
+        font-weight: 700;
+        font-size: 1.2em;
+      }
+    }
+    input {
+      padding: 0.5em 1.5em;
+      outline: none;
+    }
+  }
+`;
+
+const CloseIcon = styled(Close)`
+  width: 25px;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  color: #d30101;
+`;
+
+const SubmitButton = styled.button`
+  padding: 0.5em 1em;
+  position: absolute;
+  bottom: 1em;
+  right: 1em;
+  border: none;
+  outline: none;
+  background-color: #2aa33e;
+  color: #ffffff;
+  border-radius: 5px;
+`;
+
+const Mypage = ({ handleModalOpen }) => {
   const textRef = useRef();
   const likeRef = useRef();
   const [fix, setFix] = useState(false);
   const [likeFix, setLikeFix] = useState(false);
   const [dummy, setDummy] = useState(dummydata.data);
   const [likeDummy, setLikeDummy] = useState(likepostdata.data);
+  const [showModal, setShowModal] = useState(false);
+  const [authData, setAuthData] = useState({
+    id: '',
+    password: '',
+  });
 
   let move = 0;
   let likemove = 0;
 
+  const handleAuthor = (key) => (e) => {
+    setAuthData({
+      ...authData,
+      [key]: e.target.value,
+    });
+  };
+
   function MoveRight() {
     move = move + 30;
     textRef.current.style.transform = `translateX(-${move}em)`;
-    console.log(move);
   }
 
   function MoveLeft() {
     move = move - 30;
     textRef.current.style.transform = `translateX(-${move}em)`;
-    console.log(move);
   }
 
   function MoveLikeRight() {
@@ -275,6 +399,10 @@ const Mypage = () => {
   function MoveLikeLeft() {
     likemove = likemove - 30;
     likeRef.current.style.transform = `translateX(${likemove}em)`;
+  }
+
+  function AuthorHandler() {
+    setShowModal(true);
   }
 
   function FixHandler() {
@@ -305,12 +433,49 @@ const Mypage = () => {
     setLikeDummy(arr);
   }
 
-  function movePageHandler() {}
+  function closeModalHandler() {
+    setShowModal(false);
+  }
+
+  function submitDataHandler(e) {
+    e.preventDefault();
+    let fail = true;
+    const target = e.target.parentNode.parentNode.lastChild;
+    if (fail) {
+      target.classList.add('on');
+      setTimeout(() => {
+        target.classList.remove('on');
+      }, 2000);
+      // axios post authData.
+      // if true?? closeModalHandler && 컴포넌트 펼치기.
+      // if false?? 입력 정보가 맞지 않습니다!
+    }
+  }
 
   return (
     <>
-      <Nav />
+      <Nav handleModalOpen={handleModalOpen} />
       <TotalContainer>
+        {showModal ? (
+          <FixModal>
+            <FixBack onClick={closeModalHandler} />
+            <FixModalContainer>
+              <form>
+                <div className="idContainer">
+                  <span>아이디를 입력하세요</span>
+                  <input onChange={handleAuthor('id')} type="text" />
+                </div>
+                <div className="passwordContainer">
+                  <span>비밀번호를 입력하세요</span>
+                  <input onChange={handleAuthor('password')} type="password" />
+                </div>
+                <SubmitButton onClick={submitDataHandler}>보내기</SubmitButton>
+              </form>
+              <CloseIcon onClick={closeModalHandler} />
+              <span className="fail">입력 정보가 맞지 않습니다!</span>
+            </FixModalContainer>
+          </FixModal>
+        ) : null}
         <TopContainer>
           {/* <TopFollowButton>Follow</TopFollowButton> */}
         </TopContainer>
@@ -377,7 +542,7 @@ const Mypage = () => {
               </LikeContent>
             </RightLikeContianer>
             <Security>
-              <SecurityPage />
+              <SecurityPage authorHandler={AuthorHandler} />
             </Security>
           </RightContainer>
         </BodyContainer>
