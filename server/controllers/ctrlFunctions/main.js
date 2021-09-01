@@ -22,12 +22,10 @@ module.exports = {
           delete el.dataValues.user;
           return el;
         }),
-        token: req.body.accessToken,
         message: '조회수 정렬로 게시글을 조회하였습니다.',
       });
-    } catch (e) {
-      res.send('error');
-      throw e;
+    } catch (err) {
+      res.status(500).json({ message: '서버 에러' });
     }
   },
 };

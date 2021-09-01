@@ -3,25 +3,37 @@ const {
   sendAccessToken,
   isAuthorized,
 } = require('../tokenFunctions');
-const { posts, comments, users } = require('../../models');
+const {
+  posts,
+  comments,
+  users,
+  postReaction,
+  commentReaction,
+  sequelize,
+} = require('../../models');
 
 module.exports = {
   writePost: async (req, res) => {
-    const { title, content, userInfo, accessToken } = req.body;
-    const postData = await posts.create({
-      user_id: userInfo.id,
-      title,
-      content,
-    });
-    postData.dataValues.username = userInfo.username;
-    if (postData) {
-      res.status(200).json({
-        data: postData,
-        token: accessToken,
-        message: '게시글 작성이 완료되었습니다.',
+    const { title, content, userInfo } = req.body;
+    try {
+      const postData = await posts.create({
+        user_id: userInfo.id,
+        title,
+        content,
       });
-    } else {
-      res.status(404).json('게시글 작성에 실패하였습니다.');
+      postData.dataValues.username = userInfo.username;
+      if (postData) {
+        res.status(200).json({
+          data: postData,
+          message: '게시글 작성이 완료되었습니다.',
+        });
+      } else {
+        res
+          .status(404)
+          .json({ data: null, message: '게시글 작성에 실패하였습니다.' });
+      }
+    } catch (err) {
+      res.status(500).json({ message: '서버 에러' });
     }
   },
 
@@ -41,6 +53,26 @@ module.exports = {
         await postData.update({ views: postData.views + 1 });
         postData.dataValues.username = postData.dataValues.user.username;
         delete postData.dataValues.user;
+        // 카운트하는 또 다른 방식
+        // const likeReaction = await postReaction.findAll({
+        //   where: {
+        //     post_id: postData.id,
+        //     reaction: '1',
+        //   },
+        //   attributes: [
+        //     [sequelize.fn('COUNT', sequelize.col('reaction')), 'likeCount'],
+        //   ],
+        // });
+        // postData.dataValues.postLikeCount =
+        // likeReaction[0].dataValues.likeCount;
+        const likeReaction = await postReaction.findAndCountAll({
+          where: { post_id: postData.id, reaction: '1' },
+        });
+        const hateReaction = await postReaction.findAndCountAll({
+          where: { post_id: postData.id, reaction: '2' },
+        });
+        postData.dataValues.postLikeCount = likeReaction.count;
+        postData.dataValues.postHateCount = hateReaction.count;
 
         const commentsData = await comments.findAll({
           include: [
@@ -53,18 +85,26 @@ module.exports = {
         });
         res.status(200).json({
           data: {
-            ...postData.dataValues,
-            comments: commentsData.map((el) => {
-              el.dataValues.username = el.dataValues.user.username;
-              delete el.dataValues.user;
-              return el;
-            }),
+            users: req.body.userInfo,
+            posts: postData,
+            comments: await Promise.all(
+              commentsData.map(async (el) => {
+                el.dataValues.username = el.dataValues.user.username;
+                delete el.dataValues.user;
+                const countReactions = await commentReaction.findAndCountAll({
+                  where: { comment_id: el.dataValues.id, reaction: '1' },
+                });
+                el.dataValues.commentLikeCount = countReactions.count;
+                return el;
+              }),
+            ),
           },
-          token: req.body.accessToken,
           message: '게시글 조회에 성공하였습니다.',
         });
       } else {
-        res.status(404).json('게시글을 찾을 수 없습니다.');
+        res
+          .status(404)
+          .json({ data: null, message: '게시글을 찾을 수 없습니다.' });
       }
     } catch (err) {
       res.status(500).json({ message: '서버 에러' });

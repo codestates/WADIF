@@ -4,12 +4,13 @@ const postControllers = require('../controllers/ctrlFunctions/post');
 const commentControllers = require('../controllers/ctrlFunctions/comment');
 const { authChecker } = require('../middlewares/authChecker');
 
+// router.use(authChecker);
 // post
 router.post('/', authChecker, postControllers.writePost);
 router.get('/:postId', authChecker, postControllers.seePost);
-router.delete('/', postControllers.deletePost);
-router.patch('/', postControllers.updatePost);
-router.post('/reaction', postControllers.updateReaction);
+router.delete('/', authChecker, postControllers.deletePost);
+router.patch('/', authChecker, postControllers.updatePost);
+router.post('/reaction', authChecker, postControllers.updateReaction);
 
 // comment
 router.post('/comments', authChecker, commentControllers.writeComment);

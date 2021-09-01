@@ -1,8 +1,9 @@
 const { sign } = require('jsonwebtoken');
+const { tokens } = require('../../models');
 
 module.exports = {
   generateAccessToken: (data) => {
-    return sign(data, process.env.ACCESS_SECRET, { expiresIn: '15d' });
+    return sign(data, process.env.ACCESS_SECRET, { expiresIn: '5h' });
   },
 
   generateRefreshToken: (data) => {
@@ -10,12 +11,18 @@ module.exports = {
   },
 
   sendAccessToken: (res, accessToken) => {
-    res.json({ token: accessToken, message: 'ok' });
-  },
-
-  sendRefreshToken: (res, refreshToken) => {
-    res.cookie('refreshToken', refreshToken, {
+    res.cookie('accessToken', accessToken, {
       httpOnly: true,
     });
+  },
+
+  sendRefreshToken: async (res, refreshToken, data) => {
+    const [result, created] = await tokens.findOrCreate({
+      where: { user_id: data.id },
+      defaults: { refreshToken },
+    });
+    result.update({ refreshToken });
+
+    res.status(200).json({ data, message: '성공' });
   },
 };
