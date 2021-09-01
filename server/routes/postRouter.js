@@ -12,7 +12,6 @@ router.delete('/:postId', postControllers.deletePost);
 router.patch('/', postControllers.updatePost);
 router.post('/reaction', postControllers.addPostReaction);
 
-
 // comment
 router.post('/comments', commentControllers.writeComment);
 router.get('/:postId/:opinion/comments', commentControllers.seeComment);

@@ -6,7 +6,6 @@ const {
   commentReaction,
 } = require('../../models');
 
-
 module.exports = {
   writePost: async (req, res) => {
     const { title, content, userInfo } = req.body;
