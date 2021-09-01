@@ -13,6 +13,8 @@ import InputComment from '../components/DebatePage/InputComment';
 import PlaceHolderInput from '../LodingPlaceHolder/PlaceHolderForDebateInput';
 import Nav from '../components/Nav/Nav';
 import { useLocation } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const DebateContainer = styled.div`
   display: flex;
@@ -199,28 +201,90 @@ const SelfUserInfo = styled(UserInfo)`
   }
 `;
 
-const DebatePage = (props) => {
+const DebatePage = ({ handleModalOpen, ...props }) => {
   const location = useLocation();
+  // const response = location.state.postInfo;
   const data = location.state;
+  const [postData, setPostData] = useState([]);
+  const [pros, setPros] = useState([]);
+  const [cons, setCons] = useState([]);
 
-  const prosOpinion = data[0].comments.filter(
-    (item) => item.opinion === 'pros',
-  );
-  const consOpinion = data[0].comments.filter(
-    (item) => item.opinion === 'cons',
-  );
+  useEffect(async () => {
+    const postdata = await axios.get(
+      `https://localhost:4000/posts/${data[0].id}`,
+      {
+        headers: {
+          authorization: `Bearer ${props.accessToken}`,
+          'Content-Type': 'application/json',
+        },
+        withCredentials: true,
+      },
+    );
+    setPostData(postdata.data);
+    setPros(
+      postdata.data.data.comments.filter((item) => item.opinion === 'pros'),
+    );
+    setCons(
+      postdata.data.data.comments.filter((item) => item.opinion === 'cons'),
+    );
+  }, []);
+
+  const handleSubmit = async (e) => {
+    const content = e.target.previousSibling.value;
+    const opinion =
+      e.target.parentNode.previousSibling.children[1].firstChild.value;
+    const postId = data[0].id;
+
+    const contentData = await axios.post(
+      'https://localhost:4000/posts/comments',
+      {
+        postId: postId,
+        content: content,
+        opinion: opinion === '긍정' ? 'pros' : 'cons',
+      },
+      {
+        headers: {
+          authorization: `Bearer ${props.accessToken}`,
+          'Content-Type': 'application/json',
+        },
+        withCredentials: true,
+      },
+    );
+    const postdata = await axios.get(
+      `https://localhost:4000/posts/${data[0].id}`,
+      {
+        headers: {
+          authorization: `Bearer ${props.accessToken}`,
+          'Content-Type': 'application/json',
+        },
+        withCredentials: true,
+      },
+    );
+    setPostData(postdata.data);
+    setPros(
+      postdata.data.data.comments.filter((item) => item.opinion === 'pros'),
+    );
+    setCons(
+      postdata.data.data.comments.filter((item) => item.opinion === 'cons'),
+    );
+    e.target.previousSibling.value = '';
+  };
 
   return (
     <>
-      <Nav />
+      <Nav handleModalOpen={handleModalOpen} />
       <DebateContainer>
-        {!data ? <PlaceHolderForDebatePage /> : <Post data={data[0]} />}
+        {postData.length === 0 ? (
+          <PlaceHolderForDebatePage />
+        ) : (
+          <Post data={postData} />
+        )}
         {/* <Spinner /> */}
         <ReactionContainer>
           <div className="reaction positive">
             <div className="representative">
               긍정적 의견
-              <Link to={{ pathname: '/positive' }}>
+              <Link to={{ pathname: '/positive', state: { pros: pros } }}>
                 <MessageIcon />
               </Link>
             </div>
@@ -229,30 +293,36 @@ const DebatePage = (props) => {
               <PlaceHolderComment />
               <PlaceHolderComment /> */}
               <div className="NoComment">
-                {prosOpinion.map((item) => {
-                  return <Comment key={item.id} data={item} />;
-                })}
+                {pros.length !== 0
+                  ? pros.slice(0, 3).map((item) => {
+                      return <Comment key={item.id} data={item} />;
+                    })
+                  : `댓글이 업습니다.`}
               </div>
             </CommentContainer>
           </div>
           <div className="reaction negative">
             <div className="representative">
               부정적 의견
-              <Link to={{ pathname: '/negative' }}>
+              <Link to={{ pathname: '/negative', state: { cons: cons } }}>
                 <MessageIcon />
               </Link>
             </div>
             <CommentContainer>
               <div className="NoComment">
-                {consOpinion.map((item) => {
-                  return <Comment key={item.id} data={item} />;
-                })}
+                {cons.length !== 0 ? (
+                  cons.slice(0, 3).map((item) => {
+                    return <Comment key={item.id} data={item} />;
+                  })
+                ) : (
+                  <PlaceHolderComment />
+                )}
               </div>
             </CommentContainer>
           </div>
         </ReactionContainer>
         {/* <PlaceHolderInput /> */}
-        <InputComment />
+        <InputComment handleSubmit={handleSubmit} />
       </DebateContainer>
     </>
   );

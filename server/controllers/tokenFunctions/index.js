@@ -13,7 +13,7 @@ module.exports = {
   sendAccessToken: (res, accessToken) => {
     res.cookie('accessToken', accessToken, {
       httpOnly: true,
-    });
+    }
   },
 
   sendRefreshToken: async (res, refreshToken, data) => {

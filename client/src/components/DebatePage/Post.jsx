@@ -152,7 +152,7 @@ const DebateInfo = styled(basicDiv)`
 
 const DebatePage = (props) => {
   const data = props.data;
-  console.log(data);
+  // console.log(data.data.username);
   const [mark, setMark] = useState(false);
   const MarkHandler = (e) => {
     if (!mark) {
@@ -169,18 +169,26 @@ const DebatePage = (props) => {
             <ProfileIcon />
           </div>
           <div className="profile">
-            <span className="name">{data.username}</span>
+            <span className="name">
+              {data.data.username ? data.data.username : null}
+            </span>
             <br />
-            <span>{data.createdAt ? data.createdAt : `2020년 1월 1일`}</span>
+            <span>
+              {data.data.createdAt ? data.data.createdAt : `2020년 1월 1일`}
+            </span>
             <BookMark mark={mark} onClick={MarkHandler} />
           </div>
         </UserInfo>
         <DebateSubject>
           <div className="debateImage"></div>
           <div className="debateInfo">
-            <span className="title">{data.title}</span>
+            <span className="title">
+              {data.data.title ? data.data.title : null}
+            </span>
             <br />
-            <span className="content">{data.content}</span>
+            <span className="content">
+              {data.data.content ? data.data.content : null}
+            </span>
           </div>
         </DebateSubject>
         <DebateInfo>
@@ -189,7 +197,10 @@ const DebatePage = (props) => {
           <DislikeIcon />
           <span className="likes"> 2.1K</span>
           <span className="connectInput"> 댓글달기</span>
-          <span className="hits"> 조회수 {data.views}</span>
+          <span className="hits">
+            {' '}
+            조회수 {data.data.views ? data.data.views : null}
+          </span>
         </DebateInfo>
         <div className="row"></div>
       </PostContainer>

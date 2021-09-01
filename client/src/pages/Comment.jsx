@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { Man } from 'styled-icons/icomoon';
 import { Like } from 'styled-icons/boxicons-solid';
+import { useHistory } from 'react-router-dom';
 
 const CommentContainer = styled.div`
   width: 100%;
