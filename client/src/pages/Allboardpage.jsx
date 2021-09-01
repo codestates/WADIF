@@ -35,7 +35,7 @@ const BoardSession = styled.div`
   }
 `;
 
-const Allboardpage = ({ history, handleModalOpen, accessToken }) => {
+const Allboardpage = ({ history, handleModalOpen }) => {
   const [all, setAll] = useState([]);
 
   const [isLoading, setIsLoading] = useState(true);
@@ -44,7 +44,6 @@ const Allboardpage = ({ history, handleModalOpen, accessToken }) => {
     try {
       const data = await axios.get('https://localhost:4000/main?sort=views', {
         headers: {
-          authorization: `Bearer ${accessToken}`,
           'Content-Type': 'application/json',
         },
         withCredentials: true,
@@ -76,9 +75,7 @@ const Allboardpage = ({ history, handleModalOpen, accessToken }) => {
           ) : all.length === 0 ? (
             <NoDataBoard />
           ) : (
-            all.map((item) => (
-              <BoardComponent key={item.id} data={item} token={accessToken} />
-            ))
+            all.map((item) => <BoardComponent key={item.id} data={item} />)
           )}
         </BoardSession>
       </TotalContainer>

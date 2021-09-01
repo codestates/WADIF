@@ -95,19 +95,19 @@ const MypageText = (props) => {
   const CheckHandler = (e) => {
     props.deleteHandler(props.id);
   };
-
+  console.log(props.id);
   return (
     <TextContainer>
       {props.fix || props.likefix ? <CloseIcon onClick={CheckHandler} /> : null}
       <TextTitle>{props.title}</TextTitle>
       <TextContent>{props.text}</TextContent>
-      <TextEtc>
+      {/* <TextEtc>
         <span>{props.date}</span>
         <div>
           {props.like}
           <TextLike />
         </div>
-      </TextEtc>
+      </TextEtc> */}
     </TextContainer>
   );
 };

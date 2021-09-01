@@ -11,6 +11,7 @@ import Spinner from '../LodingPlaceHolder/Spinner';
 import Post from '../components/DebatePage/Post';
 import InputComment from '../components/DebatePage/InputComment';
 import PlaceHolderInput from '../LodingPlaceHolder/PlaceHolderForDebateInput';
+import NotFound from '../LodingPlaceHolder/404NotFound';
 import Nav from '../components/Nav/Nav';
 import { useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
@@ -208,13 +209,15 @@ const DebatePage = ({ handleModalOpen, ...props }) => {
   const [postData, setPostData] = useState([]);
   const [pros, setPros] = useState([]);
   const [cons, setCons] = useState([]);
+  const [userId, setUserId] = useState();
+  const [postUserId, setPostUserId] = useState();
 
+  console.log(data);
   useEffect(async () => {
     const postdata = await axios.get(
       `https://localhost:4000/posts/${data[0].id}`,
       {
         headers: {
-          authorization: `Bearer ${props.accessToken}`,
           'Content-Type': 'application/json',
         },
         withCredentials: true,
@@ -227,6 +230,9 @@ const DebatePage = ({ handleModalOpen, ...props }) => {
     setCons(
       postdata.data.data.comments.filter((item) => item.opinion === 'cons'),
     );
+    setUserId(postdata.data.data.posts.user_id);
+    setPostUserId(postdata.data.data.users.id);
+    // setUserId(postdata.)
   }, []);
 
   const handleSubmit = async (e) => {
@@ -244,7 +250,6 @@ const DebatePage = ({ handleModalOpen, ...props }) => {
       },
       {
         headers: {
-          authorization: `Bearer ${props.accessToken}`,
           'Content-Type': 'application/json',
         },
         withCredentials: true,
@@ -254,7 +259,6 @@ const DebatePage = ({ handleModalOpen, ...props }) => {
       `https://localhost:4000/posts/${data[0].id}`,
       {
         headers: {
-          authorization: `Bearer ${props.accessToken}`,
           'Content-Type': 'application/json',
         },
         withCredentials: true,
@@ -270,6 +274,10 @@ const DebatePage = ({ handleModalOpen, ...props }) => {
     e.target.previousSibling.value = '';
   };
 
+  const renderHandler = async (item) => {
+    setPostData(item.data);
+  };
+
   return (
     <>
       <Nav handleModalOpen={handleModalOpen} />
@@ -277,9 +285,13 @@ const DebatePage = ({ handleModalOpen, ...props }) => {
         {postData.length === 0 ? (
           <PlaceHolderForDebatePage />
         ) : (
-          <Post data={postData} />
+          <Post
+            data={postData}
+            renderHandler={renderHandler}
+            userId={userId}
+            postUserId={postUserId}
+          />
         )}
-        {/* <Spinner /> */}
         <ReactionContainer>
           <div className="reaction positive">
             <div className="representative">
@@ -293,11 +305,19 @@ const DebatePage = ({ handleModalOpen, ...props }) => {
               <PlaceHolderComment />
               <PlaceHolderComment /> */}
               <div className="NoComment">
-                {pros.length !== 0
-                  ? pros.slice(0, 3).map((item) => {
-                      return <Comment key={item.id} data={item} />;
-                    })
-                  : `댓글이 업습니다.`}
+                {pros.length !== 0 ? (
+                  pros.slice(0, 3).map((item) => {
+                    return (
+                      <Comment
+                        key={item.id}
+                        data={item}
+                        renderHandler={renderHandler}
+                      />
+                    );
+                  })
+                ) : (
+                  <NotFound height="15em" padding="0" margin="0" content=" " />
+                )}
               </div>
             </CommentContainer>
           </div>
@@ -312,10 +332,16 @@ const DebatePage = ({ handleModalOpen, ...props }) => {
               <div className="NoComment">
                 {cons.length !== 0 ? (
                   cons.slice(0, 3).map((item) => {
-                    return <Comment key={item.id} data={item} />;
+                    return (
+                      <Comment
+                        key={item.id}
+                        data={item}
+                        renderHandler={renderHandler}
+                      />
+                    );
                   })
                 ) : (
-                  <PlaceHolderComment />
+                  <NotFound height="15em" padding="0" margin="0" content=" " />
                 )}
               </div>
             </CommentContainer>

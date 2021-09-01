@@ -11,6 +11,7 @@ import PlaceHolder from '../LodingPlaceHolder/PlaceHolderForMyPageText';
 import MyPageProfile from '../components/MypageText/LeftContainer';
 import PlaceHolderLeftProfile from '../LodingPlaceHolder/PlaceHolderForMyPageProfile';
 import { Close } from 'styled-icons/remix-fill';
+import axios from 'axios';
 
 const TotalContainer = styled.div`
   display: flex;
@@ -363,13 +364,15 @@ const Mypage = ({ handleModalOpen }) => {
   const likeRef = useRef();
   const [fix, setFix] = useState(false);
   const [likeFix, setLikeFix] = useState(false);
-  const [dummy, setDummy] = useState(dummydata.data);
-  const [likeDummy, setLikeDummy] = useState(likepostdata.data);
+  const [post, setPost] = useState([]);
+  const [bookmark, setBookmark] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [authData, setAuthData] = useState({
     id: '',
     password: '',
   });
+  const [userInfo, setUserInfo] = useState({});
+  const [on, setOn] = useState(false);
 
   let move = 0;
   let likemove = 0;
@@ -413,10 +416,21 @@ const Mypage = ({ handleModalOpen }) => {
     }
   }
 
-  function DeleteHandler(id) {
-    let arr = dummy.slice();
-    arr = arr.filter((item) => item.id !== id);
-    setDummy(arr);
+  async function DeleteHandler(id) {
+    const deletePostUrl = `https://localhost:4000/posts/${id}`;
+    const config = {
+      'Content-Type': 'application/json',
+      withCredentials: true,
+    };
+    try {
+      const result = await axios.delete(deletePostUrl, config);
+      console.log(result);
+      let arr = post.slice();
+      arr = arr.filter((item) => item.id !== id);
+      setPost(arr);
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   function LikeFixHandler() {
@@ -427,30 +441,74 @@ const Mypage = ({ handleModalOpen }) => {
     }
   }
 
-  function likeDeleteHandler(id) {
-    let arr = likeDummy.slice();
-    arr = arr.filter((item) => item.id !== id);
-    setLikeDummy(arr);
+  async function likeDeleteHandler(id) {
+    const deletePostUrl = `https://localhost:4000/users/bookmarks/${id}`;
+    const config = {
+      'Content-Type': 'application/json',
+      withCredentials: true,
+    };
+    try {
+      await axios.delete(deletePostUrl, {}, config);
+      let arr = bookmark.slice();
+      arr = arr.filter((item) => item.id !== id);
+      setBookmark(arr);
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   function closeModalHandler() {
     setShowModal(false);
   }
 
-  function submitDataHandler(e) {
+  async function submitDataHandler(e) {
+    const { id, password } = authData;
     e.preventDefault();
     let fail = true;
     const target = e.target.parentNode.parentNode.lastChild;
-    if (fail) {
-      target.classList.add('on');
-      setTimeout(() => {
-        target.classList.remove('on');
-      }, 2000);
-      // axios post authData.
-      // if true?? closeModalHandler && 컴포넌트 펼치기.
-      // if false?? 입력 정보가 맞지 않습니다!
+    const confirmUserInfoUrl = 'https://localhost:4000/users/userInfo';
+    const config = {
+      'Content-Type': 'application/json',
+      withCredentials: true,
+    };
+    try {
+      const result = await axios.post(
+        confirmUserInfoUrl,
+        { userId: id, password },
+        config,
+      );
+      if (!result.data.data) {
+        target.classList.add('on');
+        setTimeout(() => {
+          target.classList.remove('on');
+        }, 2000);
+      } else {
+        setOn(true);
+        closeModalHandler();
+      }
+    } catch (err) {
+      console.log(err);
     }
+    // axios post authData.
+    // if true?? closeModalHandler && 컴포넌트 펼치기.
+    // if false?? 입력 정보가 맞지 않습니다!
   }
+
+  useEffect(async () => {
+    const myPageUrl = 'https://localhost:4000/users/userInfo';
+    const config = {
+      'Content-Type': 'application/json',
+      withCredentials: true,
+    };
+    try {
+      const response = await axios.get(myPageUrl, config);
+      setPost(response.data.data.post);
+      setBookmark(response.data.data.bookmark);
+      setUserInfo(response.data.data.userInfo);
+    } catch (err) {
+      console.log(err);
+    }
+  }, []);
 
   return (
     <>
@@ -480,7 +538,7 @@ const Mypage = ({ handleModalOpen }) => {
           {/* <TopFollowButton>Follow</TopFollowButton> */}
         </TopContainer>
         <BodyContainer>
-          <MyPageProfile />
+          <MyPageProfile userInfo={userInfo} />
           {/* <PlaceHolderLeftProfile /> */}
           <RightContainer>
             <MoveContainer>
@@ -495,16 +553,16 @@ const Mypage = ({ handleModalOpen }) => {
                 </span>
               </MyTextHeader>
               <MyTextContent ref={textRef}>
-                {dummy.map((item) => {
+                {post.map((item) => {
                   return (
                     <MypageText
                       fix={fix}
                       key={item.id}
                       id={item.id}
                       title={item.title}
-                      text={item.text}
-                      date={item.date}
-                      like={item.like}
+                      text={item.content}
+                      date={item.createdAt}
+                      // like={item.like}
                       deleteHandler={DeleteHandler}
                     />
                   );
@@ -524,16 +582,16 @@ const Mypage = ({ handleModalOpen }) => {
                 </span>
               </LikeHeader>
               <LikeContent ref={likeRef}>
-                {likeDummy.map((item) => {
+                {bookmark.map((item) => {
                   return (
                     <MypageText
                       likefix={likeFix}
                       key={item.id}
                       id={item.id}
                       title={item.title}
-                      text={item.text}
-                      date={item.date}
-                      like={item.like}
+                      text={item.content}
+                      date={item.createdAt}
+                      // like={item.like}
                       deleteHandler={likeDeleteHandler}
                     />
                   );
@@ -542,7 +600,12 @@ const Mypage = ({ handleModalOpen }) => {
               </LikeContent>
             </RightLikeContianer>
             <Security>
-              <SecurityPage authorHandler={AuthorHandler} />
+              <SecurityPage
+                on={on}
+                setOn={setOn}
+                userInfo={userInfo}
+                authorHandler={AuthorHandler}
+              />
             </Security>
           </RightContainer>
         </BodyContainer>

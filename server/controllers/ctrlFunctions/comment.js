@@ -71,6 +71,8 @@ module.exports = {
         defaults: { reaction },
       });
 
+      console.log(reaction);
+
       if (created) {
         await commentReaction.update(
           { reaction },

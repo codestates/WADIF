@@ -133,7 +133,6 @@ module.exports = {
   },
 
   addPostReaction: async (req, res) => {
-    console.log(req.body);
     const { postId, reaction, userInfo } = req.body;
 
     try {
@@ -141,18 +140,81 @@ module.exports = {
         where: { post_id: postId, user_id: userInfo.id },
         defaults: { reaction },
       });
+      await postReaction.update(
+        { reaction },
+        { where: { post_id: postId, user_id: userInfo.id } },
+      );
+
+      const postData = await posts.findOne({
+        where: { id: postId },
+        include: [
+          {
+            model: users,
+            attributes: ['username'],
+          },
+        ],
+      });
+      console.log(postData);
+      postData.dataValues.username = postData.dataValues.user.username;
+      delete postData.dataValues.user;
+
+      const likeReaction = await postReaction.findAndCountAll({
+        where: { post_id: postData.id, reaction: '1' },
+      });
+      const hateReaction = await postReaction.findAndCountAll({
+        where: { post_id: postData.id, reaction: '2' },
+      });
+      postData.dataValues.postLikeCount = likeReaction.count;
+      postData.dataValues.postHateCount = hateReaction.count;
+
+      const commentsData = await comments.findAll({
+        include: [
+          {
+            model: users,
+            attributes: ['username'],
+          },
+        ],
+        where: { post_id: postId },
+      });
+
       if (created) {
-        res.status(200).json({ message: '게시물에 반응이 추가되었습니다.' });
+        res.status(200).json({
+          data: {
+            users: userInfo,
+            posts: postData,
+            comments: await Promise.all(
+              commentsData.map(async (el) => {
+                el.dataValues.username = el.dataValues.user.username;
+                delete el.dataValues.user;
+                const countReactions = await commentReaction.findAndCountAll({
+                  where: { comment_id: el.dataValues.id, reaction: '1' },
+                });
+                el.dataValues.commentLikeCount = countReactions.count;
+                return el;
+              }),
+            ),
+          },
+          message: '게시물 리액션이 추가되었습니다.',
+        });
       } else {
-        const [updated] = await postReaction.update(
-          {
-            reaction,
+        res.status(200).json({
+          data: {
+            users: userInfo,
+            posts: postData,
+            comments: await Promise.all(
+              commentsData.map(async (el) => {
+                el.dataValues.username = el.dataValues.user.username;
+                delete el.dataValues.user;
+                const countReactions = await commentReaction.findAndCountAll({
+                  where: { comment_id: el.dataValues.id, reaction: '1' },
+                });
+                el.dataValues.commentLikeCount = countReactions.count;
+                return el;
+              }),
+            ),
           },
-          {
-            where: { post_id: postId, user_id: userInfo.id },
-          },
-        );
-        res.status(200).json({ message: '게시물에 반응이 변경되었습니다.' });
+          message: '게시물 리액션이 변경되었습니다.',
+        });
       }
     } catch (err) {
       res.status(500).json({ message: '서버 에러' });

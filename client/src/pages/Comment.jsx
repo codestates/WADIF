@@ -2,6 +2,8 @@ import styled from 'styled-components';
 import { Man } from 'styled-icons/icomoon';
 import { Like } from 'styled-icons/boxicons-solid';
 import { useHistory } from 'react-router-dom';
+import axios from 'axios';
+import { useState } from 'react';
 
 const CommentContainer = styled.div`
   width: 100%;
@@ -72,6 +74,43 @@ const CommentText = styled.div`
 `;
 
 const Comment = (props) => {
+  const [isOn, setIsOn] = useState(false);
+  const likeHandler = async () => {
+    if (!isOn) {
+      const data = await axios.post(
+        'https://localhost:4000/posts/comments/reaction',
+        {
+          commentId: props.data.id,
+          reaction: '1',
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          withCredentials: true,
+        },
+      );
+      props.data.commentLikeCount++;
+      setIsOn(true);
+    } else {
+      const data = await axios.post(
+        'https://localhost:4000/posts/comments/reaction',
+        {
+          commentId: props.data.id,
+          reaction: '0',
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          withCredentials: true,
+        },
+      );
+
+      props.data.commentLikeCount--;
+      setIsOn(false);
+    }
+  };
   return (
     <CommentContainer>
       <UserInfo>
@@ -90,8 +129,8 @@ const Comment = (props) => {
         <span>{props.data.content}</span>
       </CommentText>
       <LikeContainer>
-        <LikeIcon />
-        <LikeCount>1K</LikeCount>
+        <LikeIcon onClick={likeHandler} />
+        <LikeCount>{props.data.commentLikeCount}</LikeCount>
       </LikeContainer>
     </CommentContainer>
   );
