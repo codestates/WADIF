@@ -66,7 +66,6 @@ const BoardComponent = (props) => {
       `https://localhost:4000/posts/${props.data.id}`,
       {
         headers: {
-          authorization: `Bearer ${props.token}`,
           'Content-Type': 'application/json',
         },
         withCredentials: true,

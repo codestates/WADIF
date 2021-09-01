@@ -119,7 +119,7 @@ const TooltipContainer = styled.div`
   }
 `;
 
-const CreatePost = ({ handleModalOpen, accessToken }) => {
+const CreatePost = ({ handleModalOpen }) => {
   const [inputs, setInputs] = useState({
     title: '',
     contents: '',
@@ -144,7 +144,6 @@ const CreatePost = ({ handleModalOpen, accessToken }) => {
         },
         {
           headers: {
-            authorization: `Bearer ${accessToken}`,
             'Content-Type': 'application/json',
           },
           withCredentials: true,

@@ -152,38 +152,30 @@ const EtcIntroduceSession = styled.div`
   }
 `;
 
-const MyPageProfile = () => {
+const MyPageProfile = ({ userInfo }) => {
+  const { username, email, profile } = userInfo;
   return (
     <LeftContainer>
       <LeftCircle>
         <LeftProfile />
       </LeftCircle>
       <LeftTextBox>
-        <LeftMyname>김우석</LeftMyname>
-        <LeftMyEmail>vvsogi@gmail.com</LeftMyEmail>
-        <LeftMyJob>Frontend Developer</LeftMyJob>
+        <LeftMyname>{username}</LeftMyname>
+        <LeftMyEmail>{email}</LeftMyEmail>
+        {/* <LeftMyJob>Frontend Developer</LeftMyJob> */}
       </LeftTextBox>
       <LeftEtcBox>
         <EtcFollowSession>
           <EtcLeft>
-            <span>Follow</span>
-            <span>1234</span>
+            {/* <span>Follow</span>
+            <span>1234</span> */}
           </EtcLeft>
           <EtcRight>
-            <span>Follower</span>
-            <span>1234</span>
+            {/* <span>Follower</span>
+            <span>1234</span> */}
           </EtcRight>
         </EtcFollowSession>
-        <EtcIntroduceSession>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus
-          animi sint corporis temporibus obcaecati! Voluptas, voluptates maxime!
-          Minima, quibusdam. Deserunt suscipit aspernatur dicta eius
-          accusantium. Doloremque adipisci nisi animi ad. Lorem ipsum dolor sit
-          amet consectetur adipisicing elit. Delectus animi sint corporis
-          temporibus obcaecati! Voluptas, voluptates maxime! Minima, quibusdam.
-          Deserunt suscipit aspernatur dicta eius accusantium. Doloremque
-          adipisci nisi animi ad.
-        </EtcIntroduceSession>
+        <EtcIntroduceSession>{profile}</EtcIntroduceSession>
       </LeftEtcBox>
     </LeftContainer>
   );
