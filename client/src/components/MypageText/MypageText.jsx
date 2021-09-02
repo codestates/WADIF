@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Like } from '@styled-icons/boxicons-regular';
 import { Close } from 'styled-icons/remix-fill';
+import { useHistory } from 'react-router-dom';
 
 const TextContainer = styled.div`
   width: 12em;
@@ -12,6 +13,15 @@ const TextContainer = styled.div`
   padding: 10px;
   position: relative;
   cursor: pointer;
+  z-index: 10;
+  .sudo {
+    width: 85%;
+    z-index: -5;
+    opacity: 0;
+    height: 100%;
+    position: absolute;
+    background-color: aqua;
+  }
 `;
 
 const TextTitle = styled.div`
@@ -32,16 +42,19 @@ const TextTitle = styled.div`
   }
 `;
 
-const TextContent = styled.div`
+const TextContent = styled.p`
   overflow: hidden;
-  text-overflow: ellipsis;
   display: -webkit-box;
+  word-wrap: break-word;
   line-height: 20px;
   max-height: 13em;
   font-size: 14px;
+  width: 11em;
   background-color: #ffffff;
-  -webkit-line-clamp: 9; /* 표시하고자 하는 라인 수 */
+  -webkit-line-clamp: 9;
   -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+
   @media only screen and (max-width: 768px) {
     max-height: 15em;
     font-size: 12px;
@@ -77,7 +90,7 @@ const TextEtc = styled.div`
 
 const TextLike = styled(Like)`
   width: 1.3em;
-  margin-left: 3px;
+  margin-right: 1em;
 `;
 
 const CloseIcon = styled(Close)`
@@ -92,22 +105,31 @@ const CloseIcon = styled(Close)`
 `;
 
 const MypageText = (props) => {
+  const history = useHistory();
+
   const CheckHandler = (e) => {
     props.deleteHandler(props.id);
   };
-  console.log(props.id);
+
+  const clickHandler = (e) => {
+    history.push({
+      pathname: '/debate',
+      state: [{ id: props.id }],
+    });
+  };
   return (
     <TextContainer>
       {props.fix || props.likefix ? <CloseIcon onClick={CheckHandler} /> : null}
       <TextTitle>{props.title}</TextTitle>
+      <div onClick={clickHandler} className="sudo"></div>
       <TextContent>{props.text}</TextContent>
-      {/* <TextEtc>
-        <span>{props.date}</span>
+      <TextEtc>
+        <span>{props.date.slice(0, 10)}</span>
         <div>
           {props.like}
           <TextLike />
         </div>
-      </TextEtc> */}
+      </TextEtc>
     </TextContainer>
   );
 };

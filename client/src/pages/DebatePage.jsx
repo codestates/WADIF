@@ -212,7 +212,6 @@ const DebatePage = ({ handleModalOpen, ...props }) => {
   const [userId, setUserId] = useState();
   const [postUserId, setPostUserId] = useState();
 
-  console.log(data);
   useEffect(async () => {
     const postdata = await axios.get(
       `https://localhost:4000/posts/${data[0].id}`,
@@ -275,7 +274,16 @@ const DebatePage = ({ handleModalOpen, ...props }) => {
   };
 
   const renderHandler = async (item) => {
-    setPostData(item.data);
+    const data = await axios.get(
+      `https://localhost:4000/posts/${item}?notview=1`,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        withCredentials: true,
+      },
+    );
+    setPostData(data.data);
   };
 
   return (
