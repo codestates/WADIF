@@ -44,7 +44,6 @@ module.exports = {
             commentsData.map(async (el) => {
               el.dataValues.username = el.dataValues.user.username;
               delete el.dataValues.user;
-              console.log(el.dataValues);
               const countReactions = await commentReaction.findAndCountAll({
                 where: { comment_id: el.dataValues.id, reaction: '1' },
               });
@@ -70,8 +69,6 @@ module.exports = {
         where: { comment_id: commentId, user_id: userInfo.id },
         defaults: { reaction },
       });
-
-      console.log(reaction);
 
       if (created) {
         await commentReaction.update(

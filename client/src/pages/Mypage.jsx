@@ -479,7 +479,6 @@ const Mypage = ({ handleModalOpen }) => {
     };
     try {
       const result = await axios.delete(deletePostUrl, config);
-      console.log(result);
       let arr = post.slice();
       arr = arr.filter((item) => item.id !== id);
       setPost(arr);
