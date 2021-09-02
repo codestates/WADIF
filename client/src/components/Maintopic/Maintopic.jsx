@@ -7,6 +7,7 @@ import { Sun } from 'styled-icons/bootstrap';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { Dislike } from 'styled-icons/boxicons-regular';
+import { ViewShow } from 'styled-icons/zondicons';
 
 const TopicContainer = styled.div`
   width: 100%;
@@ -179,7 +180,11 @@ const BottomLeftName = styled.span`
   }
 `;
 
-const BottomRightContainer = styled.div``;
+const BottomRightContainer = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+`;
 
 const BottomRightLike = styled(Like)`
   width: 1.5em;
@@ -214,6 +219,21 @@ const BottomDislikeNum = styled.span`
   @media only screen and (max-width: 768px) {
     font-weight: 500;
     font-size: 1em;
+  }
+`;
+
+const View = styled.span`
+  position: absolute;
+  width: 100px;
+  left: 4.5em;
+  top: 3em;
+  font-size: 14px;
+  span {
+    color: red;
+  }
+  .icon {
+    width: 20px;
+    margin-right: 10px;
   }
 `;
 
@@ -264,7 +284,7 @@ const Maintopic = ({ bgColor, postInfo, history }) => {
         'Content-Type': 'application/json',
       },
     });
-    const likePost = data.data.data.comment;
+    const likePost = data.data.data.bookmark;
     const newArr = likePost.filter((item) => item.id === postInfo.id);
     if (newArr.length > 0) {
       setOn(true);
@@ -299,6 +319,10 @@ const Maintopic = ({ bgColor, postInfo, history }) => {
           <BottomRightNum>{postInfo.postLikeCount}</BottomRightNum>
           <BottomDislike />
           <BottomDislikeNum>{postInfo.postHateCount}</BottomDislikeNum>
+          <View>
+            <ViewShow className="icon" />
+            <span>{postInfo.views}</span>
+          </View>
         </BottomRightContainer>
       </BottomContainer>
     </TopicContainer>

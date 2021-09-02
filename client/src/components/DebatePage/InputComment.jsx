@@ -185,9 +185,9 @@ const InputComment = (props) => {
   const month =
     new Date().getMonth() > 10 ? new Date().getMonth() : new Date().getMonth();
   const date = new Date().getDate();
-  let fullDate = `${year} ${
-    month + 1 < 10 ? '0' + (month + 1) : month + 1
-  } ${date}`;
+  let fullDate = `${year} ${month + 1 < 10 ? '0' + (month + 1) : month + 1} ${
+    date < 10 ? '0' + date : date
+  }`;
 
   return (
     <InputContainer>

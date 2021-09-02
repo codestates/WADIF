@@ -91,7 +91,7 @@ const DebateSubject = styled(basicDiv)`
   margin-top: 0;
   margin-bottom: 0;
   overflow: auto;
-  max-height: 33em;
+  max-height: 100%;
   .debateImage {
     width: 100%;
     height: 15em;
@@ -100,6 +100,16 @@ const DebateSubject = styled(basicDiv)`
     position: relative;
     background: #943b3b;
     margin-bottom: 1em;
+  }
+  .debateInfo {
+    width: 100%;
+    height: 100%;
+    .content {
+      /* overflow-x: hidden; */
+      text-overflow: ellipsis;
+      word-break: break-all;
+      white-space: pre-line;
+    }
   }
   .title {
     margin-top: 5em;
@@ -249,7 +259,7 @@ const DebatePage = (props) => {
         },
       );
       setLikeon(true);
-      props.renderHandler(data);
+      props.renderHandler(postInfo.id);
     } else {
       const data = await axios.post(
         'https://localhost:4000/posts/reaction',
@@ -265,7 +275,7 @@ const DebatePage = (props) => {
         },
       );
       setLikeon(false);
-      props.renderHandler(data);
+      props.renderHandler(postInfo.id);
     }
   };
 
@@ -285,7 +295,7 @@ const DebatePage = (props) => {
         },
       );
       setDisLikeon(true);
-      props.renderHandler(data);
+      props.renderHandler(postInfo.id);
     } else {
       const data = await axios.post(
         'https://localhost:4000/posts/reaction',
@@ -301,7 +311,7 @@ const DebatePage = (props) => {
         },
       );
       setDisLikeon(false);
-      props.renderHandler(data);
+      props.renderHandler(postInfo.id);
     }
   };
 
@@ -334,7 +344,7 @@ const DebatePage = (props) => {
         'Content-Type': 'application/json',
       },
     });
-    const likePost = data.data.data.comment;
+    const likePost = data.data.data.bookmark;
     const newArr = likePost.filter((item) => item.id === postInfo.id);
     if (newArr.length > 0) {
       setMark(true);
@@ -363,7 +373,9 @@ const DebatePage = (props) => {
             {isValid(props.userId, props.postUserId) ? (
               <CloseIcon onClick={deleteHandler} />
             ) : null}
-            <BookMark mark={mark} onClick={MarkHandler} />
+            {isValid(props.userId, props.postUserId) ? null : (
+              <BookMark mark={mark} onClick={MarkHandler} />
+            )}
           </div>
         </UserInfo>
         <DebateSubject>

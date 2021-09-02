@@ -20,25 +20,32 @@ const BoardContainer = styled.div`
 
   .title {
     position: absolute;
+    font-size: 14px;
+    width: 120px;
     left: 5%;
   }
 
   .username {
     position: absolute;
+    font-size: 14px;
+    width: 100px;
     left: 28%;
   }
 
   .day {
     position: absolute;
+    font-size: 14px;
     left: 45%;
   }
 
   .like {
     position: absolute;
+    font-size: 14px;
     left: 68%;
   }
   .views {
     position: absolute;
+    font-size: 14px;
     left: 89%;
   }
   .sudo {
@@ -55,36 +62,31 @@ const BoardContainer = styled.div`
   }
   @media only screen and (max-width: 768px) {
     font-size: 12px;
+    .title {
+      width: 50px;
+    }
+    .username {
+      width: 50px;
+    }
   }
 `;
 
 const BoardComponent = (props) => {
-  const [data, setData] = useState([]);
   const history = useHistory();
   const getData = async () => {
-    const wsdata = await axios.get(
-      `https://localhost:4000/posts/${props.data.id}`,
-      {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        withCredentials: true,
-      },
-    );
-    setData([wsdata.data.data]);
+    history.push({
+      pathname: '/debate',
+      state: [props.data],
+    });
   };
-  useEffect(() => {
-    if (data.length > 0) {
-      console.log(data);
-      history.push({
-        pathname: '/debate',
-        state: [data[0].posts],
-      });
-    }
-  }, [data]);
+
   return (
     <BoardContainer onClick={getData}>
-      <span className="title">{props.data.title}</span>
+      <span className="title">
+        {props.data.title.length > 20
+          ? props.data.title.slice(0, 20) + `...`
+          : props.data.title}
+      </span>
       <span className="sudo">0</span>
       <span className="username">{props.data.username}</span>
       <span className="sudo">1</span>

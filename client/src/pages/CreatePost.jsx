@@ -9,7 +9,7 @@ import { useLocation } from 'react-router-dom';
 const Container = styled.div`
   font-family: 'IBM Plex Sans KR', sans-serif;
   position: relative;
-  height: 65em;
+  height: 100vh;
   background: #dbdbdb;
   display: flex;
   justify-content: center;
@@ -17,12 +17,13 @@ const Container = styled.div`
   flex-direction: column;
   margin: 0;
   padding: 0;
+  overflow: hidden;
 
   > div {
     position: relative;
-    top: -12em;
+
     width: 90%;
-    height: 39em;
+    height: 90%;
     box-shadow: 0 3px 8px 5px rgba(0, 0, 0, 0.2);
     background: #fff;
     display: flex;
@@ -113,6 +114,9 @@ const ToolTip = styled.div`
 `;
 
 const TooltipContainer = styled.div`
+  /* overflow-x: hidden; */
+  position: absolute;
+  right: -5em;
   .tooltip-right {
     right: -16em;
   }
@@ -209,13 +213,13 @@ const CreatePost = ({ handleModalOpen }) => {
   return (
     <>
       <Nav handleModalOpen={handleModalOpen} />
-      <TooltipContainer>
-        <ToolTip className={!tooltip ? `tooltip-right` : `tooltip-left`}>
-          글과 제목을 입력해주세요!
-        </ToolTip>
-      </TooltipContainer>
       <Container>
         <div>
+          <TooltipContainer>
+            <ToolTip className={!tooltip ? `tooltip-right` : `tooltip-left`}>
+              글과 제목을 입력해주세요!
+            </ToolTip>
+          </TooltipContainer>
           <input
             type="text"
             placeholder="제목을 입력하세요"
