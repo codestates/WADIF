@@ -337,8 +337,9 @@ const DebatePage = (props) => {
     });
   };
 
+  const api = `${process.env.REACT_APP_API_URL}/users/userInfo`;
   useEffect(async () => {
-    const data = await axios.get(`${process.env.REACT_APP_API_URL}/users/userInfo`, {
+    const data = await axios.get(api, {
       withCredentials: true,
       headers: {
         'Content-Type': 'application/json',

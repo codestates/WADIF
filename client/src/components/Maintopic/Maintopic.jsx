@@ -277,8 +277,9 @@ const Maintopic = ({ bgColor, postInfo, history }) => {
     }
   };
 
+  const api = `${process.env.REACT_APP_API_URL}/users/userInfo`;
   useEffect(async () => {
-    const data = await axios.get('https://localhost:4000/users/userInfo', {
+    const data = await axios.get(api, {
       withCredentials: true,
       headers: {
         'Content-Type': 'application/json',
