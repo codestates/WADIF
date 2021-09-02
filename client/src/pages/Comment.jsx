@@ -78,7 +78,7 @@ const Comment = (props) => {
   const likeHandler = async () => {
     if (!isOn) {
       const data = await axios.post(
-        'https://localhost:4000/posts/comments/reaction',
+        `${process.env.REACT_APP_API_URL}/posts/comments/reaction`,
         {
           commentId: props.data.id,
           reaction: '1',
@@ -94,7 +94,7 @@ const Comment = (props) => {
       setIsOn(true);
     } else {
       const data = await axios.post(
-        'https://localhost:4000/posts/comments/reaction',
+        `${process.env.REACT_APP_API_URL}/posts/comments/reaction`,
         {
           commentId: props.data.id,
           reaction: '0',

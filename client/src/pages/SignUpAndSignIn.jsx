@@ -445,7 +445,7 @@ const SignUpAndSignIn = ({ history }) => {
 
   const handleSignIn = async (e) => {
     e.preventDefault();
-    const signInUrl = 'https://localhost:4000/users/signin';
+    const signInUrl = `${process.env.REACT_APP_API_URL}/users/signin`;
     const config = {
       'Content-Type': 'application/json',
       withCredentials: true,
@@ -468,7 +468,7 @@ const SignUpAndSignIn = ({ history }) => {
 
   const handleSignUp = async (e) => {
     e.preventDefault();
-    const signUpUrl = 'https://localhost:4000/users';
+    const signUpUrl = `${process.env.REACT_APP_API_URL}/users`;
     const config = {
       'Content-Type': 'application/json',
       withCredentials: true,

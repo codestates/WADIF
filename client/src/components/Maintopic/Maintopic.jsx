@@ -252,7 +252,7 @@ const Maintopic = ({ bgColor, postInfo, history }) => {
     if (on) {
       setOn(false);
       const data = await axios.delete(
-        `https://localhost:4000/users/bookmarks/${postInfo.id}`,
+        `${process.env.REACT_APP_API_URL}/users/bookmarks/${postInfo.id}`,
         {
           withCredentials: true,
           headers: {
@@ -263,7 +263,7 @@ const Maintopic = ({ bgColor, postInfo, history }) => {
     } else {
       setOn(true);
       const data = await axios.post(
-        'https://localhost:4000/users/bookmarks',
+        `${process.env.REACT_APP_API_URL}/users/bookmarks`,
         {
           postId: postInfo.id,
         },

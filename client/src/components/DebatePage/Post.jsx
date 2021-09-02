@@ -218,7 +218,7 @@ const DebatePage = (props) => {
     if (mark) {
       setMark(false);
       const data = await axios.delete(
-        `https://localhost:4000/users/bookmarks/${postInfo.id}`,
+        `${process.env.REACT_APP_API_URL}/users/bookmarks/${postInfo.id}`,
         {
           withCredentials: true,
           headers: {
@@ -229,7 +229,7 @@ const DebatePage = (props) => {
     } else {
       setMark(true);
       const data = await axios.post(
-        'https://localhost:4000/users/bookmarks',
+        `${process.env.REACT_APP_API_URL}/users/bookmarks`,
         {
           postId: postInfo.id,
         },
@@ -246,7 +246,7 @@ const DebatePage = (props) => {
   const likeHandler = async () => {
     if (!likeon) {
       const data = await axios.post(
-        'https://localhost:4000/posts/reaction',
+        `${process.env.REACT_APP_API_URL}/posts/reaction`,
         {
           postId: postInfo.id,
           reaction: '1',
@@ -262,7 +262,7 @@ const DebatePage = (props) => {
       props.renderHandler(postInfo.id);
     } else {
       const data = await axios.post(
-        'https://localhost:4000/posts/reaction',
+        `${process.env.REACT_APP_API_URL}/posts/reaction`,
         {
           postId: postInfo.id,
           reaction: '0',
@@ -282,7 +282,7 @@ const DebatePage = (props) => {
   const dislikeHandler = async () => {
     if (!disLikeon) {
       const data = await axios.post(
-        'https://localhost:4000/posts/reaction',
+        `${process.env.REACT_APP_API_URL}/posts/reaction`,
         {
           postId: postInfo.id,
           reaction: '2',
@@ -298,7 +298,7 @@ const DebatePage = (props) => {
       props.renderHandler(postInfo.id);
     } else {
       const data = await axios.post(
-        'https://localhost:4000/posts/reaction',
+        `${process.env.REACT_APP_API_URL}/posts/reaction`,
         {
           postId: postInfo.id,
           reaction: '0',
@@ -324,7 +324,7 @@ const DebatePage = (props) => {
 
   const deleteHandler = async () => {
     const data = await axios.delete(
-      `https://localhost:4000/posts/${postInfo.id}`,
+      `${process.env.REACT_APP_API_URL}/posts/${postInfo.id}`,
       {
         withCredentials: true,
         headers: {
@@ -338,7 +338,7 @@ const DebatePage = (props) => {
   };
 
   useEffect(async () => {
-    const data = await axios.get('https://localhost:4000/users/userInfo', {
+    const data = await axios.get(`${process.env.REACT_APP_API_URL}/users/userInfo`, {
       withCredentials: true,
       headers: {
         'Content-Type': 'application/json',

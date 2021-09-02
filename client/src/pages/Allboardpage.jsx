@@ -42,7 +42,7 @@ const Allboardpage = ({ history, handleModalOpen }) => {
 
   useEffect(async () => {
     try {
-      const data = await axios.get('https://localhost:4000/main?sort=views', {
+      const data = await axios.get(`${process.env.REACT_APP_API_URL}/main?sort=views`, {
         headers: {
           'Content-Type': 'application/json',
         },
