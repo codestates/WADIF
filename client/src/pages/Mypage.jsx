@@ -97,11 +97,23 @@ const RightMyTextContainer = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
-  padding: 1em;
-  margin-top: 4em;
-  margin-left: 3em;
-  width: 90%;
+  margin-top: 3em;
+  padding: 2em;
+  width: 95%;
   overflow: hidden;
+  transform: translateX(1em);
+  .leftMove {
+    left: 1em;
+    top: 40%;
+    z-index: 1000;
+    position: absolute;
+  }
+  .rightMove {
+    position: absolute;
+    top: 40%;
+    right: 0em;
+    z-index: 1000;
+  }
   ::before {
     content: '';
     width: 100%;
@@ -127,6 +139,16 @@ const MyTextHeader = styled.div`
   width: 95%;
   top: 1px;
   z-index: 50;
+  ::before {
+    content: '';
+    position: absolute;
+    background-color: aliceblue;
+    top: 0;
+    left: -1em;
+    width: 110%;
+    height: 2em;
+    z-index: -1;
+  }
   .fix {
     cursor: pointer;
     color: #4b4bdf;
@@ -153,11 +175,11 @@ const MyTextContent = styled.div`
 const MoveContainer = styled.div`
   width: 100%;
   top: 12%;
-  display: flex;
+  /* display: flex; */
   justify-content: space-between;
   position: absolute;
   z-index: 20;
-  padding: 10px;
+  /* padding: 10px; */
   cursor: pointer;
   @media only screen and (max-width: 768px) {
     top: 10em;
@@ -166,6 +188,9 @@ const MoveContainer = styled.div`
 
 const LeftMove = styled(LeftArrow)`
   width: 30px;
+  position: absolute;
+  top: 50%;
+  left: 2%;
   &:hover {
     color: blue;
   }
@@ -175,6 +200,10 @@ const LeftMove = styled(LeftArrow)`
 `;
 const RightMove = styled(RightArrow)`
   width: 30px;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  right: 2%;
   &:hover {
     color: blue;
   }
@@ -185,13 +214,14 @@ const RightMove = styled(RightArrow)`
 
 const LikeMoveContainer = styled.div`
   width: 100%;
-  top: 35%;
+  top: 40%;
   display: flex;
   justify-content: space-between;
-  position: absolute;
+  position: relative;
   z-index: 20;
   padding: 10px;
   cursor: pointer;
+
   @media only screen and (max-width: 768px) {
     bottom: none;
     top: 42%;
@@ -204,10 +234,24 @@ const RightLikeContianer = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
-  padding: 1em;
-  margin-left: 3em;
-  width: 90%;
+  padding: 2em;
+  width: 95%;
   overflow: hidden;
+  transform: translateX(1em);
+  .leftMove {
+    left: 1em;
+    top: 40%;
+
+    position: absolute;
+    z-index: 1000;
+  }
+
+  .rightMove {
+    position: absolute;
+    top: 40%;
+    right: 0em;
+    z-index: 1000;
+  }
   ::before {
     content: '';
     width: 100%;
@@ -233,6 +277,17 @@ const LikeHeader = styled.div`
   width: 95%;
   top: 1px;
   z-index: 50;
+  ::before {
+    content: '';
+    position: absolute;
+    background-color: aliceblue;
+    top: 0;
+    left: -1em;
+    width: 110%;
+    height: 2em;
+    z-index: -1;
+  }
+
   .fix {
     cursor: pointer;
     color: #4b4bdf;
@@ -448,7 +503,7 @@ const Mypage = ({ handleModalOpen }) => {
       withCredentials: true,
     };
     try {
-      await axios.delete(deletePostUrl, {}, config);
+      const data = await axios.delete(deletePostUrl, config);
       let arr = bookmark.slice();
       arr = arr.filter((item) => item.id !== id);
       setBookmark(arr);
@@ -541,11 +596,10 @@ const Mypage = ({ handleModalOpen }) => {
           <MyPageProfile userInfo={userInfo} />
           {/* <PlaceHolderLeftProfile /> */}
           <RightContainer>
-            <MoveContainer>
-              <LeftMove onClick={MoveLeft} />
-              <RightMove onClick={MoveRight} />
-            </MoveContainer>
+            <MoveContainer></MoveContainer>
             <RightMyTextContainer>
+              <LeftMove className="leftMove" onClick={MoveLeft} />
+              <RightMove className="rightMove" onClick={MoveRight} />
               <MyTextHeader>
                 <h1>내 글 목록</h1>
                 <span className="fix" onClick={FixHandler}>
@@ -570,10 +624,7 @@ const Mypage = ({ handleModalOpen }) => {
                 {/* <PlaceHolder /> */}
               </MyTextContent>
             </RightMyTextContainer>
-            <LikeMoveContainer>
-              <LeftMove onClick={MoveLikeRight} />
-              <RightMove onClick={MoveLikeLeft} />
-            </LikeMoveContainer>
+            <LikeMoveContainer></LikeMoveContainer>
             <RightLikeContianer>
               <LikeHeader>
                 <h1>관심 글 목록</h1>
@@ -598,6 +649,8 @@ const Mypage = ({ handleModalOpen }) => {
                 })}
                 {/* <PlaceHolder /> */}
               </LikeContent>
+              <LeftMove className="leftMove" onClick={MoveLikeRight} />
+              <RightMove className="rightMove" onClick={MoveLikeLeft} />
             </RightLikeContianer>
             <Security>
               <SecurityPage
