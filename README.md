@@ -37,8 +37,8 @@
 
 
 ## 🗣 우리를 소개합니다.
-|박성훈|🏁 Backend|
+|[박성훈](https://github.com/tjdgns5272)|🏁 Backend|
 |------|---|
-|박민수|🏁 Backend|
-|김우석|🚩 Frontend|
-|안치원|🚩 Frontend|
+|[박민수](https://github.com/pinion7)|🏁 Backend|
+|[김우석](https://github.com/VVSOGI)|🚩 Frontend|
+|[안치원](https://github.com/Freetargeter)|🚩 Frontend|
