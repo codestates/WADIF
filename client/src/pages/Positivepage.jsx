@@ -41,7 +41,6 @@ const BodySession = styled.div`
 const Positivepage = ({ handleModalOpen }) => {
   const location = useLocation();
   const data = location.state.pros;
-  console.log(data);
   return (
     <>
       <Nav handleModalOpen={handleModalOpen} />

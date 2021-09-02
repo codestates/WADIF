@@ -113,9 +113,7 @@ module.exports = {
   },
 
   updatePost: async (req, res) => {
-    console.log(req.body);
     const { postId, title, content } = req.body;
-    console.log(postId, title, content);
     try {
       const [updated] = await posts.update(
         {
@@ -135,7 +133,6 @@ module.exports = {
   },
 
   addPostReaction: async (req, res) => {
-    console.log(req.body);
     const { postId, reaction, userInfo } = req.body;
 
     try {

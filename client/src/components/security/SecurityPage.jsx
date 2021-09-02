@@ -149,7 +149,6 @@ const SecurityPage = ({ on, setOn, userInfo, ...props }) => {
     e.preventDefault();
     const nowPassword = e.target.previousElementSibling.childNodes[0];
     const inputContainer = e.target.previousElementSibling.childNodes[1];
-    console.log(inputContainer);
     if (
       inputContainer.style.display === 'none' ||
       inputContainer.style.display === ''

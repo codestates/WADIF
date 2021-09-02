@@ -204,7 +204,6 @@ const SelfUserInfo = styled(UserInfo)`
 
 const DebatePage = ({ handleModalOpen, ...props }) => {
   const location = useLocation();
-  // const response = location.state.postInfo;
   const data = location.state;
   const [postData, setPostData] = useState([]);
   const [pros, setPros] = useState([]);
@@ -231,7 +230,6 @@ const DebatePage = ({ handleModalOpen, ...props }) => {
     );
     setUserId(postdata.data.data.posts.user_id);
     setPostUserId(postdata.data.data.users.id);
-    // setUserId(postdata.)
   }, []);
 
   const handleSubmit = async (e) => {
