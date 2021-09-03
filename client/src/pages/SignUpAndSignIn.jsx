@@ -445,13 +445,13 @@ const SignUpAndSignIn = ({ history }) => {
 
   const handleSignIn = async (e) => {
     e.preventDefault();
-    const signInUrl = `${process.env.REACT_APP_API_URL}/users/signin`;
+    const signInUrl = `${process.env.REACT_APP_API_URL}/users/signin?id=${localStorage.id}`;
     const config = {
       'Content-Type': 'application/json',
       withCredentials: true,
     };
     try {
-      const reponse = await axios.post(
+      const response = await axios.post(
         signInUrl,
         {
           userId: id,
@@ -459,6 +459,7 @@ const SignUpAndSignIn = ({ history }) => {
         },
         config,
       );
+      localStorage.setItem('id', response.data.data.id);
       history.push('/mainpage');
     } catch (err) {
       console.log(err);
@@ -468,7 +469,7 @@ const SignUpAndSignIn = ({ history }) => {
 
   const handleSignUp = async (e) => {
     e.preventDefault();
-    const signUpUrl = `${process.env.REACT_APP_API_URL}/users`;
+    const signUpUrl = `${process.env.REACT_APP_API_URL}/users?id=${localStorage.id}`;
     const config = {
       'Content-Type': 'application/json',
       withCredentials: true,

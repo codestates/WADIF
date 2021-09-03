@@ -218,7 +218,7 @@ const DebatePage = (props) => {
     if (mark) {
       setMark(false);
       const data = await axios.delete(
-        `${process.env.REACT_APP_API_URL}/users/bookmarks/${postInfo.id}`,
+        `${process.env.REACT_APP_API_URL}/users/bookmarks/${postInfo.id}?id=${localStorage.id}`,
         {
           withCredentials: true,
           headers: {
@@ -229,7 +229,7 @@ const DebatePage = (props) => {
     } else {
       setMark(true);
       const data = await axios.post(
-        `${process.env.REACT_APP_API_URL}/users/bookmarks`,
+        `${process.env.REACT_APP_API_URL}/users/bookmarks?id=${localStorage.id}`,
         {
           postId: postInfo.id,
         },
@@ -246,7 +246,7 @@ const DebatePage = (props) => {
   const likeHandler = async () => {
     if (!likeon) {
       const data = await axios.post(
-        `${process.env.REACT_APP_API_URL}/posts/reaction`,
+        `${process.env.REACT_APP_API_URL}/posts/reaction?id=${localStorage.id}`,
         {
           postId: postInfo.id,
           reaction: '1',
@@ -262,7 +262,7 @@ const DebatePage = (props) => {
       props.renderHandler(postInfo.id);
     } else {
       const data = await axios.post(
-        `${process.env.REACT_APP_API_URL}/posts/reaction`,
+        `${process.env.REACT_APP_API_URL}/posts/reaction?id=${localStorage.id}`,
         {
           postId: postInfo.id,
           reaction: '0',
@@ -282,7 +282,7 @@ const DebatePage = (props) => {
   const dislikeHandler = async () => {
     if (!disLikeon) {
       const data = await axios.post(
-        `${process.env.REACT_APP_API_URL}/posts/reaction`,
+        `${process.env.REACT_APP_API_URL}/posts/reaction?id=${localStorage.id}`,
         {
           postId: postInfo.id,
           reaction: '2',
@@ -298,7 +298,7 @@ const DebatePage = (props) => {
       props.renderHandler(postInfo.id);
     } else {
       const data = await axios.post(
-        `${process.env.REACT_APP_API_URL}/posts/reaction`,
+        `${process.env.REACT_APP_API_URL}/posts/reaction?id=${localStorage.id}`,
         {
           postId: postInfo.id,
           reaction: '0',
@@ -324,7 +324,7 @@ const DebatePage = (props) => {
 
   const deleteHandler = async () => {
     const data = await axios.delete(
-      `${process.env.REACT_APP_API_URL}/posts/${postInfo.id}`,
+      `${process.env.REACT_APP_API_URL}/posts/${postInfo.id}?id=${localStorage.id}`,
       {
         withCredentials: true,
         headers: {
@@ -337,7 +337,7 @@ const DebatePage = (props) => {
     });
   };
 
-  const api = `${process.env.REACT_APP_API_URL}/users/userInfo`;
+  const api = `${process.env.REACT_APP_API_URL}/users/userInfo?id=${localStorage.id}`;
   useEffect(async () => {
     const data = await axios.get(api, {
       withCredentials: true,

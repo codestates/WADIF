@@ -10,10 +10,12 @@ module.exports = {
     return sign(data, process.env.REFRESH_SECRET, { expiresIn: '30d' });
   },
 
-  sendAccessToken: (res, accessToken) => {
-    res.cookie('accessToken', accessToken, {
-      httpOnly: true,
+  sendAccessToken: async (res, accessToken, data) => {
+    const [result, created] = await tokens.findOrCreate({
+      where: { user_id: data.id },
+      defaults: { accessToken },
     });
+    result.update({ accessToken });
   },
 
   sendRefreshToken: async (res, refreshToken, data) => {

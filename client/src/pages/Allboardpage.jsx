@@ -40,7 +40,7 @@ const Allboardpage = ({ history, handleModalOpen }) => {
 
   const [isLoading, setIsLoading] = useState(true);
 
-  const api = `${process.env.REACT_APP_API_URL}/main?sort=views`;
+  const api = `${process.env.REACT_APP_API_URL}/main?sort=views&id=${localStorage.id}`;
   useEffect(async () => {
     try {
       const data = await axios.get(api, {

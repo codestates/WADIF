@@ -11,6 +11,9 @@ module.exports = {
       user_id: {
         type: Sequelize.INTEGER,
       },
+      accessToken: {
+        type: Sequelize.STRING(1234),
+      },
       refreshToken: {
         type: Sequelize.STRING(1234),
       },

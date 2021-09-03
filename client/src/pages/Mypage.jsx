@@ -472,7 +472,7 @@ const Mypage = ({ handleModalOpen }) => {
   }
 
   async function DeleteHandler(id) {
-    const deletePostUrl = `${process.env.REACT_APP_API_URL}/posts/${id}`;
+    const deletePostUrl = `${process.env.REACT_APP_API_URL}/posts/${id}?id=${localStorage.id}`;
     const config = {
       'Content-Type': 'application/json',
       withCredentials: true,
@@ -496,7 +496,7 @@ const Mypage = ({ handleModalOpen }) => {
   }
 
   async function likeDeleteHandler(id) {
-    const deletePostUrl = `${process.env.REACT_APP_API_URL}/users/bookmarks/${id}`;
+    const deletePostUrl = `${process.env.REACT_APP_API_URL}/users/bookmarks/${id}?id=${localStorage.id}`;
     const config = {
       'Content-Type': 'application/json',
       withCredentials: true,
@@ -520,7 +520,7 @@ const Mypage = ({ handleModalOpen }) => {
     e.preventDefault();
     let fail = true;
     const target = e.target.parentNode.parentNode.lastChild;
-    const confirmUserInfoUrl = `${process.env.REACT_APP_API_URL}/users/userInfo`;
+    const confirmUserInfoUrl = `${process.env.REACT_APP_API_URL}/users/userInfo?id=${localStorage.id}`;
     const config = {
       'Content-Type': 'application/json',
       withCredentials: true,
@@ -549,7 +549,7 @@ const Mypage = ({ handleModalOpen }) => {
   }
 
   useEffect(async () => {
-    const myPageUrl = `${process.env.REACT_APP_API_URL}/users/userInfo`;
+    const myPageUrl = `${process.env.REACT_APP_API_URL}/users/userInfo?id=${localStorage.id}`;
     const config = {
       'Content-Type': 'application/json',
       withCredentials: true,

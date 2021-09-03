@@ -158,7 +158,7 @@ const CreatePost = ({ handleModalOpen }) => {
       }
       try {
         const data = await axios.post(
-          `${process.env.REACT_APP_API_URL}/posts`,
+          `${process.env.REACT_APP_API_URL}/posts?id=${localStorage.id}`,
           {
             title: inputs.title,
             content: inputs.contents,
@@ -179,7 +179,7 @@ const CreatePost = ({ handleModalOpen }) => {
       }
     } else {
       const data = await axios.patch(
-        `${process.env.REACT_APP_API_URL}/posts`,
+        `${process.env.REACT_APP_API_URL}/posts?id=${localStorage.id}`,
         {
           postId: location.state.postInfo.id,
           title: inputs.title,
