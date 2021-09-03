@@ -213,7 +213,7 @@ const DebatePage = ({ handleModalOpen, ...props }) => {
 
   useEffect(async () => {
     const postdata = await axios.get(
-      `https://localhost:4000/posts/${data[0].id}`,
+      `${process.env.REACT_APP_API_URL}/posts/${data[0].id}?id=${localStorage.id}`,
       {
         headers: {
           'Content-Type': 'application/json',
@@ -239,7 +239,7 @@ const DebatePage = ({ handleModalOpen, ...props }) => {
     const postId = data[0].id;
 
     const contentData = await axios.post(
-      'https://localhost:4000/posts/comments',
+      `${process.env.REACT_APP_API_URL}/posts/comments?id=${localStorage.id}`,
       {
         postId: postId,
         content: content,
@@ -253,7 +253,7 @@ const DebatePage = ({ handleModalOpen, ...props }) => {
       },
     );
     const postdata = await axios.get(
-      `https://localhost:4000/posts/${data[0].id}`,
+      `${process.env.REACT_APP_API_URL}/posts/${data[0].id}?id=${localStorage.id}`,
       {
         headers: {
           'Content-Type': 'application/json',
@@ -273,7 +273,7 @@ const DebatePage = ({ handleModalOpen, ...props }) => {
 
   const renderHandler = async (item) => {
     const data = await axios.get(
-      `https://localhost:4000/posts/${item}?notview=1`,
+      `${process.env.REACT_APP_API_URL}/posts/${item}?notview=1&id=${localStorage.id}`,
       {
         headers: {
           'Content-Type': 'application/json',

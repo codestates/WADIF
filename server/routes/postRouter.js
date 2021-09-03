@@ -8,7 +8,7 @@ router.use(authChecker);
 // post
 router.post('/', postControllers.writePost);
 router.get('/:postId', postControllers.seePost);
-router.delete('/:postId', postControllers.deletePost);
+router.delete('/:postId', authChecker, postControllers.deletePost);
 router.patch('/', postControllers.updatePost);
 router.post('/reaction', postControllers.addPostReaction);
 

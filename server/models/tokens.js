@@ -15,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
   tokens.init(
     {
       user_id: DataTypes.INTEGER,
+      accessToken: DataTypes.STRING(1234),
       refreshToken: DataTypes.STRING(1234),
     },
     {

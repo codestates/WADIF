@@ -158,3 +158,16 @@ module.exports = {
     }
   },
 };
+
+// 카운트하는 또 다른 방식
+// const likeReaction = await postReaction.findAll({
+//   where: {
+//     post_id: postData.id,
+//     reaction: '1',
+//   },
+//   attributes: [
+//     [sequelize.fn('COUNT', sequelize.col('reaction')), 'likeCount'],
+//   ],
+// });
+// postData.dataValues.postLikeCount =
+// likeReaction[0].dataValues.likeCount;

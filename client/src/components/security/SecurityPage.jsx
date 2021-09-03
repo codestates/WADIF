@@ -101,7 +101,7 @@ const SecurityPage = ({ on, setOn, userInfo, ...props }) => {
 
   const FixHandler = async (e) => {
     if (e.target.textContent === '수정 완료') {
-      const patchUserInfoUrl = `https://localhost:4000/users/userInfo`;
+      const patchUserInfoUrl = `${process.env.REACT_APP_API_URL}/users/userInfo?id=${localStorage.id}`;
       const config = {
         'Content-Type': 'application/json',
         withCredentials: true,

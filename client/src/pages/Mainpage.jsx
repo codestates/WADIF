@@ -212,7 +212,8 @@ const Mainpage = ({
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(async () => {
-    const getPostUrl = 'https://localhost:4000/main';
+    console.log(localStorage.id);
+    const getPostUrl = `${process.env.REACT_APP_API_URL}/main?id=${localStorage.id}`;
     const config = {
       withCredentials: true,
       headers: {
@@ -265,7 +266,7 @@ const Mainpage = ({
       TextEdit();
 
       const data = await axios.post(
-        'https://localhost:4000/posts',
+        `${process.env.REACT_APP_API_URL}/posts?id=${localStorage.id}`,
         {
           title: titleRef.current.value,
           content: textRef.current.value,

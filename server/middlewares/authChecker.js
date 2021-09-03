@@ -6,10 +6,15 @@ const {
 const { users, tokens } = require('../models');
 module.exports = {
   authChecker: async (req, res, next) => {
+    console.log(req.query);
+    console.log(req.query.id);
     try {
-      const accessToken = req.cookies.accessToken;
+      const accessToken = await tokens.findOne({
+        where: { user_id: req.query.id },
+      });
+      console.log(accessToken);
       const accessTokenData = verify(
-        accessToken,
+        accessToken.accessToken,
         process.env.ACCESS_SECRET,
         (err, data) => {
           if (err) {
@@ -19,7 +24,7 @@ module.exports = {
           }
         },
       );
-
+      console.log(accessTokenData);
       // case1: accessToken의 만료시간이 60초도 안남았을 때
       if (accessTokenData.exp - Math.floor(Date.now() / 1000) < 300) {
         const user_id = accessTokenData.id;
@@ -49,7 +54,7 @@ module.exports = {
           const payload = data.dataValues;
 
           const newAccessToken = generateAccessToken(payload);
-          sendAccessToken(res, newAccessToken);
+          sendAccessToken(res, newAccessToken, payload);
           req.body.userInfo = payload;
           next();
         }
@@ -65,7 +70,7 @@ module.exports = {
       }
     } catch (err) {
       // case3: accesss token이 완전 만료된 경우
-      res.clearCookie('accessToken');
+      // res.clearCookie('accessToken');
       res.json({
         data: null,
         message: '토큰이 모두 만료 되었으니, 다시 로그인해주세요',

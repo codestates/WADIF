@@ -40,9 +40,10 @@ const Allboardpage = ({ history, handleModalOpen }) => {
 
   const [isLoading, setIsLoading] = useState(true);
 
+  const api = `${process.env.REACT_APP_API_URL}/main?sort=views&id=${localStorage.id}`;
   useEffect(async () => {
     try {
-      const data = await axios.get('https://localhost:4000/main?sort=views', {
+      const data = await axios.get(api, {
         headers: {
           'Content-Type': 'application/json',
         },

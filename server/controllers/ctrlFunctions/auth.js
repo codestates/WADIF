@@ -23,7 +23,7 @@ module.exports = {
         const accessToken = generateAccessToken(payload);
         const refreshToken = generateRefreshToken(payload);
 
-        sendAccessToken(res, accessToken);
+        sendAccessToken(res, accessToken, payload);
         sendRefreshToken(res, refreshToken, payload);
       }
     } catch (err) {
@@ -32,7 +32,7 @@ module.exports = {
   },
 
   signout: (req, res) => {
-    res.clearCookie('accessToken');
+    // res.clearCookie('accessToken');
     res.status(200).json({ data: null, message: '로그아웃에 성공하였습니다.' });
   },
 };
