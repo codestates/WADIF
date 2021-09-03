@@ -16,7 +16,7 @@ const TextContainer = styled.div`
   z-index: 10;
   .sudo {
     width: 85%;
-    z-index: -5;
+    z-index: 25;
     opacity: 0;
     height: 100%;
     position: absolute;
@@ -126,8 +126,8 @@ const MypageText = (props) => {
       <TextEtc>
         <span>{props.date.slice(0, 10)}</span>
         <div>
-          {props.like}
-          <TextLike />
+          {/* {props.like}
+          <TextLike /> */}
         </div>
       </TextEtc>
     </TextContainer>

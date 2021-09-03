@@ -10,8 +10,9 @@ const Container = styled.div`
   background: #000000;
   display: flex;
   flex-direction: column;
+  height: 550vh;
+  position: relative;
   @media only screen and (max-width: 1024px) {
-    height: 450vh;
   }
 `;
 
@@ -49,7 +50,7 @@ const LogIn = styled(WADIF)`
 `;
 
 const Body = styled.div`
-  height: 360vh;
+  height: 480vh;
   display: flex;
   flex-direction: column;
 `;
@@ -64,10 +65,10 @@ const Introduce1 = styled.div`
     height: 95vh;
   }
 `;
-const Introduce2 = styled(Introduce1)`
+const Introduce2 = styled.div`
   height: 90vh;
 `;
-const Introduce3 = styled(Introduce1)`
+const Introduce3 = styled.div`
   margin-bottom: 10vh;
   height: 170vh;
   display: flex;
@@ -76,7 +77,7 @@ const Introduce3 = styled(Introduce1)`
     height: 140vh;
   }
 `;
-const Introduce4 = styled(Introduce1)`
+const Introduce4 = styled.div`
   height: 100vh;
   margin-top: 15em;
   display: flex;
@@ -287,8 +288,11 @@ const EndText = styled.div`
   }
 `;
 
-const Footer = styled(Nav)`
-  height: 15%;
+const Footer = styled.div`
+  /* height: 15%; */
+  width: 100%;
+  position: absolute;
+  bottom: 1em;
 `;
 
 const TeamIntroduce = styled.div`
@@ -323,7 +327,8 @@ const TeamMember = styled(TeamLeader)`
 const Position = styled(TeamMember)``;
 
 const EndLogoContainer = styled.div`
-  height: 100vh;
+  /* height: 100vh;
+  transform: translateY(40em); */
 `;
 
 const Introducion = () => {
@@ -375,11 +380,11 @@ const Introducion = () => {
               </Text4Contents>
             </TextForm>
           </Introduce4>
+          <EndLogoContainer>
+            <EndLogo>WADIF</EndLogo>
+            <EndText>지금 의견을 나누세요</EndText>
+          </EndLogoContainer>
         </Body>
-        <EndLogoContainer>
-          <EndLogo>WADIF</EndLogo>
-          <EndText>지금 의견을 나누세요</EndText>
-        </EndLogoContainer>
         <Footer>
           <TeamIntroduce>
             <TeamTitle>TEAM EDGE</TeamTitle>
