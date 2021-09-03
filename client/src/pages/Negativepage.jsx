@@ -1,14 +1,20 @@
-import React from "react";
-import styled from "styled-components";
-import Profile from "../components/Profile/Profile";
+import React from 'react';
+import styled from 'styled-components';
+import Profile from '../components/Profile/Profile';
+import { useLocation } from 'react-router-dom';
+import Nav from '../components/Nav/Nav';
 
 const TotalContainer = styled.div`
   width: 100%;
   height: 100vh;
-  padding: 1em 6em;
+  padding: 1em 10em;
   display: flex;
   flex-direction: column;
-  background-color: #c4c4c4;
+  background-color: #e4e4e4;
+
+  @media only screen and (max-width: 768px) {
+    padding: 2em;
+  }
 `;
 
 const HeadSession = styled.div`
@@ -31,24 +37,37 @@ const BodySession = styled.div`
   background-color: #ffffff;
   border-radius: 5px;
   overflow: scroll;
+  width: 100%;
 `;
 
-const Negativepage = () => {
+const Negativepage = ({ handleModalOpen }) => {
+  const location = useLocation();
+  const data = location.state.cons;
+
   return (
-    <TotalContainer>
-      <HeadSession>
-        <h1>
-          이 글에 대한 <span>부정</span>적인 의견
-        </h1>
-      </HeadSession>
-      <BodySession>
-        <Profile />
-        <Profile />
-        <Profile />
-        <Profile />
-        <Profile />
-      </BodySession>
-    </TotalContainer>
+    <>
+      <Nav handleModalOpen={handleModalOpen} />
+      <TotalContainer>
+        <HeadSession>
+          <h1>
+            이 글에 대한 <span>부정</span>적인 의견
+          </h1>
+        </HeadSession>
+        <BodySession>
+          {data.map((item) => {
+            return (
+              <Profile
+                key={item.id}
+                username={item.username}
+                date={item.createdAt}
+                content={item.content}
+                likeCount={item.commentLikeCount}
+              />
+            );
+          })}
+        </BodySession>
+      </TotalContainer>
+    </>
   );
 };
 

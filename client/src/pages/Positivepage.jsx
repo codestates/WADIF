@@ -1,14 +1,19 @@
-import React from "react";
-import styled from "styled-components";
-import Profile from "../components/Profile/Profile";
+import React from 'react';
+import styled from 'styled-components';
+import Nav from '../components/Nav/Nav';
+import { useLocation } from 'react-router-dom';
+import Profile from '../components/Profile/Profile';
 
 const TotalContainer = styled.div`
   width: 100%;
   height: 100vh;
-  padding: 1em 6em;
+  padding: 1em 10em;
   display: flex;
   flex-direction: column;
-  background-color: #c4c4c4;
+  background-color: #e4e4e4;
+  @media only screen and (max-width: 768px) {
+    padding: 2em;
+  }
 `;
 
 const HeadSession = styled.div`
@@ -33,22 +38,33 @@ const BodySession = styled.div`
   overflow: scroll;
 `;
 
-const Positivepage = () => {
+const Positivepage = ({ handleModalOpen }) => {
+  const location = useLocation();
+  const data = location.state.pros;
   return (
-    <TotalContainer>
-      <HeadSession>
-        <h1>
-          이 글에 대한 <span>긍정</span>적인 의견
-        </h1>
-      </HeadSession>
-      <BodySession>
-        <Profile />
-        <Profile />
-        <Profile />
-        <Profile />
-        <Profile />
-      </BodySession>
-    </TotalContainer>
+    <>
+      <Nav handleModalOpen={handleModalOpen} />
+      <TotalContainer>
+        <HeadSession>
+          <h1>
+            이 글에 대한 <span>긍정</span>적인 의견
+          </h1>
+        </HeadSession>
+        <BodySession>
+          {data.map((item) => {
+            return (
+              <Profile
+                key={item.id}
+                username={item.username}
+                date={item.createdAt}
+                content={item.content}
+                likeCount={item.commentLikeCount}
+              />
+            );
+          })}
+        </BodySession>
+      </TotalContainer>
+    </>
   );
 };
 
