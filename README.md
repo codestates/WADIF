@@ -1,5 +1,5 @@
 # WADIF
-![](https://i.ibb.co/b2yQNCF/2021-08-24-10-50-20.png)
+![](https://i.ibb.co/rdkLTFb/2021-09-03-1-53-26.png)
 
 ## 🙋🏻‍♂️서비스 기획 의도 ?
 
