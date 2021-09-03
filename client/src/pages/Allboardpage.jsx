@@ -19,7 +19,7 @@ const TotalContainer = styled.div`
 const HeaderSession = styled.div`
   display: flex;
   background-color: pink;
-  height: 20em;
+  height: 5em;
   align-items: center;
   justify-content: space-around;
   font-weight: 700;

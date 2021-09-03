@@ -97,7 +97,7 @@ const BoardComponent = (props) => {
       </span>
       <span className="sudo">2</span>
 
-      <span className="like">1234</span>
+      <span className="like">{props.data.postLikeCount}</span>
       <span className="sudo">3</span>
 
       <span className="views">{props.data.views}</span>
